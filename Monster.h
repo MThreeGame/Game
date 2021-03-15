@@ -2,7 +2,7 @@
 
 #include "Character.h"
 
-class Monster public : Character{
+class Monster : public Character{
   private:
 
 

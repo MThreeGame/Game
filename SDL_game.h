@@ -6,12 +6,17 @@
 #include "SDL.h"
 #include <string>
 #include "KeyPressSurface.h"
+#include "Character.h"
+#include "Player.h"
+#include "LTexture.h"
 
 using namespace std;
 
 
 class SDL_game{
     public:
+        SDL_game(){}
+
         //Starts up SDL and creates window
         bool init();
 
@@ -22,10 +27,14 @@ class SDL_game{
         void close();
 
         // blit the background
-        void blitSurface();
+        //void blitSurface();
 
 
         void handleKeys_fct();
+
+        void render();
+
+        void handleEvent( SDL_Event& e );
 
 
 
@@ -42,8 +51,11 @@ class SDL_game{
         SDL_Surface* gScreenSurface = NULL;
 
         //The images we will load and show on the screen
-        SDL_Surface* gBackground = NULL;
-        SDL_Surface* gUser = NULL;
+        //SDL_Surface* gBackground = NULL;
+        //The window renderer
+        SDL_Renderer* gRenderer = NULL;
+
+
 
         //Current displayed image
         SDL_Surface* gCurrentSurface = NULL;
@@ -52,13 +64,17 @@ class SDL_game{
         SDL_Surface* gKeyPressSurfaces[KEY_PRESS_SURFACE_TOTAL];
 
 
+        // other present objects
+        Character* user = new Player();
+        SDL_Texture* gUser = NULL;
 
 
         // METHODES
         //Loads individual image
         SDL_Surface* loadSurface(string path);
 
-
+        // TODO : change with the class of Hugo
+        void loadTexture( std::string path );
 
 };
 

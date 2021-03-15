@@ -1,3 +1,4 @@
+#pragma once
 #include <SDL.h>
 #include <stdio.h>
 
@@ -18,15 +19,18 @@ class LTexture{
         * @param renderer    The renderer used for loading the sprite sheet
         * @return            The LTexture
         */
-        LTexture *LTexture_create(const char *filename,
+        LTexture(const char *filename,
                                             SDL_Renderer* renderer);
+
+
+
 
         /**
         * Delete the LTexture.
         *
         * @param lTexture  The Texture to delete
         */
-        void LTexture_delete(struct LTexture *lTexture);
+        //void LTexture_delete(struct LTexture *lTexture);
 
         /**
         * Renders the LTexture.
@@ -35,8 +39,7 @@ class LTexture{
         * @param x            The top-left corner x-coordinate for the render
         * @param y            The top-left corner y-coordinate for the render
         */
-        void LTexture_render(struct LTexture *lTexture,
-                                int x, int y);
+        void LTexture_render(int x, int y);
 
 };
 

@@ -1,22 +1,34 @@
+#pragma once
+#include <string>
 
+using namespace std;
 
 
 class Character{
-  private:
-    int LocationX;
-    int LocationY;
+  protected:
+    int locationX;
+    int locationY;
     int height;
     int width;
     //positionToX // |----------------| PreviousX minX maxX ?
+
+    int velX, velY;
+    //Maximum axis velocity of the dot
+    static const int VELOCITY = 1;
+
+    string pathToImage;
      
 
   public:
     Character();
+    Character(int x, int y, int heightIn, int widthIn);
+
     //accessor
-    int getLocationx();
+    int getLocationX();
     int getLocationY();
     int getHeight();
-    int getwidth();
+    int getWidth();
+    string getPath();
 
     //mutator
     void setLocationX(int x);
@@ -24,7 +36,13 @@ class Character{
     void setHeight(int heightIn);
     void setWidth(int widthIn);
 
-    virtual void move(); // update location
+    void increaseVelX();
+    void decreaseVelX();
+    void increaseVelY();
+    void decreaseVelY();
+
+    void move(); // update location
+
 
 
 
