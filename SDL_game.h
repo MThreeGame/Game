@@ -8,12 +8,15 @@
 #include "KeyPressSurface.h"
 #include "Character.h"
 #include "Player.h"
+#include "LTexture.h"
 
 using namespace std;
 
 
 class SDL_game{
     public:
+        SDL_game(){}
+
         //Starts up SDL and creates window
         bool init();
 
@@ -54,7 +57,6 @@ class SDL_game{
 
 
 
-
         //Current displayed image
         SDL_Surface* gCurrentSurface = NULL;
 
@@ -64,7 +66,7 @@ class SDL_game{
 
         // other present objects
         Character* user = new Player();
-        SDL_Texture* gUser = NULL;
+        LTexture* gUser = NULL;
 
 
         // METHODES
@@ -72,7 +74,7 @@ class SDL_game{
         SDL_Surface* loadSurface(string path);
 
         // TODO : change with the class of Hugo
-        SDL_Texture* loadTexture( std::string path );
+        void loadTexture( std::string path );
 
 };
 

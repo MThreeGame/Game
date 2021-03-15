@@ -1,5 +1,6 @@
 #include "SDL_game.h"
 #include <string>
+#include "LTexture.h"
 
 using namespace std;
 
@@ -73,7 +74,7 @@ bool SDL_game::loadMedia()
 
 
     //gUser = loadSurface(user.getPath() )
-    gUser = loadTexture( user->getPath().c_str());
+    loadTexture( user->getPath().c_str());
 
 /*
     gKeyPressSurfaces[KeyPressSurfaces::KEY_PRESS_SURFACE_DOWN] = loadSurface("../images/user1.bmp" );
@@ -218,12 +219,18 @@ void SDL_game::handleEvent( SDL_Event& e )
 void SDL_game::render()
 {
     //Show the character (user)
-    gUser->render(user->getLocationX(), user->getLocationY());
+    //gUser->render(user->getLocationX(), user->getLocationY());
+    gUser->LTexture_render(user->getLocationX(), user->getLocationY());
 }
 
 
-SDL_Texture* SDL_game::loadTexture( std::string path )
+void SDL_game::loadTexture( std::string path )
 {
+
+    gUser = new LTexture(path.c_str(), gRenderer);
+
+
+/*LTexture
     //The final texture
     SDL_Texture* newTexture = NULL;
 
@@ -247,5 +254,5 @@ SDL_Texture* SDL_game::loadTexture( std::string path )
         SDL_FreeSurface( loadedSurface );
     }
 
-    return newTexture;
+    return newTexture;*/
 }
