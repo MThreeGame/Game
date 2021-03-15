@@ -14,7 +14,7 @@ class Character{
 
     int velX, velY;
     //Maximum axis velocity of the dot
-    static const int VELOCITY = 10;
+    static const int VELOCITY = 1;
 
     string pathToImage;
      

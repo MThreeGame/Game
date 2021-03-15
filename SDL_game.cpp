@@ -1,6 +1,7 @@
 #include "SDL_game.h"
 #include <string>
 #include "LTexture.h"
+#include <iostream>
 
 using namespace std;
 
@@ -94,10 +95,15 @@ void SDL_game::close()
     //Deallocate surface
     //SDL_FreeSurface( gBackground );
     //gBackground = NULL;
+        //Free loaded image
+    SDL_DestroyTexture( gUser );
+    gUser = NULL;
 
     //Destroy window
+    SDL_DestroyRenderer( gRenderer );
     SDL_DestroyWindow( gWindow );
     gWindow = NULL;
+    gRenderer = NULL;
 
     //Quit SDL subsystems
     SDL_Quit();
@@ -151,7 +157,7 @@ void SDL_game::handleKeys_fct(){
                 quit = true;
             }
             ////Handle input for the character user
-            //handleEvent( SDL_Event& e );
+            handleEvent(e );
         }
 
         user->move();
@@ -162,6 +168,8 @@ void SDL_game::handleKeys_fct(){
 
         //Render objects
         render();
+        //Render texture to screen
+        //SDL_RenderCopy( gRenderer, gUser., NULL, NULL );
 
         //Update screen
         SDL_RenderPresent( gRenderer );
@@ -220,17 +228,21 @@ void SDL_game::render()
 {
     //Show the character (user)
     //gUser->render(user->getLocationX(), user->getLocationY());
-    gUser->LTexture_render(user->getLocationX(), user->getLocationY());
+    //cout << "I am in render function" << endl;
+    //gUser->LTexture_render(user->getLocationX(), user->getLocationY());
+	SDL_Rect dstrect = {user->getLocationX(), user->getLocationY(), 50, 100};
+    SDL_RenderCopy(gRenderer, gUser, NULL, &dstrect);
+
+
 }
 
 
 void SDL_game::loadTexture( std::string path )
 {
 
-    gUser = new LTexture(path.c_str(), gRenderer);
+    //gUser = new LTexture(path.c_str(), gRenderer);
 
 
-/*LTexture
     //The final texture
     SDL_Texture* newTexture = NULL;
 
@@ -254,5 +266,7 @@ void SDL_game::loadTexture( std::string path )
         SDL_FreeSurface( loadedSurface );
     }
 
-    return newTexture;*/
+    gUser = newTexture;
+
+    //return newTexture;
 }

@@ -66,7 +66,7 @@ class SDL_game{
 
         // other present objects
         Character* user = new Player();
-        LTexture* gUser = NULL;
+        SDL_Texture* gUser = NULL;
 
 
         // METHODES
