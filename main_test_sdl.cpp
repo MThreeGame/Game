@@ -5,8 +5,6 @@
 
 
 
-
-
 int main(){
 
     SDL_game sdlGame;
