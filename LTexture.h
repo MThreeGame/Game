@@ -21,6 +21,11 @@ class LTexture{
         LTexture *LTexture_create(const char *filename,
                                             SDL_Renderer* renderer);
 
+
+
+        LTexture(const char *filename,
+                                            SDL_Renderer* renderer)
+
         /**
         * Delete the LTexture.
         *
