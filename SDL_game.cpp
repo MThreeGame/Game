@@ -77,6 +77,17 @@ bool SDL_game::loadMedia()
     //gUser = loadSurface(user.getPath() )
     loadTexture( user->getPath().c_str());
 
+
+
+    for(SDL_Rect& rect : level.getTerrain().getGrounds()){
+        SDL_SetRenderDrawColor(gRenderer,255, 0, 0, 255);
+        SDL_RenderDrawRect(gRenderer, &rect);
+
+        SDL_SetRenderDrawColor(gRenderer, 255, 0, 0, 255);
+
+        SDL_RenderPresent(gRenderer);
+    }
+
 /*
     gKeyPressSurfaces[KeyPressSurfaces::KEY_PRESS_SURFACE_DOWN] = loadSurface("../images/user1.bmp" );
     if(gKeyPressSurfaces[KeyPressSurfaces::KEY_PRESS_SURFACE_DOWN] == NULL)
@@ -129,7 +140,7 @@ SDL_Surface* SDL_game::loadSurface( std::string path )
     SDL_Surface* loadedSurface = SDL_LoadBMP( path.c_str() );
     if( loadedSurface == NULL )
     {
-        printf( "Unable to load image %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
+        printf( "Unable to load image %s! SDL Error\n", path.c_str() );
         return NULL;
     }
 
@@ -232,6 +243,17 @@ void SDL_game::render()
     //gUser->LTexture_render(user->getLocationX(), user->getLocationY());
 	SDL_Rect dstrect = {user->getLocationX(), user->getLocationY(), 50, 100};
     SDL_RenderCopy(gRenderer, gUser, NULL, &dstrect);
+
+
+
+    for(SDL_Rect& rect : level.getTerrain().getGrounds()){
+        SDL_SetRenderDrawColor(gRenderer,255, 0, 0, 255);
+        SDL_RenderDrawRect(gRenderer, &rect);
+
+        SDL_SetRenderDrawColor(gRenderer, 255, 0, 0, 255);
+
+        SDL_RenderPresent(gRenderer);
+    }
 
 
 }

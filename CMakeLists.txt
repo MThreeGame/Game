@@ -7,6 +7,8 @@ set(SRCS
   LTexture.cpp
   Character.cpp
   Player.cpp
+  Level.cpp
+  Terrain.cpp
   )
     
 set(HEADERS
@@ -15,6 +17,8 @@ set(HEADERS
     LTexture.h
     Character.h
     Player.h
+    Level.h
+    Terrain.h
   )
     
 #SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -lSDL_Image")

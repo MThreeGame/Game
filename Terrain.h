@@ -5,16 +5,20 @@
 
    */
 
-using<string>
+#include <string>
+#include <vector>
+#include "SDL.h"
 
-using namespace std
+using namespace std;
 
 class Terrain{
   private:
       //matrix
-      int height;
-      int weight;
-      int[][] matrix;
+      //int height;
+      //int weight;
+      //int[][] matrix;
+
+      vector<SDL_Rect> grounds;
 
       string pathToImage;
 
@@ -22,13 +26,10 @@ class Terrain{
   public:
       Terrain(); // can be initialized with a binary image file ?
 
+      vector<SDL_Rect> getGrounds();
+
       // return the type of the location : if it is a ground or background
       // or something else ?
-      int getTypeAtPosition(int xLocation, int yLocation);
+      //int getTypeAtPosition(int xLocation, int yLocation);
     
-
-
-
-
-
-}
+};

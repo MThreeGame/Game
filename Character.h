@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "SDL.h"
 
 using namespace std;
 
@@ -8,8 +9,8 @@ class Character{
   protected:
     int locationX;
     int locationY;
-    int height;
-    int width;
+    int height = 68;
+    int width = 28;
     //positionToX // |----------------| PreviousX minX maxX ?
 
     int velX, velY;
@@ -42,6 +43,9 @@ class Character{
     void decreaseVelY();
 
     void move(); // update location
+
+
+    SDL_Rect getRect();
 
 
 

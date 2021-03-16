@@ -9,6 +9,7 @@
 #include "Character.h"
 #include "Player.h"
 #include "LTexture.h"
+#include "Level.h"
 
 using namespace std;
 
@@ -40,9 +41,11 @@ class SDL_game{
 
     private:
         // ATTRIBUTES
-        // size of the window
-        int SCREEN_WIDTH = 850;
-        int SCREEN_HEIGHT = 500;
+        // size of the window, 
+        // https://docs.microsoft.com/en-us/windows/uwp/design/layout/screen-sizes-and-breakpoints-for-responsive-design
+        //1024x640, 1366x768, 1920x1080
+        int SCREEN_WIDTH = 1366;
+        int SCREEN_HEIGHT = 768;
 
         //The window we'll be rendering to
         SDL_Window* gWindow = NULL;
@@ -75,6 +78,11 @@ class SDL_game{
 
         // TODO : change with the class of Hugo
         void loadTexture( std::string path );
+
+
+        Level level;
+        vector<SDL_Texture*> gGrounds;
+
 
 };
 

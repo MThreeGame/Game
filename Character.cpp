@@ -104,3 +104,15 @@ void Character::move()
 
 
 }
+
+
+
+SDL_Rect Character::getRect(){
+    // collision box
+    SDL_Rect mCollider = {locationX, locationY, width, height};
+
+    return mCollider;   
+
+}
+
+
