@@ -6,7 +6,7 @@
 #include "Monster.h"
 //#include "Star.h"
 #include "SDL.h"
-
+#include "Player.h"
 
 
 
@@ -24,7 +24,7 @@ class Level{
 
   public:
 
-    bool checkCollisions( SDL_Rect player);
+    string checkCollisions( Player player);
 
     Terrain getTerrain();
       

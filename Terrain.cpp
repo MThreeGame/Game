@@ -112,7 +112,7 @@ Terrain::Terrain(){
 }
 
 
-vector<SDL_Rect> Terrain::getGrounds(){
+vector<SDL_Rect> Terrain::getGround(){
     return grounds;
 }
 

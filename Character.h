@@ -11,8 +11,7 @@ class Character{
     int locationY;
     int height = 68;
     int width = 28;
-    //positionToX // |----------------| PreviousX minX maxX ?
-
+    //positionToX // |----------------| PreviousX minX maxX
     int velX, velY;
     //Maximum axis velocity of the dot
     static const int VELOCITY = 1;
@@ -30,12 +29,15 @@ class Character{
     int getHeight();
     int getWidth();
     string getPath();
+    int getVelX();
+    int getVelY();
 
     //mutator
     void setLocationX(int x);
     void setLocationY(int y);
     void setHeight(int heightIn);
     void setWidth(int widthIn);
+
 
     void increaseVelX();
     void decreaseVelX();

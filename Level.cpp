@@ -1,15 +1,36 @@
 #include "Level.h"
 #include "SDL.h"
+#include "Player.h"
+#include "Cell.h"
 
 
+string Level::checkCollisions( Player player){
 
-bool Level::checkCollisions( SDL_Rect player){
-    //collision box
-    for(Monster* monster: monsters)
-        if(checkCollision( monster->getRect(), player))
-            return true;
-    
-    return false;
+   string ground = "GROUND";
+   string monster = "MONSTER";
+   string safeMode = "SAFE";
+   int newLocationX = player.getXLocation()+ player.getVelX();
+   int newlocationY = player.getYLocation() + player.getVelY();
+    bool groundFlag = false;
+    bool monsterFlag = false;
+    int height = player.getHeight();
+    int width = player.getWidth();
+    for(int j = newlocationY; j <=  (newlocationY+ height); j++) {
+        if(groundFlag || monsterFlag) break;
+        for(int i = newLocationX; i <=  (newLocationX + width); i++) {
+            if ( terrain.getGround().ground[i][j] == Cell::GROUND) {
+                groundFlag = true;
+                break;
+            }
+            if (terrain.getGround().ground[i][j] == Cell::DANGER) {
+                monsterFlag = true;
+                break;
+            }
+        }
+    }
+    if(groundFlag) return ground;
+    else if(monsterFlag) return monster;
+    else return safeMode;
 }
 
 

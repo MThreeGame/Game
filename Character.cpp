@@ -35,7 +35,12 @@ int Character::getHeight(){
 int Character::getWidth(){
   return width;
 }
-
+int Character::getVelX(){
+    return velX;
+}
+int Character::getVelY(){
+    return velY;
+}
 void Character::setLocationX(int x){
   locationX = x;
 }
