@@ -18,6 +18,7 @@ string Level::checkCollisions( Player player){
     for(int j = newlocationY; j <=  (newlocationY+ height); j++) {
         if(groundFlag || monsterFlag) break;
         for(int i = newLocationX; i <=  (newLocationX + width); i++) {
+
             if ( terrain.getGround().ground[i][j] == Cell::GROUND) {
                 groundFlag = true;
                 break;
