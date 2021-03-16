@@ -59,8 +59,7 @@ class SDL_game{
 
 
         // other present objects
-        // the player:
-        Player user;
+
         // its graphical representation:
         SDL_Texture* gUser = NULL;
 

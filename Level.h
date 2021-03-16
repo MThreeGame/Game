@@ -16,6 +16,7 @@ class Level{
       //vector<Terrain> terrains; // we use the terrain at index currentLevel
       Terrain terrain;
       vector<Monster*> monsters;
+      Player user;
       //vector<Star> stars; // something to catch 
 
       bool checkCollision( SDL_Rect a, SDL_Rect b );
@@ -27,6 +28,8 @@ class Level{
     string checkCollisions( Player player);
 
     Terrain getTerrain();
+
+    Player getUser();
       
 
 };

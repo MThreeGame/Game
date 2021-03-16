@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.7)
 project(Game)
 set(SRCS
-    SDL_game.cpp
+  SDL_game.cpp
   LTexture.cpp
   Character.cpp
   Player.cpp

@@ -65,7 +65,7 @@ bool SDL_game::loadMedia()
     //Loading success flag
     bool success = true;
 
-    gUser = loadTexture( user.getPath());
+    gUser = loadTexture( level.getUser().getPath());
     if(gUser == NULL)
         return false;
 
@@ -144,7 +144,7 @@ void SDL_game::handleKeys_fct(){
             handleEvent(e );
         }
 
-        user.move();
+        level.getUser().move();
 
         //Clear screen
         //SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
@@ -169,16 +169,16 @@ void SDL_game::handleEvent( SDL_Event& e )
         switch( e.key.keysym.sym )
         {
             case SDLK_UP: 
-                user.decreaseVelY(); 
+                level.getUser().decreaseVelY(); 
                 break;
             case SDLK_DOWN: 
-                user.increaseVelY(); 
+                level.getUser().increaseVelY(); 
                 break;
             case SDLK_LEFT: 
-                user.decreaseVelX(); 
+                level.getUser().decreaseVelX(); 
                 break;
             case SDLK_RIGHT:
-                user.increaseVelX(); 
+                level.getUser().increaseVelX(); 
                 break;
         }
     }
@@ -190,16 +190,16 @@ void SDL_game::handleEvent( SDL_Event& e )
         switch( e.key.keysym.sym )
         {
             case SDLK_UP: 
-                user.increaseVelY(); 
+                level.getUser().increaseVelY(); 
                 break;
             case SDLK_DOWN: 
-                user.decreaseVelY(); 
+                level.getUser().decreaseVelY(); 
                 break;
             case SDLK_LEFT: 
-                user.increaseVelX(); 
+                level.getUser().increaseVelX(); 
                 break;
             case SDLK_RIGHT:
-                user.decreaseVelX(); 
+                level.getUser().decreaseVelX(); 
                 break;
         }
     }
@@ -212,7 +212,7 @@ void SDL_game::render()
     //gUser->render(user->getLocationX(), user->getLocationY());
     //cout << "I am in render function" << endl;
     //gUser->LTexture_render(user->getLocationX(), user->getLocationY());
-	SDL_Rect dstrect = {user.getLocationX(), user.getLocationY(), 50, 100};
+	SDL_Rect dstrect = {level.getUser().getLocationX(), level.getUser().getLocationY(), 50, 100};
     SDL_RenderCopy(gRenderer, gBackground, NULL, NULL);
     SDL_RenderCopy(gRenderer, gUser, NULL, &dstrect);
 

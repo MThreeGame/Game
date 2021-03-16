@@ -19,11 +19,11 @@ string Level::checkCollisions( Player player){
         if(groundFlag || monsterFlag) break;
         for(int i = newLocationX; i <=  (newLocationX + width); i++) {
 
-            if ( terrain.getGround().ground[i][j] == Cell::GROUND) {
+            if ( terrain.getGround()[i][j] == Cell::GROUND) {
                 groundFlag = true;
                 break;
             }
-            if (terrain.getGround().ground[i][j] == Cell::DANGER) {
+            if (terrain.getGround()[i][j] == Cell::DANGER) {
                 monsterFlag = true;
                 break;
             }
@@ -84,4 +84,8 @@ bool Level::checkCollision( SDL_Rect a, SDL_Rect b )
 
 Terrain Level::getTerrain(){
     return terrain;
+}
+
+Player Level::getUser(){
+    return user;
 }

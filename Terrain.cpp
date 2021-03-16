@@ -1,6 +1,8 @@
 #include "Terrain.h"
 
 
+Terrain::Terrain(){}
+
 // Let's read the file to create the equivalent matrix
 struct Pixel
 {
@@ -9,7 +11,7 @@ struct Pixel
     int B;
 };
 
-
+/*
 vector<vector<Cell>> readBMP(char* filename)
 {
     int i;
@@ -92,11 +94,11 @@ vector<vector<Cell>> readBMP(char* filename)
     return NULL;
 }
 
+*/
 
 
 
-
-
+/*
 
 
 Terrain::Terrain(){
@@ -111,8 +113,8 @@ Terrain::Terrain(){
     grounds.push_back(wall);
 }
 
-
-vector<SDL_Rect> Terrain::getGround(){
+*/
+vector<vector<Cell>> Terrain::getGround(){
     return grounds;
 }
 

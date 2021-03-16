@@ -1,4 +1,4 @@
-
+#pragma once
 /*  a terrain is a matrix of 0 and 1
    0 for background
    1 for ground
@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include "SDL.h"
+#include "Cell.h"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ class Terrain{
       //int weight;
       //int[][] matrix;
 
-      vector<SDL_Rect> grounds;
+      vector<vector<Cell>> grounds;
 
       string pathToImage = "../images/ground1.bmp";
 
@@ -27,7 +28,8 @@ class Terrain{
       Terrain(); // can be initialized with a binary image file ?
 
       //vector<SDL_Rect> getGrounds();
-      vector<vector<Cell>> getGround(){}
+      vector<vector<Cell>> getGround();
+      
 
       string getPathToImage();
 
