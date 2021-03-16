@@ -1,8 +1,5 @@
 #pragma once
-<<<<<<< HEAD
 
-=======
->>>>>>> 97a54d082a06988351b4d41d80895f7ced094d15
 #include <SDL.h>
 #include <SDL2/SDL_image.h>
 #include <iostream>
