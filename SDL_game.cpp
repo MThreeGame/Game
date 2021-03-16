@@ -147,7 +147,7 @@ void SDL_game::handleKeys_fct(){
         user.move();
 
         //Clear screen
-        SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+        //SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
         SDL_RenderClear( gRenderer );
 
         //Render texture to screen
