@@ -8,7 +8,8 @@
 #include "KeyPressSurface.h"
 #include "Character.h"
 #include "Player.h"
-#include "LTexture.h"
+//#include "LTexture.h"
+#include "Level.h"
 
 using namespace std;
 
@@ -29,26 +30,30 @@ class SDL_game{
         // blit the background
         //void blitSurface();
 
-
+        //main function where we handle the keyboard of the user in the game
         void handleKeys_fct();
 
+        // modify the location of the SDL_texture in function of the classes
         void render();
 
+        // for a specific keyboard event, modify the object Player
         void handleEvent( SDL_Event& e );
 
 
 
     private:
         // ATTRIBUTES
-        // size of the window
-        int SCREEN_WIDTH = 850;
-        int SCREEN_HEIGHT = 500;
+        // size of the window, 
+        // https://docs.microsoft.com/en-us/windows/uwp/design/layout/screen-sizes-and-breakpoints-for-responsive-design
+        //1024x640, 1366x768, 1920x1080
+        int SCREEN_WIDTH = 1366;
+        int SCREEN_HEIGHT = 768;
 
         //The window we'll be rendering to
         SDL_Window* gWindow = NULL;
             
         //The surface contained by the window
-        SDL_Surface* gScreenSurface = NULL;
+        //SDL_Surface* gScreenSurface = NULL;
 
         //The images we will load and show on the screen
         //SDL_Surface* gBackground = NULL;
@@ -57,24 +62,26 @@ class SDL_game{
 
 
 
-        //Current displayed image
-        SDL_Surface* gCurrentSurface = NULL;
-
-        //The images that correspond to a keypress
-        SDL_Surface* gKeyPressSurfaces[KEY_PRESS_SURFACE_TOTAL];
-
-
         // other present objects
-        Character* user = new Player();
+        // the player:
+        Player user;
+        // its graphical representation:
         SDL_Texture* gUser = NULL;
+
+        // The level, with the terrain and the monsters etc...
+        Level level;
+        // The graphical representation of the Terrain
+        vector<SDL_Texture*> gGrounds; // TODO see if needed
+        SDL_Texture* gBackground = NULL;
 
 
         // METHODES
-        //Loads individual image
+        //Loads individual image as SDL_Surface. Not used anymore.
         SDL_Surface* loadSurface(string path);
 
-        // TODO : change with the class of Hugo
-        void loadTexture( std::string path );
+        //change with the class LTexture to have some animations
+        SDL_Texture* loadTexture(std::string path);
+
 
 };
 
