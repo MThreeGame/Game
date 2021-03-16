@@ -7,6 +7,7 @@
 //#include "Star.h"
 #include "SDL.h"
 #include "Player.h"
+#include "Cell.h"
 
 
 
@@ -26,6 +27,8 @@ class Level{
   public:
 
     vector<string> checkCollisions( Player player);
+
+    void checkStatus();
 
     Terrain getTerrain();
 
