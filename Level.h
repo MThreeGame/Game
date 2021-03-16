@@ -24,7 +24,7 @@ class Level{
 
   public:
 
-    string checkCollisions( Player player);
+    vector<string> checkCollisions( Player player);
 
     Terrain getTerrain();
       
