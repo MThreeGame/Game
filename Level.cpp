@@ -10,7 +10,7 @@ vector<string> Level::checkCollisions( Player player){
    int Yloc = player.getYLocation();
    int newLocX = player.getXLocation()+ player.getVelX();
    int newLocY = player.getXLocation()+ player.getVelY();
-   string flag ;
+   string flag = "SAFE";
    int height = player.getHeight();
    int width = player.getWidth();
    if( player.getVelY() > 0 ) {
@@ -26,6 +26,7 @@ vector<string> Level::checkCollisions( Player player){
             }
         }
         checkResult.push_back(flag);
+        flag = "SAFE";
    }
    else if(player.getVelY() < 0){
         // checking left side
@@ -40,6 +41,7 @@ vector<string> Level::checkCollisions( Player player){
             }
         }
         checkResult.push_back(flag);
+       flag = "SAFE";
    }
 
     if( player.getVelX() > 0 ) {
@@ -55,6 +57,7 @@ vector<string> Level::checkCollisions( Player player){
             }
         }
         checkResult.push_back(flag);
+        flag = "SAFE";
     }
     else if(player.getVelX() < 0){
         // checking downside
@@ -69,8 +72,10 @@ vector<string> Level::checkCollisions( Player player){
             }
         }
         checkResult.push_back(flag);
+        flag = "SAFE";
     }
     return checkResult;
+
 
     /*
     for(int j = newlocationY; j <=  (newlocationY+ height); j++) {
