@@ -26,7 +26,8 @@ class Terrain{
   public:
       Terrain(); // can be initialized with a binary image file ?
 
-      vector<SDL_Rect> getGrounds();
+      //vector<SDL_Rect> getGrounds();
+      vector<vector<Cell>> getGround(){}
 
       string getPathToImage();
 

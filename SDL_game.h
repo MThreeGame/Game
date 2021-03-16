@@ -52,11 +52,7 @@ class SDL_game{
         //The window we'll be rendering to
         SDL_Window* gWindow = NULL;
             
-        //The surface contained by the window
-        //SDL_Surface* gScreenSurface = NULL;
 
-        //The images we will load and show on the screen
-        //SDL_Surface* gBackground = NULL;
         //The window renderer
         SDL_Renderer* gRenderer = NULL;
 
