@@ -26,9 +26,9 @@ void Menu::runMenu(){
                 }
             }
         }
-        SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0x00 );
+        SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF );
         SDL_RenderClear(renderer);
-        backGround.renderLTexture(50, 50);
+        backGround.renderLTexture (50, 50);
         SDL_RenderPresent(renderer);
         SDL_Delay(40);
     }

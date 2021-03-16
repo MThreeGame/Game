@@ -30,5 +30,5 @@ void LTexture::deleteLTexture() {
 void LTexture::renderLTexture( int x, int y) {
 
     SDL_Rect dstrect = {x, y, mWidth, mHeight};
-	SDL_RenderCopy(renderer, texture, &dstrect, &dstrect);
+    SDL_RenderCopy(renderer, texture, &dstrect, &dstrect);
 }
