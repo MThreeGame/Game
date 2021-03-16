@@ -6,9 +6,6 @@
 
 vector<string> Level::checkCollisions( Player player){
    vector<string> checkResult;
-   string ground = "GROUND";
-   string monster = "MONSTER";
-   string safeMode = "SAFE";
    int Xloc = player.getXLocation();
    int Yloc = player.getYLocation();
    int newLocX = player.getXLocation()+ player.getVelX();
@@ -16,7 +13,7 @@ vector<string> Level::checkCollisions( Player player){
    string flag ;
    int height = player.getHeight();
    int width = player.getWidth();
-   if( player.getVelX() > 0 ) {
+   if( player.getVelY() > 0 ) {
         //checking right side
         for (int i = newLocX; i <= (newLocX + width); i++) {
             if (terrain.getGround()[i][Yloc] == Cell::GROUND) {
@@ -30,7 +27,7 @@ vector<string> Level::checkCollisions( Player player){
         }
         checkResult.push_back(flag);
    }
-   else if(player.getVelX() < 0){
+   else if(player.getVelY() < 0){
         // checking left side
         for (int i = (newLocX - width); i >= newLocX; i++) {
             if (terrain.getGround()[i][Yloc] == Cell::GROUND) {
@@ -45,7 +42,7 @@ vector<string> Level::checkCollisions( Player player){
         checkResult.push_back(flag);
    }
 
-    if( player.getVelY() > 0 ) {
+    if( player.getVelX() > 0 ) {
         //checking upside
         for (int i = newLocY; i <= (newLocY + height); i++) {
             if (terrain.getGround()[Xloc][i] == Cell::GROUND) {
@@ -59,7 +56,7 @@ vector<string> Level::checkCollisions( Player player){
         }
         checkResult.push_back(flag);
     }
-    else if(player.getVelY() < 0){
+    else if(player.getVelX() < 0){
         // checking downside
         for (int i = (newLocY - height); i >= newLocY; i--) {
             if (terrain.getGround()[Xloc][i] == Cell::GROUND) {
