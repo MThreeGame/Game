@@ -86,6 +86,6 @@ Terrain Level::getTerrain(){
     return terrain;
 }
 
-Player Level::getUser(){
+Player& Level::getUser(){
     return user;
 }

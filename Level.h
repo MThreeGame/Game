@@ -29,7 +29,7 @@ class Level{
 
     Terrain getTerrain();
 
-    Player getUser();
+    Player& getUser();
       
 
 };
