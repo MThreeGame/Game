@@ -4,17 +4,78 @@
 #include "Cell.h"
 
 
-string Level::checkCollisions( Player player){
-
+vector<string> Level::checkCollisions( Player player){
+   vector<string> checkResult;
    string ground = "GROUND";
    string monster = "MONSTER";
    string safeMode = "SAFE";
-   int newLocationX = player.getXLocation()+ player.getVelX();
-   int newlocationY = player.getYLocation() + player.getVelY();
-    bool groundFlag = false;
-    bool monsterFlag = false;
-    int height = player.getHeight();
-    int width = player.getWidth();
+   int Xloc = player.getXLocation();
+   int Yloc = player.getYLocation();
+   int newLocX = player.getXLocation()+ player.getVelX();
+   int newLocY = player.getXLocation()+ player.getVelY();
+   string flag ;
+   int height = player.getHeight();
+   int width = player.getWidth();
+   if( player.getVelX() > 0 ) {
+        //checking right side
+        for (int i = newLocX; i <= (newLocX + width); i++) {
+            if (terrain.getGround()[i][Yloc] == Cell::GROUND) {
+                flag = "GROUND";
+                break;
+            }
+            if (terrain.getGround()[i][Yloc] == Cell::DANGER) {
+                flag = "DANGER";
+                break;
+            }
+        }
+        checkResult.push_back(flag);
+   }
+   else if(player.getVelX() < 0){
+        // checking left side
+        for (int i = (newLocX - width); i >= newLocX; i++) {
+            if (terrain.getGround()[i][Yloc] == Cell::GROUND) {
+                flag = "GROUND";
+                break;
+            }
+            if (terrain.getGround()[i][Yloc] == Cell::DANGER) {
+                flag = "DANGER";
+                break;
+            }
+        }
+        checkResult.push_back(flag);
+   }
+
+    if( player.getVelY() > 0 ) {
+        //checking upside
+        for (int i = newLocY; i <= (newLocY + height); i++) {
+            if (terrain.getGround()[Xloc][i] == Cell::GROUND) {
+                flag = "GROUND";
+                break;
+            }
+            if (terrain.getGround()[Xloc][i] == Cell::DANGER) {
+                flag = "DANGER";
+                break;
+            }
+        }
+        checkResult.push_back(flag);
+    }
+    else if(player.getVelY() < 0){
+        // checking downside
+        for (int i = (newLocY - height); i >= newLocY; i--) {
+            if (terrain.getGround()[Xloc][i] == Cell::GROUND) {
+                flag = "GROUND";
+                break;
+            }
+            if (terrain.getGround()[Xloc][i] == Cell::DANGER) {
+                flag = "DANGER";
+                break;
+            }
+        }
+        checkResult.push_back(flag);
+    }
+    return checkResult;
+
+    /*
     for(int j = newlocationY; j <=  (newlocationY+ height); j++) {
         if(groundFlag || monsterFlag) break;
         for(int i = newLocationX; i <=  (newLocationX + width); i++) {
@@ -32,6 +93,8 @@ string Level::checkCollisions( Player player){
     if(groundFlag) return ground;
     else if(monsterFlag) return monster;
     else return safeMode;
+     */
+
 }
 
 
