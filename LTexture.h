@@ -1,5 +1,8 @@
 #pragma once
+<<<<<<< HEAD
 
+=======
+>>>>>>> 97a54d082a06988351b4d41d80895f7ced094d15
 #include <SDL.h>
 #include <SDL2/SDL_image.h>
 #include <iostream>
@@ -25,6 +28,9 @@ class LTexture {
         */
         void initLTexture (const char* filename, SDL_Renderer* renderer, int mWidthIn, int mHeightIn);
 
+
+
+
         /**
         * Delete the LTexture.
         *
@@ -40,6 +46,5 @@ class LTexture {
         * @param y            The top-left corner y-coordinate for the render
         */
         void renderLTexture(int x, int y);
-
 };
 

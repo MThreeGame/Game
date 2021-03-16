@@ -9,6 +9,11 @@ void Menu::initMenu(SDL_Renderer *renderer) {
 }
 
 void Menu::runMenu(){
+            SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF );
+        SDL_RenderClear(renderer);
+        backGround.renderLTexture (50, 50);
+        SDL_RenderPresent(renderer);
+        SDL_Delay(40);
     SDL_Event e;
     choice = MENU_NONE;
     while (choice == MenuChoice::MENU_NONE) {

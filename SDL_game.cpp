@@ -1,5 +1,7 @@
 #include "SDL_game.h"
 #include <string>
+//#include "LTexture.h"
+#include <iostream>
 
 using namespace std;
 
@@ -27,75 +29,97 @@ bool SDL_game::init()
         }
         else
         {
-            //Get window surface
-            gScreenSurface = SDL_GetWindowSurface( gWindow );
+            //Create renderer for window
+            gRenderer = SDL_CreateRenderer( gWindow, -1, SDL_RENDERER_ACCELERATED );
+            if( gRenderer == NULL )
+            {
+                printf( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
+                success = false;
+            }
+            else
+            {
+                //Initialize renderer color
+                SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+
+                // TODO for png file. For now we only handle bmp file
+                //Initialize PNG loading
+                /*
+                int imgFlags = IMG_INIT_PNG;
+                if( !( IMG_Init( imgFlags ) & imgFlags ) )
+                {
+                    printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
+                    success = false;
+                }
+                */
+            }
+            
         }
     }
 
     return success;
 }
 
-
+// load the different textures needed
 bool SDL_game::loadMedia()
 {
     //Loading success flag
     bool success = true;
 
-    //Load background image
-    gBackground = loadSurface("../images/ground1.bmp" );
+    gUser = loadTexture( user.getPath());
+    if(gUser == NULL)
+        return false;
+
+    gBackground = loadTexture(level.getTerrain().getPathToImage());
     if(gBackground == NULL)
         return false;
 
-    gKeyPressSurfaces[KeyPressSurfaces::KEY_PRESS_SURFACE_DOWN] = loadSurface("../images/user1.bmp" );
-    if(gKeyPressSurfaces[KeyPressSurfaces::KEY_PRESS_SURFACE_DOWN] == NULL)
-        return false;
 
-    gKeyPressSurfaces[KeyPressSurfaces::KEY_PRESS_SURFACE_UP] = loadSurface("../images/monster.bmp" );
-    if(gKeyPressSurfaces[KeyPressSurfaces::KEY_PRESS_SURFACE_UP] == NULL)
-        return false;  
+/*
+    for(SDL_Rect& rect : level.getTerrain().getGrounds()){
+        SDL_SetRenderDrawColor(gRenderer,255, 0, 0, 255);
+        SDL_RenderDrawRect(gRenderer, &rect);
+
+        SDL_SetRenderDrawColor(gRenderer, 255, 0, 0, 255);
+
+        SDL_RenderPresent(gRenderer);
+    }
+*/
 
     return true;
 }
 
 void SDL_game::close()
 {
-    //Deallocate surface
-    SDL_FreeSurface( gBackground );
-    gBackground = NULL;
+    //Deallocate textures
+    SDL_DestroyTexture( gUser );
+    gUser = NULL;
+
+    SDL_DestroyTexture( gBackground );
+    gUser = NULL;
 
     //Destroy window
+    SDL_DestroyRenderer( gRenderer );
     SDL_DestroyWindow( gWindow );
     gWindow = NULL;
+    gRenderer = NULL;
 
     //Quit SDL subsystems
     SDL_Quit();
 }
 
-// Blit the image
-void SDL_game::blitSurface(){
-    //Apply the image
-    SDL_BlitSurface( gBackground, NULL, gScreenSurface, NULL );
-
-    //Update the surface
-    SDL_UpdateWindowSurface( gWindow );
-
-    //Wait two seconds
-    SDL_Delay( 2000 );
-}
-
-
+// not used anymore
 SDL_Surface* SDL_game::loadSurface( std::string path )
 {
     //Load image at specified path
     SDL_Surface* loadedSurface = SDL_LoadBMP( path.c_str() );
     if( loadedSurface == NULL )
     {
-        printf( "Unable to load image %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
+        printf( "Unable to load image %s! SDL Error\n", path.c_str() );
         return NULL;
     }
-
     return loadedSurface;
 }
+
 
 void SDL_game::handleKeys_fct(){
     //Main loop flag
@@ -104,9 +128,7 @@ void SDL_game::handleKeys_fct(){
     //Event handler
     SDL_Event e;
 
-    //Set default current surface
-    gCurrentSurface = gKeyPressSurfaces[ KEY_PRESS_SURFACE_DEFAULT ];
-
+    
     //While application is running
     while( !quit )
     {
@@ -118,41 +140,121 @@ void SDL_game::handleKeys_fct(){
             {
                 quit = true;
             }
-            //User presses a key
-            else if( e.type == SDL_KEYDOWN )
-            {
-                //Select surfaces based on key press
-                switch( e.key.keysym.sym )
-                {
-                    case SDLK_UP:
-                        gCurrentSurface = gKeyPressSurfaces[ KEY_PRESS_SURFACE_UP ];
-                        break;
-
-                    case SDLK_DOWN:
-                        gCurrentSurface = gKeyPressSurfaces[ KEY_PRESS_SURFACE_DOWN ];
-                        break;
-
-                    /*case SDLK_LEFT:
-                        gCurrentSurface = gKeyPressSurfaces[ KEY_PRESS_SURFACE_LEFT ];
-                        break;
-
-                    case SDLK_RIGHT:
-                        gCurrentSurface = gKeyPressSurfaces[ KEY_PRESS_SURFACE_RIGHT ];
-                        break;
-                    */
-
-                    default:
-                        gCurrentSurface = gKeyPressSurfaces[ KEY_PRESS_SURFACE_DEFAULT ];
-                        break;
-                }
-            }
+            //Handle input for the character user
+            handleEvent(e );
         }
 
-        //Apply the current image
-        SDL_BlitSurface( gCurrentSurface, NULL, gScreenSurface, NULL );
-            
-        //Update the surface
-        SDL_UpdateWindowSurface( gWindow );
+        user.move();
+
+        //Clear screen
+        SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+        SDL_RenderClear( gRenderer );
+
+        //Render texture to screen
+        render();
+        
+        //Update screen
+        SDL_RenderPresent( gRenderer );
     }
 }
 
+
+// for a specific keyboard event, modify the object Player
+void SDL_game::handleEvent( SDL_Event& e )
+{
+    //If a key was pressed
+    if( e.type == SDL_KEYDOWN && e.key.repeat == 0 )
+    {
+        //Adjust the velocity
+        switch( e.key.keysym.sym )
+        {
+            case SDLK_UP: 
+                user.decreaseVelY(); 
+                break;
+            case SDLK_DOWN: 
+                user.increaseVelY(); 
+                break;
+            case SDLK_LEFT: 
+                user.decreaseVelX(); 
+                break;
+            case SDLK_RIGHT:
+                user.increaseVelX(); 
+                break;
+        }
+    }
+
+    //If a key was released
+    else if( e.type == SDL_KEYUP && e.key.repeat == 0 )
+    {
+        //Adjust the velocity
+        switch( e.key.keysym.sym )
+        {
+            case SDLK_UP: 
+                user.increaseVelY(); 
+                break;
+            case SDLK_DOWN: 
+                user.decreaseVelY(); 
+                break;
+            case SDLK_LEFT: 
+                user.increaseVelX(); 
+                break;
+            case SDLK_RIGHT:
+                user.decreaseVelX(); 
+                break;
+        }
+    }
+}
+
+
+void SDL_game::render()
+{
+    //Show the character (user)
+    //gUser->render(user->getLocationX(), user->getLocationY());
+    //cout << "I am in render function" << endl;
+    //gUser->LTexture_render(user->getLocationX(), user->getLocationY());
+	SDL_Rect dstrect = {user.getLocationX(), user.getLocationY(), 50, 100};
+    SDL_RenderCopy(gRenderer, gBackground, NULL, NULL);
+    SDL_RenderCopy(gRenderer, gUser, NULL, &dstrect);
+
+
+    /*
+    for(SDL_Rect& rect : level.getTerrain().getGrounds()){
+        SDL_SetRenderDrawColor(gRenderer,255, 0, 0, 255);
+        SDL_RenderDrawRect(gRenderer, &rect);
+
+        SDL_SetRenderDrawColor(gRenderer, 255, 0, 0, 255);
+
+        SDL_RenderPresent(gRenderer);
+    }*/
+
+
+}
+
+
+SDL_Texture* SDL_game::loadTexture(string path )
+{
+
+    //The final texture
+    SDL_Texture* newTexture = NULL;
+
+    //Load image at specified path
+    //SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
+    SDL_Surface* loadedSurface = SDL_LoadBMP( path.c_str() );
+    if( loadedSurface == NULL )
+    {
+        printf( "Unable to load image %s! SDL_image Error\n", path.c_str() );
+    }
+    else
+    {
+        //Create texture from surface pixels
+        newTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );
+        if( newTexture == NULL )
+        {
+            printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
+        }
+
+        //Get rid of old loaded surface
+        SDL_FreeSurface( loadedSurface );
+    }
+    return newTexture;
+}

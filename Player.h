@@ -2,25 +2,20 @@
 #define PLAYER
 
 #include <string>
+#include "Character.h"
 
 using namespace std;
 
 
-class Player{
+class Player: public Character{
   private:
     string name;
     int score;
     int numLife;
 
-    // position
-    int locationX;
-    int locationY;
-    //Maximum axis velocity of the dot
-    static const int DOT_VEL = 10;
-
-    string pathToImage = "../images/user1.bmp";
-
+  
   public: 
+    Player();
     Player(string pname, int x, int y);
     //getters
     int getXLocation();
@@ -30,7 +25,6 @@ class Player{
     //mutators
     void setNumLife(int number);
     void setScore(int scr);
-    void movePlayer(string key);
       
 };
 

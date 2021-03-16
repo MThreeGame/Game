@@ -28,7 +28,7 @@ int main(){
         else
         {
             //Apply the image
-            sdlGame.blitSurface();
+            //sdlGame.blitSurface();
 
             sdlGame.handleKeys_fct();
 

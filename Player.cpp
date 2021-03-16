@@ -1,14 +1,23 @@
-string name;
-    int score;
-    int numLife;
-    int locationX;
-    int locationY;
+
+#include <string>
+#include "Player.h"
+
+
+
 //constructor
-Player::Player(string pname, int x, int y){
+Player::Player(string pname, int x, int y):Character(){
    name = pname;
    locationX = x;
    locationY = y; 
 }
+Player::Player():Character(){ // call the constructor of the base class
+    pathToImage = "../images/user1.bmp";
+
+}
+
+
+
+
 //getters
 int Player::getXLocation(){
   return locationX;
@@ -16,10 +25,10 @@ int Player::getXLocation(){
 int Player::getYLocation(){
   return locationY;
 }
-int getScore(){
+int Player::getScore(){
     return score;
 }
-int getNumLife(){
+int Player::getNumLife(){
   return numLife;
 }
 //mutators
@@ -29,6 +38,7 @@ void Player::setNumLife(int number){
 void Player::setScore(int scr){
   score = scr;
 }
-void movePlayer(string key){
-  
-}
+
+
+
+
