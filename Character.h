@@ -42,7 +42,7 @@ class Character{
     void increaseVelY();
     void decreaseVelY();
 
-    void move(); // update location
+    void move(); // update location depending of velocity
 
 
     SDL_Rect getRect();

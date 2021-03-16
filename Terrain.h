@@ -20,13 +20,15 @@ class Terrain{
 
       vector<SDL_Rect> grounds;
 
-      string pathToImage;
+      string pathToImage = "../images/ground1.bmp";
 
 
   public:
       Terrain(); // can be initialized with a binary image file ?
 
       vector<SDL_Rect> getGrounds();
+
+      string getPathToImage();
 
       // return the type of the location : if it is a ground or background
       // or something else ?

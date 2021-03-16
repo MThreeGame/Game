@@ -1,6 +1,6 @@
 #include "SDL_game.h"
 #include <string>
-#include "LTexture.h"
+//#include "LTexture.h"
 #include <iostream>
 
 using namespace std;
@@ -29,8 +29,6 @@ bool SDL_game::init()
         }
         else
         {
-            //Get window surface
-            //gScreenSurface = SDL_GetWindowSurface( gWindow );
             //Create renderer for window
             gRenderer = SDL_CreateRenderer( gWindow, -1, SDL_RENDERER_ACCELERATED );
             if( gRenderer == NULL )
@@ -43,6 +41,7 @@ bool SDL_game::init()
                 //Initialize renderer color
                 SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
 
+                // TODO for png file. For now we only handle bmp file
                 //Initialize PNG loading
                 /*
                 int imgFlags = IMG_INIT_PNG;
@@ -60,25 +59,22 @@ bool SDL_game::init()
     return success;
 }
 
-
+// load the different textures needed
 bool SDL_game::loadMedia()
 {
     //Loading success flag
     bool success = true;
 
-    
-    //Load background image
-    /*gBackground = loadSurface("../images/ground1.bmp" );
+    gUser = loadTexture( user.getPath());
+    if(gUser == NULL)
+        return false;
+
+    gBackground = loadTexture(level.getTerrain().getPathToImage());
     if(gBackground == NULL)
         return false;
-    */
 
 
-    //gUser = loadSurface(user.getPath() )
-    loadTexture( user->getPath().c_str());
-
-
-
+/*
     for(SDL_Rect& rect : level.getTerrain().getGrounds()){
         SDL_SetRenderDrawColor(gRenderer,255, 0, 0, 255);
         SDL_RenderDrawRect(gRenderer, &rect);
@@ -87,27 +83,18 @@ bool SDL_game::loadMedia()
 
         SDL_RenderPresent(gRenderer);
     }
-
-/*
-    gKeyPressSurfaces[KeyPressSurfaces::KEY_PRESS_SURFACE_DOWN] = loadSurface("../images/user1.bmp" );
-    if(gKeyPressSurfaces[KeyPressSurfaces::KEY_PRESS_SURFACE_DOWN] == NULL)
-        return false;
-
-    gKeyPressSurfaces[KeyPressSurfaces::KEY_PRESS_SURFACE_UP] = loadSurface("../images/monster.bmp" );
-    if(gKeyPressSurfaces[KeyPressSurfaces::KEY_PRESS_SURFACE_UP] == NULL)
-        return false;  
-    */
+*/
 
     return true;
 }
 
 void SDL_game::close()
 {
-    //Deallocate surface
-    //SDL_FreeSurface( gBackground );
-    //gBackground = NULL;
-        //Free loaded image
+    //Deallocate textures
     SDL_DestroyTexture( gUser );
+    gUser = NULL;
+
+    SDL_DestroyTexture( gBackground );
     gUser = NULL;
 
     //Destroy window
@@ -120,20 +107,7 @@ void SDL_game::close()
     SDL_Quit();
 }
 
-/*
-// Blit the image
-void SDL_game::blitSurface(){
-    //Apply the image
-    SDL_BlitSurface( gBackground, NULL, gScreenSurface, NULL );
-
-    //Update the surface
-    SDL_UpdateWindowSurface( gWindow );
-
-    //Wait two seconds
-    SDL_Delay( 2000 );
-}
-*/
-
+// not used anymore
 SDL_Surface* SDL_game::loadSurface( std::string path )
 {
     //Load image at specified path
@@ -143,7 +117,6 @@ SDL_Surface* SDL_game::loadSurface( std::string path )
         printf( "Unable to load image %s! SDL Error\n", path.c_str() );
         return NULL;
     }
-
     return loadedSurface;
 }
 
@@ -167,28 +140,26 @@ void SDL_game::handleKeys_fct(){
             {
                 quit = true;
             }
-            ////Handle input for the character user
+            //Handle input for the character user
             handleEvent(e );
         }
 
-        user->move();
+        user.move();
 
         //Clear screen
         SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
         SDL_RenderClear( gRenderer );
 
-        //Render objects
-        render();
         //Render texture to screen
-        //SDL_RenderCopy( gRenderer, gUser., NULL, NULL );
-
+        render();
+        
         //Update screen
         SDL_RenderPresent( gRenderer );
     }
 }
 
 
-
+// for a specific keyboard event, modify the object Player
 void SDL_game::handleEvent( SDL_Event& e )
 {
     //If a key was pressed
@@ -198,16 +169,16 @@ void SDL_game::handleEvent( SDL_Event& e )
         switch( e.key.keysym.sym )
         {
             case SDLK_UP: 
-                user->decreaseVelY(); 
+                user.decreaseVelY(); 
                 break;
             case SDLK_DOWN: 
-                user->increaseVelY(); 
+                user.increaseVelY(); 
                 break;
             case SDLK_LEFT: 
-                user->decreaseVelX(); 
+                user.decreaseVelX(); 
                 break;
             case SDLK_RIGHT:
-                user->increaseVelX(); 
+                user.increaseVelX(); 
                 break;
         }
     }
@@ -219,16 +190,16 @@ void SDL_game::handleEvent( SDL_Event& e )
         switch( e.key.keysym.sym )
         {
             case SDLK_UP: 
-                user->increaseVelY(); 
+                user.increaseVelY(); 
                 break;
             case SDLK_DOWN: 
-                user->decreaseVelY(); 
+                user.decreaseVelY(); 
                 break;
             case SDLK_LEFT: 
-                user->increaseVelX(); 
+                user.increaseVelX(); 
                 break;
             case SDLK_RIGHT:
-                user->decreaseVelX(); 
+                user.decreaseVelX(); 
                 break;
         }
     }
@@ -241,11 +212,12 @@ void SDL_game::render()
     //gUser->render(user->getLocationX(), user->getLocationY());
     //cout << "I am in render function" << endl;
     //gUser->LTexture_render(user->getLocationX(), user->getLocationY());
-	SDL_Rect dstrect = {user->getLocationX(), user->getLocationY(), 50, 100};
+	SDL_Rect dstrect = {user.getLocationX(), user.getLocationY(), 50, 100};
+    SDL_RenderCopy(gRenderer, gBackground, NULL, NULL);
     SDL_RenderCopy(gRenderer, gUser, NULL, &dstrect);
 
 
-
+    /*
     for(SDL_Rect& rect : level.getTerrain().getGrounds()){
         SDL_SetRenderDrawColor(gRenderer,255, 0, 0, 255);
         SDL_RenderDrawRect(gRenderer, &rect);
@@ -253,17 +225,14 @@ void SDL_game::render()
         SDL_SetRenderDrawColor(gRenderer, 255, 0, 0, 255);
 
         SDL_RenderPresent(gRenderer);
-    }
+    }*/
 
 
 }
 
 
-void SDL_game::loadTexture( std::string path )
+SDL_Texture* SDL_game::loadTexture(string path )
 {
-
-    //gUser = new LTexture(path.c_str(), gRenderer);
-
 
     //The final texture
     SDL_Texture* newTexture = NULL;
@@ -287,8 +256,5 @@ void SDL_game::loadTexture( std::string path )
         //Get rid of old loaded surface
         SDL_FreeSurface( loadedSurface );
     }
-
-    gUser = newTexture;
-
-    //return newTexture;
+    return newTexture;
 }

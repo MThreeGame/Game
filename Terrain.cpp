@@ -20,3 +20,7 @@ vector<SDL_Rect> Terrain::getGrounds(){
     return grounds;
 }
 
+
+string Terrain::getPathToImage(){
+    return pathToImage;
+}
