@@ -4,75 +4,75 @@
 #include "Cell.h"
 
 
-vector<string> Level::checkCollisions( Player player){
-   vector<string> checkResult;
+vector<Cell> Level::checkCollisions( Player player){
+   vector<Cell> checkResult;
    int Xloc = player.getXLocation();
    int Yloc = player.getYLocation();
    int newLocX = player.getXLocation()+ player.getVelX();
    int newLocY = player.getXLocation()+ player.getVelY();
-   string flag = "SAFE";
+   Cell flag;
    int height = player.getHeight();
    int width = player.getWidth();
    if( player.getVelY() > 0 ) {
-        //checking right side
-        for (int i = newLocX; i <= (newLocX + width); i++) {
-            if (terrain.getGround()[i][Yloc] == Cell::GROUND) {
-                flag = "GROUND";
+        //checking downside
+        for (int i = Xloc; i <= (Xloc + width); i++) {
+            if (terrain.getGround()[i][newLocY] == Cell::GROUND) {
+                flag = Cell::GROUND;
                 break;
             }
-            if (terrain.getGround()[i][Yloc] == Cell::DANGER) {
-                flag = "DANGER";
+            if (terrain.getGround()[i][newLocY] == Cell::DANGER) {
+                flag = Cell::DANGER;
                 break;
             }
         }
         checkResult.push_back(flag);
-        flag = "SAFE";
+        flag = Cell::BACKGROUND;
    }
    else if(player.getVelY() < 0){
-        // checking left side
-        for (int i = (newLocX - width); i >= newLocX; i++) {
-            if (terrain.getGround()[i][Yloc] == Cell::GROUND) {
-                flag = "GROUND";
+        // checking upside
+        for (int i = newLocX ; i >= (newLocX + width); i++) {
+            if (terrain.getGround()[i][newLocY] == Cell::GROUND) {
+                flag = Cell::GROUND;
                 break;
             }
-            if (terrain.getGround()[i][Yloc] == Cell::DANGER) {
-                flag = "DANGER";
+            if (terrain.getGround()[i][newLocY] == Cell::DANGER) {
+                flag = Cell::DANGER;
                 break;
             }
         }
         checkResult.push_back(flag);
-       flag = "SAFE";
+       flag = Cell::BACKGROUND;
    }
 
     if( player.getVelX() > 0 ) {
-        //checking upside
+        //checking rightside
         for (int i = newLocY; i <= (newLocY + height); i++) {
-            if (terrain.getGround()[Xloc][i] == Cell::GROUND) {
-                flag = "GROUND";
+            if (terrain.getGround()[newLocX][i] == Cell::GROUND) {
+                flag = Cell::GROUND;
                 break;
             }
-            if (terrain.getGround()[Xloc][i] == Cell::DANGER) {
-                flag = "DANGER";
+            if (terrain.getGround()[newLocX][i] == Cell::DANGER) {
+                flag = Cell::DANGER;
                 break;
             }
         }
         checkResult.push_back(flag);
-        flag = "SAFE";
+        flag = Cell::BACKGROUND;
     }
     else if(player.getVelX() < 0){
-        // checking downside
+        // checking leftside
         for (int i = (newLocY - height); i >= newLocY; i--) {
-            if (terrain.getGround()[Xloc][i] == Cell::GROUND) {
-                flag = "GROUND";
+            if (terrain.getGround()[newLocX][i] == Cell::GROUND) {
+                flag = Cell::GROUND;
                 break;
             }
-            if (terrain.getGround()[Xloc][i] == Cell::DANGER) {
-                flag = "DANGER";
+            if (terrain.getGround()[newLocX][i] == Cell::DANGER) {
+                flag = Cell::DANGER;
                 break;
             }
         }
         checkResult.push_back(flag);
-        flag = "SAFE";
+        flag = Cell::BACKGROUND;
     }
     return checkResult;
 

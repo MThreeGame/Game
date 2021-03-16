@@ -24,7 +24,7 @@ class Level{
 
   public:
 
-    vector<string> checkCollisions( Player player);
+    vector<Cell> checkCollisions( Player player);
 
     Terrain getTerrain();
       
