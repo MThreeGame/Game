@@ -4,11 +4,17 @@ project(Game)
 
 set(SRCS
 	SDL_game.cpp
+  App.cpp
+  Menu.cpp
+  LTexture.cpp
   )
     
 set(HEADERS
     SDL_game.h
     KeyPressSurface.h
+    App.h
+    Menu.h
+    LTexture.h
   )
     
 

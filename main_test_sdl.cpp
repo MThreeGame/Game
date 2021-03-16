@@ -1,4 +1,6 @@
 #include "SDL_game.h"
+#include "LTexture.h"
+#include "App.h"
 
 // https://lazyfoo.net/tutorials/SDL/index.php
 
@@ -6,6 +8,10 @@
 
 
 int main(){
+
+    App app;
+    app.appRun();
+
 
     SDL_game sdlGame;
     if( ! sdlGame.init())
@@ -28,6 +34,7 @@ int main(){
 
         }
     }
+    
 
     //Free resources and close SDL
     sdlGame.close();

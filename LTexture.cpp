@@ -3,34 +3,32 @@
 using namespace std;
 
 
-LTexture *LTexture_create(const char *filename,
-                            SDL_Renderer* renderer){
-	LTexture *lTexture;
-    lTexture = new (LTexture);
-    lTexture->scale = 1.0;
-	lTexture->texture = NULL;
-	lTexture->renderer = renderer;
-	SDL_Surface *loadedSurface = IMG_Load(filename);
+void LTexture::initLTexture(const char* filename,
+                            SDL_Renderer* renderer, int mWidthIn, int mHeightIn){
+    mWidth = mWidthIn;
+    mHeight = mHeightIn;
+    scale = 1.0;
+	texture = NULL;
+	renderer = renderer;
+	SDL_Surface *loadedSurface = SDL_LoadBMP(filename);
 	if (loadedSurface == NULL) {
-        cout << "Unable to load image from " << filename << ": " << IMG_GetError() << endl;
+        cout << "Unable to load image from " << filename << endl;
 	} else {
-        lTexture->texture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-		if (lTexture->texture == NULL) {
-            cout << "Unable to create texture from " << filename << ": " << SDL_GetError() << endl;
+        this->texture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+		if (this->texture == NULL) {
+            cout << "Unable to create texture from " << filename << endl;
         }
         SDL_FreeSurface(loadedSurface);
 	}
-    return lTexture;
 }
 
-void LTexture__delete(LTexture *lTexture) {
-    SDL_DestroyTexture(lTexture->texture);
-    delete(lTexture);
+void LTexture::deleteLTexture() {
+    SDL_DestroyTexture(texture);
+    //delete(lTexture);
 }
 
-void LTexture_render(LTexture *lTexture,
-                        int x, int y) {
+void LTexture::renderLTexture( int x, int y) {
 
-    SDL_Rect dstrect = {x, y, mWidth, mHeight);
-	SDL_RenderCopy(lTexture->renderer, lTexture->texture, &dstrect, &dstrect);
+    SDL_Rect dstrect = {x, y, mWidth, mHeight};
+	SDL_RenderCopy(renderer, texture, &dstrect, &dstrect);
 }
