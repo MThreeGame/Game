@@ -1,6 +1,7 @@
 #include "Terrain.h"
 
 
+
 /* READ THE IMAGE FROM THE FILE TO CREATE THE EQUIVALENT MATRIX */
 
 Cell Terrain::pixelToCell(unsigned char B, unsigned char G, unsigned char R){
@@ -76,6 +77,8 @@ vector<vector<Cell>> Terrain::readBMP(const char* filename, int& width, int& hei
     return res;
 }
 
+*/
+
 
 
 
@@ -87,8 +90,9 @@ Terrain::Terrain(){
     ground = readBMP(pathToImage.c_str(), width, height);
 }
 
+
 // getters
-vector<vector<Cell>> Terrain::getGround(){
+vector<vector<Cell>> Terrain::getGrounds(){
     return ground;
 }
 

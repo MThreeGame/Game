@@ -6,7 +6,8 @@
 #include "Monster.h"
 //#include "Star.h"
 #include "SDL.h"
-
+#include "Player.h"
+#include "Cell.h"
 
 
 
@@ -16,6 +17,7 @@ class Level{
       //vector<Terrain> terrains; // we use the terrain at index currentLevel
       Terrain terrain;
       vector<Monster*> monsters;
+      Player user;
       //vector<Star> stars; // something to catch 
 
       bool checkCollision( SDL_Rect a, SDL_Rect b );
@@ -24,9 +26,13 @@ class Level{
 
   public:
 
-    bool checkCollisions( SDL_Rect player);
+    vector<Cell> checkCollisions( Player player);
+
+    void moveWithCollision(vector<Cell> cells);
 
     Terrain getTerrain();
+
+    Player& getUser();
       
 
 };

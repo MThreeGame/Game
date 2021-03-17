@@ -1,3 +1,4 @@
+#pragma once
 
 /*  a terrain is a matrix of Cell
 
@@ -17,6 +18,7 @@ class Terrain{
       //int weight;
       //int[][] matrix;
 
+
       vector<vector<Cell>> ground;
 
       string pathToImage = "../images/ground1.bmp";
@@ -32,7 +34,7 @@ class Terrain{
       Terrain(); // can be initialized with a binary image file ?
 
       //vector<SDL_Rect> getGrounds();
-      vector<vector<Cell>> getGround();
+      vector<vector<Cell>> getGrounds();
 
       string getPathToImage();
 

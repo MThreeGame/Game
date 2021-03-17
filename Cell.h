@@ -1,3 +1,4 @@
+#pragma once
 //Key press surfaces constants
 enum Cell
 {
