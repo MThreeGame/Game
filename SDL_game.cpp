@@ -194,10 +194,10 @@ void SDL_game::handleEvent( SDL_Event& e )
                 level.getUser().increaseVelY(); 
                 break;
             case SDLK_DOWN: 
-                level.getUser().decreaseVelY(); 
+                level.getUser().decreaseVelY();  
                 break;
             case SDLK_LEFT: 
-                level.getUser().increaseVelX(); 
+                level.getUser().increaseVelX();
                 break;
             case SDLK_RIGHT:
                 level.getUser().decreaseVelX(); 
