@@ -1,23 +1,32 @@
 #include "Terrain.h"
 
 
-// Let's read the file to create the equivalent matrix
-struct Pixel
-{
-    int R;
-    int G;
-    int B;
-};
+/* READ THE IMAGE FROM THE FILE TO CREATE THE EQUIVALENT MATRIX */
+
+Cell Terrain::pixelToCell(unsigned char B, unsigned char G, unsigned char R){
+    
+    //cout << (int)R << "/" << (int)G << "/" << (int)B << " ";
+    // red
+    if(R > 200 &&  G < 50 && B < 50)
+        return Cell::DANGER;
+    // black
+    if(R < 20 && G < 20 && B < 20)
+        return Cell::DANGER;
+    // blue
+    if(R < 30 && G < 30 && B > 200 )
+        return Cell::BACKGROUND;
+    // white
+    if(R > 240 && G > 240 && B > 240)
+        return Cell::BACKGROUND;
+
+    return Cell::GROUND;
+}
 
 
-vector<vector<Cell>> readBMP(char* filename)
+vector<vector<Cell>> Terrain::readBMP(const char* filename, int& width, int& height)
 {
-    int i;
-    FILE* f = fopen(filename, "rb");
-    unsigned char info[54];
-vector<vector<Cell>> readBMP(char* filename)
-{
-    int i;
+    vector<vector<Cell>> res;
+
     FILE* f = fopen(filename, "rb");
     unsigned char info[54];
 
@@ -25,95 +34,62 @@ vector<vector<Cell>> readBMP(char* filename)
     fread(info, sizeof(unsigned char), 54, f); 
 
     // extract image height and width from header
-    int width = *(int*)&info[18];
-    int height = *(int*)&info[22];
+    width = *(int*)&info[18];
+    height = *(int*)&info[22];
 
-    cout << "width : " <<  width << endl;
-    cout << "height" << height << endl;
-    
+    //cout << "width: " << width << endl;
+    //cout << "height: " << height << endl;
 
     // allocate 3 bytes per pixel
     int size = 3 * width * height;
-
     unsigned char* data = new unsigned char[size];
 
     // read the rest of the data at once
     fread(data, sizeof(unsigned char), size, f); 
     fclose(f);
 
-
-
-    for(i = 0; i < size; i += 3)
-    {
-            // flip the order of every 3 bytes
-            unsigned char tmp = data[i];
-            data[i] = data[i+2];
-            data[i+2] = tmp;
+    /* in fact this gives (B, G, R) and nor (RGB)
+        a pixel is stored in:
+        data[3 * (i * width + j)], 
+        data[3 * (i * width + j) + 1]
+        data[3 * (i * width + j) + 2].*/
+    /*
+    for(int i = 0; i < height; i ++){
+        vector<Cell> tempVect;
+        for (int j = 0; j < width; j ++){
+            tempVect.push_back(pixelToCell( data[3 * (i * width + j)],
+                                            data[3 * (i * width + j) + 1],
+                                            data[3 * (i * width + j) + 2]));
+        }
+        res.push_back(tempVect);
+    }*/
+    // apparently the image seems reverse.
+    for(int i = height -1; i >= 0; i--){
+        vector<Cell> tempVect;
+        for (int j = width - 1; j >= 0; j--){
+            tempVect.push_back(pixelToCell( data[3 * (i * width + j)],
+                                            data[3 * (i * width + j) + 1],
+                                            data[3 * (i * width + j) + 2]));
+        }
+        res.push_back(tempVect);
     }
-
-    cout << data[0];
-    //return data;
-    return NULL;
-}
-
-
-    // read the 54-byte header
-    fread(info, sizeof(unsigned char), 54, f); 
-
-    // extract image height and width from header
-    int width = *(int*)&info[18];
-    int height = *(int*)&info[22];
-
-    cout << "width : " <<  width << endl;
-    cout << "height" << height << endl;
-    
-
-    // allocate 3 bytes per pixel
-    int size = 3 * width * height;
-
-    unsigned char* data = new unsigned char[size];
-
-    // read the rest of the data at once
-    fread(data, sizeof(unsigned char), size, f); 
-    fclose(f);
-
-
-
-    for(i = 0; i < size; i += 3)
-    {
-            // flip the order of every 3 bytes
-            unsigned char tmp = data[i];
-            data[i] = data[i+2];
-            data[i+2] = tmp;
-    }
-
-    cout << data[0];
-    //return data;
-    return NULL;
+    return res;
 }
 
 
 
 
 
-
-
-
+// constructor
 Terrain::Terrain(){
-    // let's initialise one rectangle 
-    //Set the wall
-    SDL_Rect wall;
-    wall.x = 30;
-    wall.y = 40;
-    wall.w = 40;
-    wall.h = 20;
-
-    grounds.push_back(wall);
+    int width;
+    int height;
+    ground = readBMP(pathToImage.c_str(), width, height);
 }
 
-
-vector<SDL_Rect> Terrain::getGrounds(){
-    return grounds;
+// getters
+vector<vector<Cell>> Terrain::getGround(){
+    return ground;
 }
 
 

@@ -1,7 +1,8 @@
 //Key press surfaces constants
 enum Cell
 {
-    GROUND,
-    BACKGROUND,
-    DANGER,
+    GROUND=0,
+    BACKGROUND=1,
+    DANGER=2,
 };
+
