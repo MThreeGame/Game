@@ -219,7 +219,7 @@ int save(string outfile, int width, int height, vector<vector<Cell>> data ) {
 
 int main(){
     int width, height;
-    string filename = "images/MapTest2.bmp";
+    string filename = "images/test3.bmp";
     vector<vector<Cell>> data = readBMP(filename.c_str(), width, height);
 
     //save("outputImage.bmp", width, height, data);
