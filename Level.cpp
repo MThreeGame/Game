@@ -4,7 +4,7 @@
 #include "Cell.h"
 
 //Cell of the vector returned downside, upside , rightside, leftside
-vector<Cell> Level::checkCollisions(){
+vector<Cell> Level::checkAllDirections(){
    vector<Cell> checkResult;
    int SCREEN_WIDTH = 1366;
    int SCREEN_HEIGHT = 768;
@@ -90,7 +90,7 @@ vector<Cell> Level::checkCollisions(){
 }
 
 void Level::moveWithCollision(){
-   vector<Cell> cells = checkCollisions();
+   vector<Cell> cells = checkAllDirections();
    int Xloc = user.getXLocation();
    int Yloc = user.getYLocation();
    int newLocX = user.getXLocation()+ user.getVelX();
