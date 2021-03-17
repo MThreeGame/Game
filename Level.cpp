@@ -4,7 +4,7 @@
 #include "Cell.h"
 
 //Cell of the vector returned downside, upside , rightside, leftside
-vector<Cell> Level::checkCollisions(){
+vector<Cell> Level::checkAllDirections(){
    vector<Cell> checkResult;
    int SCREEN_WIDTH = 1366;
    int SCREEN_HEIGHT = 768;
@@ -90,45 +90,9 @@ vector<Cell> Level::checkCollisions(){
 }
 
 void Level::moveWithCollision(){
-   vector<Cell> cells = checkCollisions();
+   vector<Cell> cells = checkAllDirections();
 
 
-   /* NO NEED
-   int Xloc = user.getXLocation();
-   int Yloc = user.getYLocation();
-   int newLocX = user.getXLocation()+ user.getVelX();
-   int newLocY = user.getXLocation()+ user.getVelY();
-
-   */
-
-/*
-    int DOWN = 0, UP = 1 , RIGHT = 2, LEFT = 3;
-    // check for the Y axis
-    if(cells[DOWN] == Cell::DANGER || cells[UP] == cell::DANGER){
-        // we put the user at the original position, in the upper left corner
-        user.setLocationX(0);
-        user.setLocationY(0);
-        user.setNumLife(user.getNumLife() - 1); // the last time, David said it is better to have a decreaseLife function
-    }else{
-        //user.move();
-        if(cells.at(0) == Cell::BACKGROUND){
-            user.setLocationY(newLocY);
-        }
-    }
-
-    same thing for X axis.
-
-
-    I think it is better:
-    * check if Danger somewhere in cells, 
-    * if yes -> set position of the user at 0,0 and decrease life
-    * else, for Y axis then X axis, modify set velY ot velX to 0 if GROUND
-    * then user.move()
-
-
-
-
-*/
     //check if collision with danger
    if((user.getVelY() > 0 && cells.at(0) == Cell::DANGER) 
         ||(user.getVelY() < 0 && cells.at(1) == Cell::DANGER) 
@@ -149,51 +113,6 @@ void Level::moveWithCollision(){
         }
         user.move();
     }      
-
-
-
-        /*   
-       }else{
-           user.move();
-           if(cells.at(0) == Cell::GROUND){
-               user.setLocationY(Yloc);
-           }
-       }
-   }else if(user.getVelY() < 0){
-       if(cells.at(1) == Cell::DANGER){
-           user.setLocationX(0);
-           user.setLocationY(0);
-           user.setNumLife(user.getNumLife() - 1);
-       }else{
-           //user.move();
-           if(cells.at(1) == Cell::GROUND){
-               user.setLocationY(Yloc);
-           }
-       }
-   }
-    if(user.getVelX() > 0){
-       if(cells.at(2) == Cell::DANGER){
-           user.setLocationX(0);
-           user.setLocationY(0);
-           user.setNumLife(user.getNumLife() - 1);
-       }else{
-           user.move();
-           if(cells.at(2) == Cell::GROUND){
-               user.setLocationX(Xloc);
-           }
-       }
-   }else if(user.getVelX() < 0){
-       if(cells.at(3) == Cell::DANGER){
-           user.setLocationX(Xloc);
-           user.setLocationY(Yloc);
-           user.setNumLife(user.getNumLife() - 1);
-       }else{
-           user.move();
-           if(cells.at(3) == Cell::GROUND){
-               user.setLocationX(Xloc);
-           }
-       }
-   }*/
 
 }
 
