@@ -16,6 +16,9 @@ class Character{
     //Maximum axis velocity of the dot
     static const int VELOCITY = 1;
 
+    bool flagX = true;
+    bool flagY = true;
+
     string pathToImage;
      
 
@@ -46,6 +49,13 @@ class Character{
     
     void setVelX(int velxIN);
     void setVelY(int velxIN);
+
+    bool getFlagX();
+    bool getFlagY();
+
+    void setFlagX(bool b);
+    void setFlagY(bool b);
+    
 
     void move(); // update location depending of velocity
 
