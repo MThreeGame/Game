@@ -19,11 +19,11 @@ vector<Cell> Level::checkAllDirections(){
    if( user.getVelY() > 0 ) {
         //checking downside
         for (int i = Xloc; i <= (Xloc + width); i++) {
-            if( i > SCREEN_HEIGHT || (ground[i][newLocY] == Cell::GROUND)  ){
+            if( i > SCREEN_HEIGHT || (ground[newLocY][i] == Cell::GROUND)  ){
                 flag = Cell::GROUND;
                 break;
             }
-            if (ground[i][newLocY] == Cell::DANGER) {
+            if (ground[newLocY][i] == Cell::DANGER) {
                 flag = Cell::DANGER;
                 break;
             }
@@ -36,11 +36,11 @@ vector<Cell> Level::checkAllDirections(){
     if(user.getVelY() < 0){
         // checking upside
         for (int i = Xloc ; i >= (Xloc + width); i++) {
-            if( i < 0 || (ground[i][newLocY] == Cell::GROUND) ){
+            if( i < 0 || (ground[newLocY][i] == Cell::GROUND) ){
                 flag = Cell::GROUND;
                 break;
             }
-            if (ground[i][newLocY] == Cell::DANGER) {
+            if (ground[newLocY][i] == Cell::DANGER) {
                 flag = Cell::DANGER;
                 break;
             }
@@ -54,11 +54,11 @@ vector<Cell> Level::checkAllDirections(){
     if( user.getVelX() > 0 ) {
         //checking rightside
         for (int i = Yloc; i <= (Yloc + height); i++) {
-            if( i > SCREEN_WIDTH || (ground[newLocX][i] == Cell::GROUND) ){
+            if( i > SCREEN_WIDTH || (ground[i][newLocX] == Cell::GROUND) ){
                 flag = Cell::GROUND;
                 break;
             }
-            if (ground[newLocX][i] == Cell::DANGER) {
+            if (ground[i][newLocX] == Cell::DANGER) {
                 flag = Cell::DANGER;
                 break;
             }
@@ -71,11 +71,11 @@ vector<Cell> Level::checkAllDirections(){
     if(user.getVelX() < 0){
         // checking leftside
         for (int i = (Yloc - height); i >= Yloc; i--) {
-            if( i < 0 || (ground[newLocX][i] == Cell::GROUND) ) {
+            if( i < 0 || (ground[i][newLocX] == Cell::GROUND) ) {
                 flag = Cell::GROUND;
                 break;
             }
-            if (ground[newLocX][i] == Cell::DANGER) {
+            if (ground[i][newLocX] == Cell::DANGER) {
                 flag = Cell::DANGER;
                 break;
             }
@@ -105,11 +105,11 @@ void Level::moveWithCollision(){
         //check collision with ground
         if((user.getVelY() > 0 && cells.at(0) == Cell::GROUND) 
            || (user.getVelY() < 0 && cells.at(1) == Cell::GROUND)){
-            user.setVelY(0);
+            user.setFlagY(false);
         }
         if((user.getVelX() > 0 && cells.at(2) == Cell::GROUND)
             ||(user.getVelX() < 0 && cells.at(3) == Cell::GROUND)){
-            user.setVelX(0);
+            user.setFlagX(false);
         }
         user.move();
     }      

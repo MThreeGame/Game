@@ -89,10 +89,30 @@ void Character::decreaseVelY(){
     velY = velyIn;
   }
 
+    bool Character::getFlagX(){
+      return flagX;
+    }
+
+    bool Character::getFlagY(){
+      return flagY;
+    }
+
+    void Character::setFlagX(bool b){
+      flagX = b;
+    }
+
+    void Character::setFlagY(bool b){
+      flagY = b;
+    }
+
 void Character::move()
 {
     //Move the dot left or right
-    locationX += velX;
+    if(flagX){
+      locationX += velX;
+    }else{
+      flagX = true;
+    }
 
   /* TODO
     //If the dot went too far to the left or right
@@ -104,7 +124,12 @@ void Character::move()
   */
 
     //Move the dot up or down
-    locationY += velY;
+    if(flagY){
+      locationY += velY;
+      //cout << "moved now true" << endl;
+     }else{
+       flagY = true;
+     }
 
     /* TODO
     //If the dot went too far up or down
@@ -114,7 +139,7 @@ void Character::move()
         mPosY -= mVelY;
     } */
 
-    
+
 }
 
 
