@@ -4,22 +4,25 @@
 
 class Monster : public Character{
   private:
+  // we keep the last velocity to know its last move.
+  // the monster keep the same move 
+  // until it reaches a wall/cell::GROUND.
+  // then it changes to the opposite direction.
+  // for now the monsster only move on the X axis.
+  // we initialise the first move to go to the right
+
+    int lastXVel = VELOCITY;
+    int lastYVel = VELOCITY;
 
 
   public:
-
+  // to initialise the monster and be sure to be on the background
+  // we can drop them from the sky. 
+  // we put an random number for the X-axis
+  // then Yposition = 0
+  // we add the gravity so the monster will fall 
+  // until it reaches the ground. 
+    Monster();
 
 };
 
-/*
-
-Class Monster (to avoid) base class
-- location
--speed  -> it will be equivalent of the number of pixels it will move
--positionA // to see
--positionB (move from a to b at the variable speed) // to see 
-
-- last move (left/right) // the monster keep the direction until it is stuck. Chage the direction if stuck
-→ child classes : type
-
-*/

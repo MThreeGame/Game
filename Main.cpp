@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <SDL.h>
 #include "SDL_game.h"
-
 // must take the argument SDL as a reference maybe
 int displayMenu(){
   // dissplay the menu 
