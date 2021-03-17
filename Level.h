@@ -28,7 +28,7 @@ class Level{
 
     vector<Cell> checkCollisions( Player player);
 
-    void checkStatus();
+    void moveWithCollision(vector<Cell> cells);
 
     Terrain getTerrain();
 
