@@ -40,7 +40,6 @@ class Level{
 
     void moveWithCollision2();
 
-
     Terrain getTerrain();
 
     Player& getUser();
