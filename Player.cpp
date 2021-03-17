@@ -12,6 +12,7 @@ Player::Player(string pname, int x, int y):Character(){
 }
 Player::Player():Character(){ // call the constructor of the base class
     pathToImage = "../images/user1.bmp";
+    velY = 1;
 
 }
 

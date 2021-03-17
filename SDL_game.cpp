@@ -213,7 +213,7 @@ void SDL_game::render()
     //gUser->render(user->getLocationX(), user->getLocationY());
     //cout << "I am in render function" << endl;
     //gUser->LTexture_render(user->getLocationX(), user->getLocationY());
-	SDL_Rect dstrect = {level.getUser().getLocationX(), level.getUser().getLocationY(), 50, 100};
+	SDL_Rect dstrect = {level.getUser().getLocationX(), level.getUser().getLocationY(), level.getUser().getWidth(), level.getUser().getHeight()};
     SDL_RenderCopy(gRenderer, gBackground, NULL, NULL);
     SDL_RenderCopy(gRenderer, gUser, NULL, &dstrect);
 

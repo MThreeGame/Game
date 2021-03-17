@@ -14,7 +14,7 @@ class Character{
     //positionToX // |----------------| PreviousX minX maxX
     int velX, velY;
     //Maximum axis velocity of the dot
-    static const int VELOCITY = 1;
+    static const int VELOCITY = 2;
 
     bool flagX = true;
     bool flagY = true;
