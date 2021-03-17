@@ -143,7 +143,7 @@ Terrain::Terrain(){
     SDL_Rect rect7 = {366, 599, 297, 169};
     grounds.push_back(rect7);
 
-    SDL_Rect rect8 = {660, 595, 472, 173};
+    SDL_Rect rect8 = {860, 595, 472, 173};
     grounds.push_back(rect8);
 
     SDL_Rect rect9 = {1132, 496, 234, 272};
