@@ -90,10 +90,6 @@ vector<Cell> Level::checkCollisions(){
 }
 
 void Level::moveWithCollision(){
-    // Here we have only taken the keyboard for the velocity
-    // let's add the gravity. 
-    user.increaseVelY(0.5);
-
    vector<Cell> cells = checkCollisions();
 
 

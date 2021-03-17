@@ -14,7 +14,7 @@ class Character{
     //positionToX // |----------------| PreviousX minX maxX
     int velX, velY;
     //Maximum axis velocity of the dot
-    static const int VELOCITY = 5;
+    static const int VELOCITY = 1;
 
     string pathToImage;
      
@@ -39,10 +39,10 @@ class Character{
     void setWidth(int widthIn);
 
 
-    void increaseVelX(double percent = 1.);
-    void decreaseVelX(double percent = 1.);
-    void increaseVelY(double percent  = 1.);
-    void decreaseVelY(double percent = 1.);
+    void increaseVelX();
+    void decreaseVelX();
+    void increaseVelY();
+    void decreaseVelY();
 
     void move(); // update location depending of velocity
 
