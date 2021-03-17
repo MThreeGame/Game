@@ -139,15 +139,13 @@ void Level::moveWithCollision(){
            user.decreaseNumLife();
     }else{
         //check collision with ground
-        if(user.getVelY() > 0 && cells.at(0) == Cell::GROUND){
-            user.decreaseVelY();
-        }else if(user.getVelY() < 0 && cells.at(1) == Cell::GROUND){
-            user.increaseVelY();
+        if((user.getVelY() > 0 && cells.at(0) == Cell::GROUND) 
+           || (user.getVelY() < 0 && cells.at(1) == Cell::GROUND)){
+            user.setVelY(0);
         }
-        if(user.getVelX() > 0 && cells.at(2) == Cell::GROUND){
-            user.decreaseVelX();
-        }else if(user.getVelX() < 0 && cells.at(3) == Cell::GROUND){
-            user.increaseVelX();
+        if((user.getVelX() > 0 && cells.at(2) == Cell::GROUND)
+            ||(user.getVelX() < 0 && cells.at(3) == Cell::GROUND)){
+            user.setVelX(0);
         }
         user.move();
     }      
