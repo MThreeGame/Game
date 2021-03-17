@@ -40,7 +40,7 @@ class Level{
     Terrain getTerrain();
 
     Player& getUser();
-      
+    void move(Player player,SDL_Rect& wall);
 
 };
 
