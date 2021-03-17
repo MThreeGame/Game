@@ -89,10 +89,15 @@ vector<Cell> Level::checkCollisions(){
 
 void Level::moveWithCollision(){
    vector<Cell> cells = checkCollisions();
+
+
+   /* NO NEED
    int Xloc = user.getXLocation();
    int Yloc = user.getYLocation();
    int newLocX = user.getXLocation()+ user.getVelX();
    int newLocY = user.getXLocation()+ user.getVelY();
+
+   */
 
 /*
     int DOWN = 0, UP = 1 , RIGHT = 2, LEFT = 3;
@@ -122,12 +127,32 @@ void Level::moveWithCollision(){
 
 
 */
+    //check if collision with danger
+   if((user.getVelY() > 0 && cells.at(0) == Cell::DANGER) 
+        ||(user.getVelY() < 0 && cells.at(1) == Cell::DANGER) 
+        ||(user.getVelX() > 0 && cells.at(2) == Cell::DANGER)
+        ||(user.getVelX() < 0 && cells.at(3) == Cell::DANGER)) {
+           user.setLocationX(startPosiX);
+           user.setLocationY(startPosiY);
+           user.decreaseNumLife();
+    }else{
+        //check collision with ground
+        if(user.getVelY() > 0 && cells.at(0) == Cell::GROUND){
+            user.decreaseVelY();
+        }else if(user.getVelY() < 0 && cells.at(1) == Cell::GROUND){
+            user.increaseVelY();
+        }
+        if(user.getVelX() > 0 && cells.at(2) == Cell::GROUND){
+            user.decreaseVelX();
+        }else if(user.getVelX() < 0 && cells.at(3) == Cell::GROUND){
+            user.increaseVelX();
+        }
+        user.move();
+    }      
 
-   if(user.getVelY() > 0){
-       if(cells.at(0) == Cell::DANGER){
-           user.setLocationX(0);
-           user.setLocationY(0);
-           user.setNumLife(user.getNumLife() - 1);
+
+
+        /*   
        }else{
            user.move();
            if(cells.at(0) == Cell::GROUND){
@@ -168,7 +193,7 @@ void Level::moveWithCollision(){
                user.setLocationX(Xloc);
            }
        }
-   }
+   }*/
 
 }
 

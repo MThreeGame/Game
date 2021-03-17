@@ -18,6 +18,8 @@ class Level{
       Terrain terrain;
       vector<Monster*> monsters;
       Player user;
+      int startPosiX = 0;
+      int startPosiY = 0;
       //vector<Star> stars; // something to catch 
 
       bool checkCollision( SDL_Rect a, SDL_Rect b );
