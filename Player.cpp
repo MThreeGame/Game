@@ -32,11 +32,14 @@ int Player::getNumLife(){
   return numLife;
 }
 //mutators
-void Player::setNumLife(int number){
-  numLife = number;
+void Player::decreaseNumLife(){
+  numLife -= 1;
 }
 void Player::setScore(int scr){
   score = scr;
+}
+bool Player::isAlive(){
+  return numLife > 0;
 }
 
 

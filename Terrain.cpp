@@ -2,7 +2,22 @@
 
 
 
-/* READ THE IMAGE FROM THE FILE TO CREATE THE EQUIVALENT MATRIX */
+/* READ THE IMAGE FROM THE FILE TO CREATE THE EQUIVALENT MATRIX
+WARNING!!!!! The file must be a bmp of 3 values by pixels, not 4.
+*/
+/*
+Let's decide :
+DANGER : RED and BLACK
+BACKGROUND : BLUE and WHITE
+GROUND : everything else
+let's define the color this way: (this is arbitrary decision, to accept some little variations)
+RED : R > 200, G < 50, B < 50
+BLACK : R < 20, G < 20, B < 20 
+BLUE : B > 200, G < 30, R < 30
+WHITE : R > 240, G > 240, B > 240
+
+*/
+
 
 Cell Terrain::pixelToCell(unsigned char B, unsigned char G, unsigned char R){
     

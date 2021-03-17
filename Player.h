@@ -23,7 +23,8 @@ class Player: public Character{
     int getScore();
     int getNumLife();
     //mutators
-    void setNumLife(int number);
+    void decreaseNumLife();
+    bool isAlive();
     void setScore(int scr);
       
 };
