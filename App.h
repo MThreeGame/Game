@@ -19,6 +19,9 @@ class App {
         bool error;                 // If the app was loaded succesfuly
         Menu menu;                  // The menu
 
+        int SCREEN_WIDTH = 1366;
+        int SCREEN_HEIGHT = 768;
+
     public:
         //Constructor
         App();

@@ -1,10 +1,13 @@
 #include "Menu.h"
 #include "SDL.h"
 
+Menu::Menu(){}
+
 void Menu::initMenu(SDL_Renderer *renderer) {
+    LTexture backGround("backGround");
     this->renderer = renderer;
     choice = MenuChoice::MENU_NONE;
-    backGround.initLTexture("../images/ground1.bmp", renderer, 10, 10);
+    
 
 }
 

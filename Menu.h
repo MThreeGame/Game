@@ -14,17 +14,16 @@ class Menu {
     private:
         enum MenuChoice choice;         // The choice of the user    
         LTexture backGround; // The back ground LTexture
-        LTexture title;      // The title LTexture
+        
+        /*LTexture title;      // The title LTexture
         LTexture play;       // The play LTexture
-        LTexture quit;       // The quit LTexture
+        LTexture quit;       // The quit LTexture*/
         SDL_Renderer *renderer;         // The renderer
     public:
+
+        Menu();
     
-        /**
-        * Creates a new menu.
-        *
-        * @param renderer  The renderer
-        */
+
         void initMenu(SDL_Renderer *renderer);
 
         

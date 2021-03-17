@@ -33,7 +33,11 @@ using namespace std;
         cout << "Renderer could not be created" << endl;
     }
     SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
+    Menu menu;
     menu.initMenu(renderer);
+
+    
+    ////////////////////////////////////////////menu.initMenu(renderer);
 
     /*
     int imgFlags = IMG_INIT_PNG;
