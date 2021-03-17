@@ -16,13 +16,6 @@ using namespace std;
 
 class SDL_game{
     public:
-        // ATTRIBUTES
-        // size of the window, 
-        // https://docs.microsoft.com/en-us/windows/uwp/design/layout/screen-sizes-and-breakpoints-for-responsive-design
-        //1024x640, 1366x768, 1920x1080
-        static int SCREEN_WIDTH;// = 1366;
-        static int SCREEN_HEIGHT; //= 768;
-
         SDL_game(){}
 
         //Starts up SDL and creates window
@@ -49,6 +42,12 @@ class SDL_game{
 
 
     private:
+        // ATTRIBUTES
+        // size of the window, 
+        // https://docs.microsoft.com/en-us/windows/uwp/design/layout/screen-sizes-and-breakpoints-for-responsive-design
+        //1024x640, 1366x768, 1920x1080
+        int SCREEN_WIDTH = 1366;
+        int SCREEN_HEIGHT = 768;
 
         //The window we'll be rendering to
         SDL_Window* gWindow = NULL;
