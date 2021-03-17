@@ -88,6 +88,32 @@ vector<Cell> Level::checkAllDirections(){
 
 }
 
+
+
+void Level::moveWithCollision2(){
+    vector<SDL_Rect> grounds = terrain.getGrounds();
+    move(grounds);
+    
+    bool lost = false;
+    for(SDL_Rect danger : terrain.getDangers()){
+        if(checkCollision( danger, user.getRect() )){
+            lost = true;
+            break;
+        }
+    }
+
+    if(lost){
+        user.decreaseNumLife();
+        user.setLocationX(startPosiX);
+        user.setLocationY(startPosiY);
+    }   
+
+
+}
+
+
+
+
 void Level::moveWithCollision(){
    vector<Cell> cells = checkAllDirections();
 
@@ -164,28 +190,53 @@ bool Level::checkCollision( SDL_Rect a, SDL_Rect b )
     return true;
 }
 
-void Level::move(Player player,SDL_Rect& wall)
-{   SDL_Rect temp = player.getRect();
+
+
+
+void Level::move(vector<SDL_Rect>& walls)
+{   SDL_Rect temp = user.getRect();
     //Move the dot left or right
-    player.setLocationX(player.getXLocation() + player.getVelX() );
-    temp.x = player.getXLocation();
+    user.setLocationX(user.getXLocation() + user.getVelX() );
+    
+    
+    
+    temp.x = user.getXLocation();
+
+    bool flag_collision = false;
+    for(SDL_Rect wall : walls){
+        if(checkCollision( temp, wall )){
+            flag_collision = true;
+            break;
+        }
+    }
+
+
     //If the character collided or went too far to the left or right
-    if( ( player.getXLocation() < 0 ) || ( player.getXLocation() + player.getWidth() > SCREEN_WIDTH ) || checkCollision( temp, wall ) )
+    if( ( user.getXLocation() < 0 ) || ( user.getXLocation() + user.getWidth() > SCREEN_WIDTH ) || flag_collision )
     {
         //Move back
-        player.setLocationX( player.getXLocation() - player.getVelX());
-        temp.x = player.getXLocation();
+        user.setLocationX( user.getXLocation() - user.getVelX());
+        temp.x = user.getXLocation();
     }
 
     //Move the dot up or down
-    player.setLocationY(player.getYLocation() + player.getVelY() );
-    temp.y = player.getYLocation();
+    user.setLocationY(user.getYLocation() + user.getVelY() );
+    
+    flag_collision = false;
+    for(SDL_Rect wall : walls){
+        if(checkCollision( temp, wall )){
+            flag_collision = true;
+            break;
+        }
+    }
+
+    temp.y = user.getYLocation();
     //If the dot collided or went too far up or down
-    if( ( player.getYLocation() < 0 ) || ( player.getYLocation() + player.getHeight() > SCREEN_HEIGHT ) || checkCollision( temp, wall ) )
+    if( ( user.getYLocation() < 0 ) || ( user.getYLocation() + user.getHeight() > SCREEN_HEIGHT ) || flag_collision )
     {
         //Move back
-        player.setLocationY( player.getYLocation() - player.getVelY());
-        temp.y = player.getYLocation();
+        user.setLocationY( user.getYLocation() - user.getVelY());
+        temp.y = user.getYLocation();
     }
 
 }

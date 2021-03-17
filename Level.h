@@ -37,10 +37,14 @@ class Level{
     // with a check of the collisions. the user lose a life if collision with DANGER
     // and its position is set to 0.
     void moveWithCollision();
+
+    void moveWithCollision2();
+
+
     Terrain getTerrain();
 
     Player& getUser();
-    void move(Player player,SDL_Rect& wall);
+    void move(vector<SDL_Rect>& walls);
 
 };
 
