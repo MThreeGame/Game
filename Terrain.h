@@ -21,7 +21,7 @@ class Terrain{
 
       vector<vector<Cell>> ground;
 
-      string pathToImage = "../images/MapTest.bmp";
+      string pathToImage = "../images/MapTest2.bmp";
 
 
       /* Functions to read a bmp file and create the grounds */
