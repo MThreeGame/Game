@@ -194,12 +194,11 @@ bool Level::checkCollision( SDL_Rect a, SDL_Rect b )
 
 
 void Level::move(vector<SDL_Rect>& walls)
-{   SDL_Rect temp = user.getRect();
+{   
+    SDL_Rect temp = user.getRect();
+    
     //Move the dot left or right
-    user.setLocationX(user.getXLocation() + user.getVelX() );
-    
-    
-    
+    user.setLocationX(user.getXLocation() + user.getVelX() );  
     temp.x = user.getXLocation();
 
     bool flag_collision = false;
@@ -220,7 +219,10 @@ void Level::move(vector<SDL_Rect>& walls)
     }
 
     //Move the dot up or down
+    
     user.setLocationY(user.getYLocation() + user.getVelY() );
+    temp.y = user.getYLocation();
+
     
     flag_collision = false;
     for(SDL_Rect wall : walls){
@@ -230,7 +232,6 @@ void Level::move(vector<SDL_Rect>& walls)
         }
     }
 
-    temp.y = user.getYLocation();
     //If the dot collided or went too far up or down
     if( ( user.getYLocation() < 0 ) || ( user.getYLocation() + user.getHeight() > SCREEN_HEIGHT ) || flag_collision )
     {
