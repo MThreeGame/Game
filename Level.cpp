@@ -13,14 +13,15 @@ vector<Cell> Level::checkCollisions(){
    Cell flag = Cell::BACKGROUND;
    int height = user.getHeight();
    int width = user.getWidth();
+   vector<vector<Cell>> ground = terrain.getGround();
    if( user.getVelY() > 0 ) {
         //checking downside
         for (int i = Xloc; i <= (Xloc + width); i++) {
-            if (terrain.getGround()[i][newLocY] == Cell::GROUND) {
+            if (ground[i][newLocY] == Cell::GROUND) {
                 flag = Cell::GROUND;
                 break;
             }
-            if (terrain.getGround()[i][newLocY] == Cell::DANGER) {
+            if (ground[i][newLocY] == Cell::DANGER) {
                 flag = Cell::DANGER;
                 break;
             }
@@ -33,11 +34,11 @@ vector<Cell> Level::checkCollisions(){
     if(user.getVelY() < 0){
         // checking upside
         for (int i = newLocX ; i >= (newLocX + width); i++) {
-            if (terrain.getGround()[i][newLocY] == Cell::GROUND) {
+            if (ground[i][newLocY] == Cell::GROUND) {
                 flag = Cell::GROUND;
                 break;
             }
-            if (terrain.getGround()[i][newLocY] == Cell::DANGER) {
+            if (ground[i][newLocY] == Cell::DANGER) {
                 flag = Cell::DANGER;
                 break;
             }
@@ -51,11 +52,11 @@ vector<Cell> Level::checkCollisions(){
     if( user.getVelX() > 0 ) {
         //checking rightside
         for (int i = Yloc; i <= (Yloc + height); i++) {
-            if (terrain.getGround()[newLocX][i] == Cell::GROUND) {
+            if (ground[newLocX][i] == Cell::GROUND) {
                 flag = Cell::GROUND;
                 break;
             }
-            if (terrain.getGround()[newLocX][i] == Cell::DANGER) {
+            if (ground[newLocX][i] == Cell::DANGER) {
                 flag = Cell::DANGER;
                 break;
             }
@@ -68,11 +69,11 @@ vector<Cell> Level::checkCollisions(){
     if(user.getVelX() < 0){
         // checking leftside
         for (int i = (Yloc - height); i >= Yloc; i--) {
-            if (terrain.getGround()[newLocX][i] == Cell::GROUND) {
+            if (ground[newLocX][i] == Cell::GROUND) {
                 flag = Cell::GROUND;
                 break;
             }
-            if (terrain.getGround()[newLocX][i] == Cell::DANGER) {
+            if (ground[newLocX][i] == Cell::DANGER) {
                 flag = Cell::DANGER;
                 break;
             }
@@ -86,7 +87,8 @@ vector<Cell> Level::checkCollisions(){
 
 }
 
-void Level::moveWithCollision(const vector<Cell> &cells){
+void Level::moveWithCollision(){
+   vector<Cell> cells = checkCollisions();
    int Xloc = user.getXLocation();
    int Yloc = user.getYLocation();
    int newLocX = user.getXLocation()+ user.getVelX();

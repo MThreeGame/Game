@@ -34,7 +34,7 @@ class Level{
     // Move the position of the user depending of the velocity,
     // with a check of the collisions. the user lose a life if collision with DANGER
     // and its position is set to 0.
-    void moveWithCollision(const vector<Cell> &cells);
+    void moveWithCollision();
 
     Terrain getTerrain();
 
