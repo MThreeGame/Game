@@ -63,23 +63,23 @@ string Character::getPath(){
 }
 
 // Change the velocity. 
-void Character::increaseVelX(){
-  velX += VELOCITY;
+void Character::increaseVelX(double percent){
+  velX += double(percent * VELOCITY);
 }
 
-void Character::decreaseVelX(){
-  velX -= VELOCITY;
-}
-
-
-
-void Character::increaseVelY(){
-  velY += VELOCITY;
+void Character::decreaseVelX(double percent){
+  velX -= double(percent * VELOCITY);
 }
 
 
-void Character::decreaseVelY(){
-  velY -= VELOCITY;
+
+void Character::increaseVelY(double percent){
+  velY += double(percent * VELOCITY);
+}
+
+
+void Character::decreaseVelY(double percent){
+  velY -= double(percent * VELOCITY);
 }
 
 void Character::move()
