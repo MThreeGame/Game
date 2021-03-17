@@ -33,7 +33,7 @@ vector<Cell> Level::checkCollisions(){
     }
     if(user.getVelY() < 0){
         // checking upside
-        for (int i = newLocX ; i >= (newLocX + width); i++) {
+        for (int i = Xloc ; i >= (Xloc + width); i++) {
             if (ground[i][newLocY] == Cell::GROUND) {
                 flag = Cell::GROUND;
                 break;
@@ -94,10 +94,39 @@ void Level::moveWithCollision(){
    int newLocX = user.getXLocation()+ user.getVelX();
    int newLocY = user.getXLocation()+ user.getVelY();
 
+/*
+    int DOWN = 0, UP = 1 , RIGHT = 2, LEFT = 3;
+    // check for the Y axis
+    if(cells[DOWN] == Cell::DANGER || cells[UP] == cell::DANGER){
+        // we put the user at the original position, in the upper left corner
+        user.setLocationX(0);
+        user.setLocationY(0);
+        user.setNumLife(user.getNumLife() - 1); // the last time, David said it is better to have a decreaseLife function
+    }else{
+        //user.move();
+        if(cells.at(0) == Cell::BACKGROUND){
+            user.setLocationY(newLocY);
+        }
+    }
+
+    same thing for X axis.
+
+
+    I think it is better:
+    * check if Danger somewhere in cells, 
+    * if yes -> set position of the user at 0,0 and decrease life
+    * else, for Y axis then X axis, modify set velY ot velX to 0 if GROUND
+    * then user.move()
+
+
+
+
+*/
+
    if(user.getVelY() > 0){
        if(cells.at(0) == Cell::DANGER){
-           user.setLocationX(Xloc);
-           user.setLocationY(Yloc);
+           user.setLocationX(0);
+           user.setLocationY(0);
            user.setNumLife(user.getNumLife() - 1);
        }else{
            user.move();
@@ -105,13 +134,13 @@ void Level::moveWithCollision(){
                user.setLocationY(Yloc);
            }
        }
-   }else if(user.getVelY() > 0){
+   }else if(user.getVelY() < 0){
        if(cells.at(1) == Cell::DANGER){
-           user.setLocationX(Xloc);
-           user.setLocationY(Yloc);
+           user.setLocationX(0);
+           user.setLocationY(0);
            user.setNumLife(user.getNumLife() - 1);
        }else{
-           user.move();
+           //user.move();
            if(cells.at(1) == Cell::GROUND){
                user.setLocationY(Yloc);
            }
@@ -119,8 +148,8 @@ void Level::moveWithCollision(){
    }
     if(user.getVelX() > 0){
        if(cells.at(2) == Cell::DANGER){
-           user.setLocationX(Xloc);
-           user.setLocationY(Yloc);
+           user.setLocationX(0);
+           user.setLocationY(0);
            user.setNumLife(user.getNumLife() - 1);
        }else{
            user.move();
@@ -148,7 +177,7 @@ bool encounterMonster(int xLoc, int yLoc, Cell cell){
 }
 
 
-
+// can be user later for check the collision between the player and the monsters
 bool Level::checkCollision( SDL_Rect a, SDL_Rect b )
 {
     //The sides of the rectangles
