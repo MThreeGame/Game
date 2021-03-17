@@ -19,6 +19,8 @@ Character::Character(int x, int y, int heightIn, int widthIn){
   width = widthIn;
   velX = 0;
   velY = 0;
+  mCollider.w = widthIn;
+  mCollider.h = heightIn;
 }
 
 int Character::getLocationX(){
@@ -82,33 +84,6 @@ void Character::decreaseVelY(){
   velY -= VELOCITY;
 }
 
-void Character::move()
-{
-    //Move the dot left or right
-    locationX += velX;
-
-  /* TODO
-    //If the dot went too far to the left or right
-    if( ( mPosX < 0 ) || ( mPosX + DOT_WIDTH > SCREEN_WIDTH ) )
-    {
-        //Move back
-        mPosX -= mVelX;
-    }
-  */
-
-    //Move the dot up or down
-    locationY += velY;
-
-    /* TODO
-    //If the dot went too far up or down
-    if( ( mPosY < 0 ) || ( mPosY + DOT_HEIGHT > SCREEN_HEIGHT ) )
-    {
-        //Move back
-        mPosY -= mVelY;
-    } */
-
-
-}
 
 
 

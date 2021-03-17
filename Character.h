@@ -15,11 +15,11 @@ class Character{
     int velX, velY;
     //Maximum axis velocity of the dot
     static const int VELOCITY = 1;
-
     string pathToImage;
-     
+
 
   public:
+    SDL_Rect mCollider; // character collision box
     Character();
     Character(int x, int y, int heightIn, int widthIn);
 
@@ -46,10 +46,6 @@ class Character{
 
     void move(); // update location depending of velocity
 
-
     SDL_Rect getRect();
-
-
-
 
 };
