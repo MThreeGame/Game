@@ -77,7 +77,7 @@ vector<vector<Cell>> Terrain::readBMP(const char* filename, int& width, int& hei
     return res;
 }
 
-*/
+
 
 
 
@@ -92,7 +92,7 @@ Terrain::Terrain(){
 
 
 // getters
-vector<vector<Cell>> Terrain::getGrounds(){
+vector<vector<Cell>> Terrain::getGround(){
     return ground;
 }
 

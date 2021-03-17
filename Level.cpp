@@ -3,17 +3,17 @@
 #include "Player.h"
 #include "Cell.h"
 
-//Cell of the vextor returned downside, upside , rightside, leftside
-vector<Cell> Level::checkCollisions( Player player){
+//Cell of the vector returned downside, upside , rightside, leftside
+vector<Cell> Level::checkCollisions(){
    vector<Cell> checkResult;
-   int Xloc = player.getXLocation();
-   int Yloc = player.getYLocation();
-   int newLocX = player.getXLocation()+ player.getVelX();
-   int newLocY = player.getXLocation()+ player.getVelY();
+   int Xloc = user.getXLocation();
+   int Yloc = user.getYLocation();
+   int newLocX = user.getXLocation()+ user.getVelX();
+   int newLocY = user.getXLocation()+ user.getVelY();
    Cell flag = Cell::BACKGROUND;
-   int height = player.getHeight();
-   int width = player.getWidth();
-   if( player.getVelY() > 0 ) {
+   int height = user.getHeight();
+   int width = user.getWidth();
+   if( user.getVelY() > 0 ) {
         //checking downside
         for (int i = Xloc; i <= (Xloc + width); i++) {
             if (terrain.getGround()[i][newLocY] == Cell::GROUND) {
@@ -30,7 +30,7 @@ vector<Cell> Level::checkCollisions( Player player){
     }else{
         checkResult.push_back(flag);
     }
-    if(player.getVelY() < 0){
+    if(user.getVelY() < 0){
         // checking upside
         for (int i = newLocX ; i >= (newLocX + width); i++) {
             if (terrain.getGround()[i][newLocY] == Cell::GROUND) {
@@ -48,7 +48,7 @@ vector<Cell> Level::checkCollisions( Player player){
         checkResult.push_back(flag);
     }
 
-    if( player.getVelX() > 0 ) {
+    if( user.getVelX() > 0 ) {
         //checking rightside
         for (int i = Yloc; i <= (Yloc + height); i++) {
             if (terrain.getGround()[newLocX][i] == Cell::GROUND) {
@@ -65,7 +65,7 @@ vector<Cell> Level::checkCollisions( Player player){
     }else{
         checkResult.push_back(flag);
     }
-    if(player.getVelX() < 0){
+    if(user.getVelX() < 0){
         // checking leftside
         for (int i = (Yloc - height); i >= Yloc; i--) {
             if (terrain.getGround()[newLocX][i] == Cell::GROUND) {
@@ -86,28 +86,28 @@ vector<Cell> Level::checkCollisions( Player player){
 
 }
 
-void moveWithCollision(vector<Cell> cells){
+void Level::moveWithCollision(const vector<Cell> &cells){
    int Xloc = user.getXLocation();
    int Yloc = user.getYLocation();
    int newLocX = user.getXLocation()+ user.getVelX();
    int newLocY = user.getXLocation()+ user.getVelY();
 
-   if(user.getVelY > 0){
+   if(user.getVelY() > 0){
        if(cells.at(0) == Cell::DANGER){
            user.setLocationX(Xloc);
            user.setLocationY(Yloc);
-           user.setNumLife = user.getNumLife() - 1;
+           user.setNumLife(user.getNumLife() - 1);
        }else{
            user.move();
            if(cells.at(0) == Cell::GROUND){
                user.setLocationY(Yloc);
            }
        }
-   }else if(user.getVelY > 0){
+   }else if(user.getVelY() > 0){
        if(cells.at(1) == Cell::DANGER){
            user.setLocationX(Xloc);
            user.setLocationY(Yloc);
-           user.setNumLife = user.getNumLife() - 1;
+           user.setNumLife(user.getNumLife() - 1);
        }else{
            user.move();
            if(cells.at(1) == Cell::GROUND){
@@ -115,22 +115,22 @@ void moveWithCollision(vector<Cell> cells){
            }
        }
    }
-    if(user.getVelX > 0){
+    if(user.getVelX() > 0){
        if(cells.at(2) == Cell::DANGER){
            user.setLocationX(Xloc);
            user.setLocationY(Yloc);
-           user.setNumLife = user.getNumLife() - 1;
+           user.setNumLife(user.getNumLife() - 1);
        }else{
            user.move();
            if(cells.at(2) == Cell::GROUND){
                user.setLocationX(Xloc);
            }
        }
-   }else if(user.getVelX < 0){
+   }else if(user.getVelX() < 0){
        if(cells.at(3) == Cell::DANGER){
            user.setLocationX(Xloc);
            user.setLocationY(Yloc);
-           user.setNumLife = user.getNumLife() - 1;
+           user.setNumLife(user.getNumLife() - 1);
        }else{
            user.move();
            if(cells.at(3) == Cell::GROUND){

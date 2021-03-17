@@ -21,7 +21,7 @@ class Terrain{
 
       vector<vector<Cell>> ground;
 
-      string pathToImage = "../images/ground1.bmp";
+      string pathToImage = "../images/MapTest.bmp";
 
 
       /* Functions to read a bmp file and create the grounds */
@@ -34,7 +34,7 @@ class Terrain{
       Terrain(); // can be initialized with a binary image file ?
 
       //vector<SDL_Rect> getGrounds();
-      vector<vector<Cell>> getGrounds();
+      vector<vector<Cell>> getGround();
 
       string getPathToImage();
 
