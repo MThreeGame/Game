@@ -1,4 +1,7 @@
 #include "Terrain.h"
+#include <iostream>
+
+using namespace std;
 
 
 
@@ -89,6 +92,20 @@ vector<vector<Cell>> Terrain::readBMP(const char* filename, int& width, int& hei
         }
         res.push_back(tempVect);
     }
+
+    //display the vector
+    /*
+    for(int i = 0; i < width; i++){
+        for(int j = 0; j < height; j++)
+            cout <<res[i][j] << " ";
+        cout << endl;
+    }
+    */
+
+
+
+
+
     return res;
 }
 
@@ -102,7 +119,45 @@ vector<vector<Cell>> Terrain::readBMP(const char* filename, int& width, int& hei
 Terrain::Terrain(){
     int width;
     int height;
-    ground = readBMP(pathToImage.c_str(), width, height);
+    //ground = readBMP(pathToImage.c_str(), width, height);
+
+    // add of the SDL_grounds for MapTest2.bmp
+    SDL_Rect rect1 = {88,169, 131, 50};
+    grounds.push_back(rect1);
+    
+    SDL_Rect rect2 = {341, 98, 108, 53};
+    grounds.push_back(rect2);
+
+    SDL_Rect rect3 = {265, 328, 208, 62};
+    grounds.push_back(rect3);
+
+    SDL_Rect rect4 = {572, 265, 210, 64};
+    grounds.push_back(rect4);
+
+    SDL_Rect rect5 = {890, 302, 127, 59};
+    grounds.push_back(rect5);
+
+    SDL_Rect rect6 = {0, 536, 366, 232};
+    grounds.push_back(rect6);
+
+    SDL_Rect rect7 = {366, 599, 297, 169};
+    grounds.push_back(rect7);
+
+    SDL_Rect rect8 = {660, 595, 472, 173};
+    grounds.push_back(rect8);
+
+    SDL_Rect rect9 = {1132, 496, 234, 272};
+    grounds.push_back(rect9);
+
+
+    // let's create the dangers
+    SDL_Rect rect10 = {663, 670, 196, 96};
+    dangers.push_back(rect10);
+
+    SDL_Rect rect11 = {1084, 553, 50, 42};
+    dangers.push_back(rect11);
+
+
 }
 
 
@@ -110,6 +165,15 @@ Terrain::Terrain(){
 vector<vector<Cell>> Terrain::getGround(){
     return ground;
 }
+vector<SDL_Rect> Terrain::getGrounds(){
+    return grounds;
+}
+
+vector<SDL_Rect> Terrain::getDangers(){
+    return dangers;
+}
+
+
 
 
 string Terrain::getPathToImage(){
