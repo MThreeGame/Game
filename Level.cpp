@@ -6,6 +6,8 @@
 //Cell of the vector returned downside, upside , rightside, leftside
 vector<Cell> Level::checkCollisions(){
    vector<Cell> checkResult;
+   int SCREEN_WIDTH = 1366;
+   int SCREEN_HEIGHT = 768;
    int Xloc = user.getXLocation();
    int Yloc = user.getYLocation();
    int newLocX = user.getXLocation()+ user.getVelX();
@@ -17,7 +19,7 @@ vector<Cell> Level::checkCollisions(){
    if( user.getVelY() > 0 ) {
         //checking downside
         for (int i = Xloc; i <= (Xloc + width); i++) {
-            if (ground[i][newLocY] == Cell::GROUND) {
+            if( (ground[i][newLocY] == Cell::GROUND) || i > SCREEN_HEIGHT ){
                 flag = Cell::GROUND;
                 break;
             }
@@ -34,7 +36,7 @@ vector<Cell> Level::checkCollisions(){
     if(user.getVelY() < 0){
         // checking upside
         for (int i = Xloc ; i >= (Xloc + width); i++) {
-            if (ground[i][newLocY] == Cell::GROUND) {
+            if( (ground[i][newLocY] == Cell::GROUND) || i < 0){
                 flag = Cell::GROUND;
                 break;
             }
@@ -52,7 +54,7 @@ vector<Cell> Level::checkCollisions(){
     if( user.getVelX() > 0 ) {
         //checking rightside
         for (int i = Yloc; i <= (Yloc + height); i++) {
-            if (ground[newLocX][i] == Cell::GROUND) {
+            if( (ground[newLocX][i] == Cell::GROUND) || i > SCREEN_WIDTH ){
                 flag = Cell::GROUND;
                 break;
             }
@@ -69,7 +71,7 @@ vector<Cell> Level::checkCollisions(){
     if(user.getVelX() < 0){
         // checking leftside
         for (int i = (Yloc - height); i >= Yloc; i--) {
-            if (ground[newLocX][i] == Cell::GROUND) {
+            if( (ground[newLocX][i] == Cell::GROUND) || i < 0 ) {
                 flag = Cell::GROUND;
                 break;
             }
