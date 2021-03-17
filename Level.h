@@ -26,9 +26,15 @@ class Level{
 
   public:
 
-    vector<Cell> checkCollisions( Player player);
+    // return the type of collisions for each side of the user
+    // return as a Cell for each side. If no collision then return Cell::BACKGROUND
+    // order of the sides return : DOWN, UP , RIGHT, LEFT
+    vector<Cell> checkCollisions();
 
-    void moveWithCollision(vector<Cell> cells);
+    // Move the position of the user depending of the velocity,
+    // with a check of the collisions. the user lose a life if collision with DANGER
+    // and its position is set to 0.
+    void moveWithCollision();
 
     Terrain getTerrain();
 

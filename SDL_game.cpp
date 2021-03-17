@@ -144,7 +144,8 @@ void SDL_game::handleKeys_fct(){
             handleEvent(e );
         }
 
-        level.getUser().move();
+        //level.getUser().move();
+        level.moveWithCollision();
 
         //Clear screen
         //SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
