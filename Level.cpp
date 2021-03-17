@@ -165,27 +165,27 @@ bool Level::checkCollision( SDL_Rect a, SDL_Rect b )
 }
 
 void Level::move(Player player,SDL_Rect& wall)
-{
+{   SDL_Rect temp = player.getRect();
     //Move the dot left or right
     player.setLocationX(player.getXLocation() + player.getVelX() );
-    player.mCollider.x = player.getXLocation();
+    temp.x = player.getXLocation();
     //If the character collided or went too far to the left or right
-    if( ( player.getXLocation() < 0 ) || ( player.getXLocation() + player.getWidth() > SCREEN_WIDTH ) || checkCollision( player.mCollider, wall ) )
+    if( ( player.getXLocation() < 0 ) || ( player.getXLocation() + player.getWidth() > SCREEN_WIDTH ) || checkCollision( temp, wall ) )
     {
         //Move back
         player.setLocationX( player.getXLocation() - player.getVelX());
-        player.mCollider.x = player.getXLocation();
+        temp.x = player.getXLocation();
     }
 
     //Move the dot up or down
     player.setLocationY(player.getYLocation() + player.getVelY() );
-    player.mCollider.y = player.getYLocation();
+    temp.y = player.getYLocation();
     //If the dot collided or went too far up or down
-    if( ( player.getYLocation() < 0 ) || ( player.getYLocation() + player.getHeight() > SCREEN_HEIGHT ) || checkCollision( player.mCollider, wall ) )
+    if( ( player.getYLocation() < 0 ) || ( player.getYLocation() + player.getHeight() > SCREEN_HEIGHT ) || checkCollision( temp, wall ) )
     {
         //Move back
         player.setLocationY( player.getYLocation() - player.getVelY());
-        player.mCollider.y = player.getYLocation();
+        temp.y = player.getYLocation();
     }
 
 }
