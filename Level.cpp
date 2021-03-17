@@ -88,32 +88,6 @@ vector<Cell> Level::checkAllDirections(){
 
 }
 
-
-
-void Level::moveWithCollision2(){
-    vector<SDL_Rect> grounds = terrain.getGrounds();
-    move(grounds);
-    
-    bool lost = false;
-    for(SDL_Rect danger : terrain.getDangers()){
-        if(checkCollision( danger, user.getRect() )){
-            lost = true;
-            break;
-        }
-    }
-
-    if(lost){
-        user.decreaseNumLife();
-        user.setLocationX(startPosiX);
-        user.setLocationY(startPosiY);
-    }   
-
-
-}
-
-
-
-
 void Level::moveWithCollision(){
    vector<Cell> cells = checkAllDirections();
 
@@ -190,16 +164,13 @@ bool Level::checkCollision( SDL_Rect a, SDL_Rect b )
     return true;
 }
 
-
-
-
 void Level::move(vector<SDL_Rect>& walls)
 {   SDL_Rect temp = user.getRect();
     //Move the dot left or right
     user.setLocationX(user.getXLocation() + user.getVelX() );
-    
-    
-    
+
+
+
     temp.x = user.getXLocation();
 
     bool flag_collision = false;
@@ -221,7 +192,7 @@ void Level::move(vector<SDL_Rect>& walls)
 
     //Move the dot up or down
     user.setLocationY(user.getYLocation() + user.getVelY() );
-    
+
     flag_collision = false;
     for(SDL_Rect wall : walls){
         if(checkCollision( temp, wall )){
