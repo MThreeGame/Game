@@ -1,7 +1,6 @@
 #pragma once
-/*  a terrain is a matrix of 0 and 1
-   0 for background
-   1 for ground
+
+/*  a terrain is a matrix of Cell
 
    */
 
@@ -19,17 +18,23 @@ class Terrain{
       //int weight;
       //int[][] matrix;
 
-      vector<vector<Cell>> grounds;
+
+      vector<vector<Cell>> ground;
 
       string pathToImage = "../images/ground1.bmp";
+
+
+      /* Functions to read a bmp file and create the grounds */
+      Cell pixelToCell(unsigned char B, unsigned char G, unsigned char R);
+
+     vector<vector<Cell>> readBMP(const char* filename, int& width, int& height);
 
 
   public:
       Terrain(); // can be initialized with a binary image file ?
 
       //vector<SDL_Rect> getGrounds();
-      vector<vector<Cell>> getGround();
-      
+      vector<vector<Cell>> getGrounds();
 
       string getPathToImage();
 
