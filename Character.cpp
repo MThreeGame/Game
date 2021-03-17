@@ -82,6 +82,13 @@ void Character::decreaseVelY(){
   velY -= VELOCITY;
 }
 
+  void Character::setVelX(int velxIn){
+    velX = velxIn;
+  }
+  void Character::setVelY(int velyIn){
+    velY = velyIn;
+  }
+
 void Character::move()
 {
     //Move the dot left or right
@@ -107,7 +114,7 @@ void Character::move()
         mPosY -= mVelY;
     } */
 
-
+    
 }
 
 

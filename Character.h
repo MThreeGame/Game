@@ -43,6 +43,9 @@ class Character{
     void decreaseVelX();
     void increaseVelY();
     void decreaseVelY();
+    
+    void setVelX(int velxIN);
+    void setVelY(int velxIN);
 
     void move(); // update location depending of velocity
 

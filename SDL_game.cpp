@@ -191,16 +191,16 @@ void SDL_game::handleEvent( SDL_Event& e )
         switch( e.key.keysym.sym )
         {
             case SDLK_UP: 
-                level.getUser().increaseVelY(); 
+                level.getUser().setVelY(0);
                 break;
             case SDLK_DOWN: 
-                level.getUser().decreaseVelY(); 
+                level.getUser().setVelY(0); 
                 break;
             case SDLK_LEFT: 
-                level.getUser().increaseVelX(); 
+                level.getUser().setVelX(0); 
                 break;
             case SDLK_RIGHT:
-                level.getUser().decreaseVelX(); 
+                level.getUser().setVelX(0);
                 break;
         }
     }
