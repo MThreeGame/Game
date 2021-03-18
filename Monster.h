@@ -6,13 +6,18 @@ class Monster : public Character{
   private:
   // we keep the last velocity to know its last move.
   // the monster keep the same move 
-  // until it reaches a wall/cell::GROUND.
+  // until it reaches a XMin, or XMax.
+  // we can change it to reach a wall if we want to make it work for any terrain
+
   // then it changes to the opposite direction.
-  // for now the monsster only move on the X axis.
+  // for now the monster only move on the X axis.
+  // but have gravity.
   // we initialise the first move to go to the right
 
     int lastXVel = VELOCITY;
     int lastYVel = VELOCITY;
+
+
 
 
   public:
