@@ -4,7 +4,7 @@
 #include <vector>
 #include "Terrain.h"
 #include "Monster.h"
-//#include "Star.h"
+#include "Star.h"
 #include "SDL.h"
 #include "Player.h"
 #include "Cell.h"
@@ -19,6 +19,7 @@ class Level{
       int numberMonsters = 3;
       vector<Monster*> monsters;
       Player user;
+      Star stars;
       int startPosiX = 0;
       int startPosiY = 0;
       //vector<Star> stars; // something to catch 
@@ -47,6 +48,8 @@ class Level{
     // and not a matrix
     void moveWithCollision2();
 
+    void collisionWithStar();
+
 
     // move the monsters. change direction if there is a wall.
     void moveMonsters();
@@ -57,6 +60,9 @@ class Level{
     vector<Monster*> getMonsters();
 
     Player& getUser();
+
+    Star& getStar();
+
     void move(Character& character, vector<SDL_Rect>& walls);
 
 };
