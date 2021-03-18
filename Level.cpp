@@ -101,9 +101,11 @@ vector<Cell> Level::checkAllDirections(){
 
 // move the user
 void Level::moveWithCollision2(){
+    // move the user if he can move (if no ground/wall)
     vector<SDL_Rect> grounds = terrain.getGrounds();
     move(user,grounds);
     
+    // check if there is a collision with a danger. 
     bool lost = false;
     for(SDL_Rect danger : terrain.getDangers()){
         if(checkCollision( danger, user.getRect() )){
@@ -112,25 +114,29 @@ void Level::moveWithCollision2(){
         }
     }
 
+    // check also if the player meet a monster. 
+    // we don't need to check if the user already lost.
+    if(!lost){
+        for(Monster* monster: monsters){
+            if(checkCollision(monster->getRect(), user.getRect())){
+                lost = true;
+                break;
+            }
+        }
+    }
+
+    // decrease his life if there the player lost, and set the position of the player to its initial position
     if(lost){
         user.decreaseNumLife();
         user.setLocationX(startPosiX);
         user.setLocationY(startPosiY);
     }
 
-    
-
-
-
-
-
-
-
 }
 
 
 
-
+// NOT USED ANYMORE. SEE WITH moveWithCollision2.
 void Level::moveWithCollision(){
    vector<Cell> cells = checkAllDirections();
 
@@ -168,7 +174,7 @@ void Level::collisionWithStar(){
 }
 
 
-// can be user later for check the collision between the player and the monsters
+// return true if the 2 rectangle collapse.
 bool Level::checkCollision( SDL_Rect a, SDL_Rect b )
 {
     //The sides of the rectangles
@@ -216,7 +222,7 @@ bool Level::checkCollision( SDL_Rect a, SDL_Rect b )
 
 
 
-
+// set the new position of the character, or not move if there is a wall
 void Level::move(Character& character, vector<SDL_Rect>& walls)
 {   
     SDL_Rect temp = character.getRect();
@@ -322,8 +328,4 @@ void Level::moveMonsters(){
         }
 
     }
-    
-    //
-
-
 }
