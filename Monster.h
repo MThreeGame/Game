@@ -14,10 +14,9 @@ class Monster : public Character{
   // but have gravity.
   // we initialise the first move to go to the right
 
-    int lastXVel = VELOCITY;
-    int lastYVel = VELOCITY;
 
-
+    int XminLim;
+    int XmaxLim;
 
 
   public:
@@ -28,6 +27,14 @@ class Monster : public Character{
   // we add the gravity so the monster will fall 
   // until it reaches the ground. 
     Monster(string path = "../images/monster.bmp");
+    Monster(int xMinLim, int xMaxLim, string path = "../images/monster.bmp");
+
+
+
+    int getXminLim();
+    int getXmaxLim();
+    void setXminLim(int input);
+    void setXmaxLim(int input);
 
 };
 
