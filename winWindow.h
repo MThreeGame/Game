@@ -5,7 +5,7 @@
 #define GAME_WINWINDOW_H
 #include "SDL.h"
 #include <string>
-#include "KeyPressSurface.h"
+
 using namespace std;
 class winWindow {
    public:

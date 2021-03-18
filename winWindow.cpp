@@ -74,5 +74,8 @@ void winWindow::close()
     SDL_Quit();
 }
 
+bool loadMedia(){
+    return true;
+}
 
 
