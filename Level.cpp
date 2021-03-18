@@ -91,10 +91,10 @@ vector<Cell> Level::checkAllDirections(){
 }
 
 
-
+// move the user
 void Level::moveWithCollision2(){
     vector<SDL_Rect> grounds = terrain.getGrounds();
-    move(grounds);
+    move(user,grounds);
     
     bool lost = false;
     for(SDL_Rect danger : terrain.getDangers()){
@@ -195,13 +195,13 @@ bool Level::checkCollision( SDL_Rect a, SDL_Rect b )
 
 
 
-void Level::move(vector<SDL_Rect>& walls)
+void Level::move(Character& character, vector<SDL_Rect>& walls)
 {   
-    SDL_Rect temp = user.getRect();
+    SDL_Rect temp = character.getRect();
     
     //Move the dot left or right
-    user.setLocationX(user.getXLocation() + user.getVelX() );  
-    temp.x = user.getXLocation();
+    character.setLocationX(character.getXLocation() + character.getVelX() );  
+    temp.x = character.getXLocation();
 
     bool flag_collision = false;
     for(SDL_Rect wall : walls){
@@ -213,17 +213,17 @@ void Level::move(vector<SDL_Rect>& walls)
 
 
     //If the character collided or went too far to the left or right
-    if( ( user.getXLocation() < 0 ) || ( user.getXLocation() + user.getWidth() > SCREEN_WIDTH ) || flag_collision )
+    if( ( character.getXLocation() < 0 ) || ( character.getXLocation() + character.getWidth() > SCREEN_WIDTH ) || flag_collision )
     {
         //Move back
-        user.setLocationX( user.getXLocation() - user.getVelX());
-        temp.x = user.getXLocation();
+        character.setLocationX( character.getXLocation() - character.getVelX());
+        temp.x = character.getXLocation();
     }
 
     //Move the dot up or down
     
-    user.setLocationY(user.getYLocation() + user.getVelY() );
-    temp.y = user.getYLocation();
+    character.setLocationY(character.getYLocation() + character.getVelY() );
+    temp.y = character.getYLocation();
 
     
     flag_collision = false;
@@ -235,11 +235,11 @@ void Level::move(vector<SDL_Rect>& walls)
     }
 
     //If the dot collided or went too far up or down
-    if( ( user.getYLocation() < 0 ) || ( user.getYLocation() + user.getHeight() > SCREEN_HEIGHT ) || flag_collision )
+    if( ( character.getYLocation() < 0 ) || ( character.getYLocation() + character.getHeight() > SCREEN_HEIGHT ) || flag_collision )
     {
         //Move back
-        user.setLocationY( user.getYLocation() - user.getVelY());
-        temp.y = user.getYLocation();
+        character.setLocationY( character.getYLocation() - character.getVelY());
+        temp.y = character.getYLocation();
     }
 
 }
@@ -261,5 +261,11 @@ Level::Level(){
     for(int i = 0; i < numberMonsters; i++){
         monsters.push_back(new Monster());
     }
+    
+}
+
+
+
+void Level::moveMonsters(){
     
 }

@@ -154,8 +154,12 @@ void SDL_game::handleKeys_fct(){
             handleEvent(e );
         }
 
-        //level.getUser().move();
+        //move the different objects required
+        // move the player:
         level.moveWithCollision2();
+
+        // move the monsters:
+        level.moveMonsters();
 
         //Clear screen
         //SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );

@@ -32,18 +32,24 @@ class Level{
     // initialise a number of monsters.
     Level();
 
-
+    // NOT USED ANYMORE
     // return the type of collisions for each side of the user
     // return as a Cell for each side. If no collision then return Cell::BACKGROUND
     // order of the sides return : DOWN, UP , RIGHT, LEFT
     vector<Cell> checkAllDirections();
 
+    // NOT USED ANYMORE
     // Move the position of the user depending of the velocity,
     // with a check of the collisions. the user lose a life if collision with DANGER
     // and its position is set to 0.
     void moveWithCollision();
-
+    // same as moveWithCollision(), but the terrain is composed by different SDL_Rect
+    // and not a matrix
     void moveWithCollision2();
+
+
+    // move the monsters. change direction if there is a wall.
+    void moveMonsters();
 
 
     Terrain getTerrain();
@@ -51,7 +57,7 @@ class Level{
     vector<Monster*> getMonsters();
 
     Player& getUser();
-    void move(vector<SDL_Rect>& walls);
+    void move(Character& character, vector<SDL_Rect>& walls);
 
 };
 
