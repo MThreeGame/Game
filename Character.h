@@ -27,8 +27,8 @@ class Character{
     Character(int x, int y, int heightIn, int widthIn);
 
     //accessor
-    int getLocationX();
-    int getLocationY();
+    int getXLocation();
+    int getYLocation();
     int getHeight();
     int getWidth();
     string getPath();

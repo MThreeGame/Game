@@ -20,12 +20,7 @@ Player::Player():Character(){ // call the constructor of the base class
 
 
 //getters
-int Player::getXLocation(){
-  return locationX;
-}
-int Player::getYLocation(){
-  return locationY;
-}
+
 int Player::getScore(){
     return score;
 }

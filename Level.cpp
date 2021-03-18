@@ -4,6 +4,8 @@
 #include "Cell.h"
 int SCREEN_WIDTH = 1366;
 int SCREEN_HEIGHT = 768;
+
+
 //Cell of the vector returned downside, upside , rightside, leftside
 vector<Cell> Level::checkAllDirections(){
    vector<Cell> checkResult;
@@ -248,4 +250,8 @@ Terrain Level::getTerrain(){
 
 Player& Level::getUser(){
     return user;
+}
+
+vector<Monster> Level::getMonsters(){
+    return monsters;
 }

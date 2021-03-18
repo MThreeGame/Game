@@ -16,7 +16,7 @@ class Level{
       int currentLevel = 0;
       //vector<Terrain> terrains; // we use the terrain at index currentLevel
       Terrain terrain;
-      vector<Monster*> monsters;
+      vector<Monster> monsters;
       Player user;
       int startPosiX = 0;
       int startPosiY = 0;
@@ -42,6 +42,8 @@ class Level{
 
 
     Terrain getTerrain();
+
+    vector<Monster> getMonsters();
 
     Player& getUser();
     void move(vector<SDL_Rect>& walls);

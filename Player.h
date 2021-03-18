@@ -10,16 +10,16 @@ using namespace std;
 class Player: public Character{
   private:
     string name;
-    int score;
-    int numLife;
+    // increase when catch a star
+    int score = 0;
+    // decrease if meet a monster or Cell::DANGER / terrain.dangers
+    int numLife = 4;
 
   
   public: 
     Player();
     Player(string pname, int x, int y);
     //getters
-    int getXLocation();
-    int getYLocation();
     int getScore();
     int getNumLife();
     //mutators
