@@ -10,6 +10,9 @@ using namespace std;
 int SCREEN_WIDTH = 1366;
 int SCREEN_HEIGHT = 768;
 
+//for test
+#include <iostream>
+
 
 //Cell of the vector returned downside, upside , rightside, leftside
 vector<Cell> Level::checkAllDirections(){
@@ -155,9 +158,17 @@ void Level::moveWithCollision(){
 
 }
 
-bool encounterMonster(int xLoc, int yLoc, Cell cell){
-
+void Level::collisionWithStar(){
+    for(size_t i = 0; i < stars.getStarPosition().size(); i++){
+        if(checkCollision( stars.getStarPosition()[i], user.getRect())){
+            stars.setStarCatched(i);
+            cout << "star hit   " << i << endl;
+            break;
+        }
+    }
 }
+
+
 // can be user later for check the collision between the player and the monsters
 bool Level::checkCollision( SDL_Rect a, SDL_Rect b )
 {
@@ -270,6 +281,10 @@ Player& Level::getUser(){
 
 vector<Monster*> Level::getMonsters(){
     return monsters;
+}
+
+Star& Level::getStar(){
+    return stars;
 }
 
 

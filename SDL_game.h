@@ -80,6 +80,9 @@ class SDL_game{
         // graphical representation of monster
         SDL_Texture* gMonster = NULL;
 
+        // graphical representation of the user:
+        SDL_Texture* gStar = NULL;
+
 
 
 

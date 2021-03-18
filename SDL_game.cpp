@@ -79,6 +79,11 @@ bool SDL_game::loadMedia()
     if(gLife == NULL)
         return false;
 
+    gStar = loadTexture("../images/star.bmp");
+    cout << level.getStar().getPath() << endl;
+    if(gLife == NULL)
+        return false;
+
     if(level.getMonsters().empty())
         cout << "There is no monster to initialise" << endl;
     else
@@ -158,6 +163,8 @@ void SDL_game::handleKeys_fct(){
         // move the player:
         level.moveWithCollision2();
 
+        level.collisionWithStar();
+
         // move the monsters:
         level.moveMonsters();
 
@@ -232,13 +239,22 @@ void SDL_game::render()
     SDL_RenderCopy(gRenderer, gUser, NULL, &dstrect);
     for(int i = 0; i < level.getUser().getNumLife(); i++)
         SDL_RenderCopy(gRenderer, gLife, NULL, &lifePosition[i]);
+
+    for(int i = 0; i < level.getStar().getNumStar(); i++){
+        if(level.getStar().getStarCatched()[i] == true){
+            SDL_RenderCopy(gRenderer, gStar, NULL, &level.getStar().getStarPosition()[i]);
+        }
+
+    }
+        /*if(gRenderer != NULL && gStar != NULL)
+        cout << starPosition[0].w << endl;*/
+    
     
     vector<Monster*> monsters = level.getMonsters();
     for(int i = 0; i < monsters.size(); i++){
         SDL_Rect monsterRect = (monsters[i]->getRect());
         SDL_RenderCopy(gRenderer, gMonster, NULL, &monsterRect);
     }
-
 
     /*
     for(SDL_Rect& rect : level.getTerrain().getGrounds()){
@@ -250,7 +266,7 @@ void SDL_game::render()
         SDL_RenderPresent(gRenderer);
     }*/
 
-
+//cout << "sdasdadas" << endl;
 }
 
 
