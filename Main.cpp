@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <SDL.h>
 #include "SDL_game.h"
+#include "winWindow.h"
 // must take the argument SDL as a reference maybe
 int displayMenu(){
     // dissplay the menu
@@ -18,7 +19,7 @@ void displayTerrain(Level &level, Player &player){
 
 int main( int argc, char* args[] ){
 
-
+    winWindow windowWin;
     SDL_game sdlGame;
     if( ! sdlGame.init())
     {
@@ -40,6 +41,8 @@ int main( int argc, char* args[] ){
 
         }
     }
+
+
 
     //Free resources and close SDL
     sdlGame.close();

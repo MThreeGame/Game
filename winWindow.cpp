@@ -50,21 +50,10 @@ bool winWindow::init()
     return success;
 }
 
-SDL_Surface* winWindow::loadSurface( std::string path )
-{
-    //Load image at specified path
-    SDL_Surface* loadedSurface = SDL_LoadBMP( path.c_str() );
-    if( loadedSurface == NULL )
-    {
-        printf( "Unable to load image %s! SDL Error\n", path.c_str() );
-        return NULL;
-    }
-    return loadedSurface;
-}
-
 void winWindow::close()
 {
     //Destroy window
+    SDL_DestroyTexture( finalBackground );
     SDL_DestroyRenderer( gRenderer );
     SDL_DestroyWindow( gWindow );
     gWindow = NULL;
@@ -74,8 +63,52 @@ void winWindow::close()
     SDL_Quit();
 }
 
-bool loadMedia(){
-    return true;
+void winWindow::render()
+{
+    SDL_RenderCopy(gRenderer, finalBackground, NULL, NULL);
+
 }
+
+bool winWindow::loadMedia(){
+    finalBackground = loadTexture("../images/win.bmp");
+    if(finalBackground == NULL)
+        return false;
+    else return true;
+}
+SDL_Texture* winWindow::loadTexture(string path )
+{
+    //The final texture
+    SDL_Texture* newTexture = NULL;
+
+    //Load image at specified path
+    //SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
+    SDL_Surface* loadedSurface = SDL_LoadBMP( path.c_str() );
+    if( loadedSurface == NULL )
+    {
+        printf( "Unable to load image %s! SDL_image Error\n", path.c_str() );
+    }
+    else
+    {
+        //Create texture from surface pixels
+        newTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );
+        if( newTexture == NULL )
+        {
+            printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
+        }
+
+        //Get rid of old loaded surface
+        SDL_FreeSurface( loadedSurface );
+    }
+    return newTexture;
+}
+
+void winWindow::runWindow(){
+        //SDL_RenderClear( gRenderer );
+        //Render texture to screen
+        render();
+        //Update screen
+        SDL_RenderPresent( gRenderer );
+}
+
 
 
