@@ -113,7 +113,14 @@ void Level::moveWithCollision2(){
         user.decreaseNumLife();
         user.setLocationX(startPosiX);
         user.setLocationY(startPosiY);
-    }   
+    }
+
+    
+
+
+
+
+
 
 
 }
