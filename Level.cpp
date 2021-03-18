@@ -2,8 +2,15 @@
 #include "SDL.h"
 #include "Player.h"
 #include "Cell.h"
+#include <iostream>
+
+
+using namespace std;
+
 int SCREEN_WIDTH = 1366;
 int SCREEN_HEIGHT = 768;
+
+
 //Cell of the vector returned downside, upside , rightside, leftside
 vector<Cell> Level::checkAllDirections(){
    vector<Cell> checkResult;
@@ -89,10 +96,10 @@ vector<Cell> Level::checkAllDirections(){
 }
 
 
-
+// move the user
 void Level::moveWithCollision2(){
     vector<SDL_Rect> grounds = terrain.getGrounds();
-    move(grounds);
+    move(user,grounds);
     
     bool lost = false;
     for(SDL_Rect danger : terrain.getDangers()){
@@ -189,13 +196,18 @@ bool Level::checkCollision( SDL_Rect a, SDL_Rect b )
     //If none of the sides from A are outside B
     return true;
 }
-void Level::move(vector<SDL_Rect>& walls)
+
+
+
+
+void Level::move(Character& character, vector<SDL_Rect>& walls)
 {   
-    SDL_Rect temp = user.getRect();
-    
+    SDL_Rect temp = character.getRect();
+
     //Move the dot left or right
-    user.setLocationX(user.getXLocation() + user.getVelX() );  
-    temp.x = user.getXLocation();
+    character.setLocationX(character.getXLocation() + character.getVelX() );  
+    temp.x = character.getXLocation();
+    character.setFlagX(false); // say the character can move on X (for now)
 
     bool flag_collision = false;
     for(SDL_Rect wall : walls){
@@ -207,17 +219,19 @@ void Level::move(vector<SDL_Rect>& walls)
 
 
     //If the character collided or went too far to the left or right
-    if( ( user.getXLocation() < 0 ) || ( user.getXLocation() + user.getWidth() > SCREEN_WIDTH ) || flag_collision )
+    if( ( character.getXLocation() < 0 ) || ( character.getXLocation() + character.getWidth() > SCREEN_WIDTH ) || flag_collision )
     {
         //Move back
-        user.setLocationX( user.getXLocation() - user.getVelX());
-        temp.x = user.getXLocation();
+        character.setLocationX( character.getXLocation() - character.getVelX());
+        temp.x = character.getXLocation();
+        character.setFlagX(true); // tell that the character couldn't move on X axis
     }
 
     //Move the dot up or down
     
-    user.setLocationY(user.getYLocation() + user.getVelY() );
-    temp.y = user.getYLocation();
+    character.setLocationY(character.getYLocation() + character.getVelY() );
+    temp.y = character.getYLocation();
+    character.setFlagY(false);
 
     
     flag_collision = false;
@@ -229,11 +243,12 @@ void Level::move(vector<SDL_Rect>& walls)
     }
 
     //If the dot collided or went too far up or down
-    if( ( user.getYLocation() < 0 ) || ( user.getYLocation() + user.getHeight() > SCREEN_HEIGHT ) || flag_collision )
+    if( ( character.getYLocation() < 0 ) || ( character.getYLocation() + character.getHeight() > SCREEN_HEIGHT ) || flag_collision )
     {
         //Move back
-        user.setLocationY( user.getYLocation() - user.getVelY());
-        temp.y = user.getYLocation();
+        character.setLocationY( character.getYLocation() - character.getVelY());
+        temp.y = character.getYLocation();
+        character.setFlagY(true);
     }
 
 }
@@ -244,4 +259,40 @@ Terrain Level::getTerrain(){
 
 Player& Level::getUser(){
     return user;
+}
+
+vector<Monster*> Level::getMonsters(){
+    return monsters;
+}
+
+
+Level::Level(){
+    for(int i = 0; i < numberMonsters; i++){
+        monsters.push_back(new Monster());
+    }
+    
+}
+
+
+
+void Level::moveMonsters(){
+    
+    vector<SDL_Rect> walls = terrain.getGrounds();
+    vector<SDL_Rect> dangers = terrain.getDangers();
+    // the Dangers are perceived as wall in this game
+    walls.insert(end(walls), begin(dangers), end(dangers));
+
+    for(Monster* monster : monsters){
+        move(*monster,walls);
+        // if the monster didn't move, it means it has reched a wall.
+        if(monster->getFlagX() == true){
+            monster->setVelX(-monster->getVelX());
+        }
+
+
+    }
+    
+    //
+
+
 }

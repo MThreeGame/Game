@@ -14,10 +14,11 @@ class Character{
     //positionToX // |----------------| PreviousX minX maxX
     int velX, velY;
     //Maximum axis velocity of the dot
-    static const int VELOCITY = 2;
+    int VELOCITY = 2;
 
-    bool flagX = true;
-    bool flagY = true;
+    // flag = false if the character could move. flag = true if it couldn't move
+    bool flagX = false;
+    bool flagY = false;
 
     string pathToImage;
      
