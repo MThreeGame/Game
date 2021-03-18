@@ -1,4 +1,8 @@
+#include "winWindow.h"
 #include "SDL_game.h"
+#include <iostream>
+
+using namespace std;
 
 // https://lazyfoo.net/tutorials/SDL/index.php
 
@@ -7,6 +11,7 @@
 
 int main(int argc, char* args[] ){
 
+    winWindow windowWin;
     SDL_game sdlGame;
     if( ! sdlGame.init())
     {
@@ -15,6 +20,7 @@ int main(int argc, char* args[] ){
     else
     {
         //Load media
+        
         if( ! sdlGame.loadMedia() )
         {
             printf( "Failed to load media!\n" );
@@ -23,10 +29,14 @@ int main(int argc, char* args[] ){
         {
             //Apply the image
             //sdlGame.blitSurface();
-
+            cout << "hey" << endl;
             sdlGame.handleKeys_fct();
 
         }
+        
+        //Wait two seconds
+       // SDL_Delay( 2000 );
+       cout << "uhefzuhoehf"<< endl;
     }
 
     //Free resources and close SDL
