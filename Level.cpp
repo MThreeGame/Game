@@ -2,6 +2,11 @@
 #include "SDL.h"
 #include "Player.h"
 #include "Cell.h"
+#include <iostream>
+
+
+using namespace std;
+
 int SCREEN_WIDTH = 1366;
 int SCREEN_HEIGHT = 768;
 
@@ -198,10 +203,11 @@ bool Level::checkCollision( SDL_Rect a, SDL_Rect b )
 void Level::move(Character& character, vector<SDL_Rect>& walls)
 {   
     SDL_Rect temp = character.getRect();
-    
+
     //Move the dot left or right
     character.setLocationX(character.getXLocation() + character.getVelX() );  
     temp.x = character.getXLocation();
+    character.setFlagX(false); // say the character can move on X (for now)
 
     bool flag_collision = false;
     for(SDL_Rect wall : walls){
@@ -218,12 +224,14 @@ void Level::move(Character& character, vector<SDL_Rect>& walls)
         //Move back
         character.setLocationX( character.getXLocation() - character.getVelX());
         temp.x = character.getXLocation();
+        character.setFlagX(true); // tell that the character couldn't move on X axis
     }
 
     //Move the dot up or down
     
     character.setLocationY(character.getYLocation() + character.getVelY() );
     temp.y = character.getYLocation();
+    character.setFlagY(false);
 
     
     flag_collision = false;
@@ -240,6 +248,7 @@ void Level::move(Character& character, vector<SDL_Rect>& walls)
         //Move back
         character.setLocationY( character.getYLocation() - character.getVelY());
         temp.y = character.getYLocation();
+        character.setFlagY(true);
     }
 
 }
@@ -268,4 +277,22 @@ Level::Level(){
 
 void Level::moveMonsters(){
     
+    vector<SDL_Rect> walls = terrain.getGrounds();
+    vector<SDL_Rect> dangers = terrain.getDangers();
+    // the Dangers are perceived as wall in this game
+    walls.insert(end(walls), begin(dangers), end(dangers));
+
+    for(Monster* monster : monsters){
+        move(*monster,walls);
+        // if the monster didn't move, it means it has reched a wall.
+        if(monster->getFlagX() == true){
+            monster->setVelX(-monster->getVelX());
+        }
+
+
+    }
+    
+    //
+
+
 }
