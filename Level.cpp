@@ -162,7 +162,6 @@ void Level::collisionWithStar(){
     for(size_t i = 0; i < stars.getStarPosition().size(); i++){
         if(checkCollision( stars.getStarPosition()[i], user.getRect())){
             stars.setStarCatched(i);
-            cout << "star hit   " << i << endl;
             break;
         }
     }
@@ -289,8 +288,15 @@ Star& Level::getStar(){
 
 
 Level::Level(){
+    // for this level, lets define the localisation of the monsters
+    numberMonsters = 3;
+    vector<int> xMinLim = {265, 366, 1132};
+    vector<int> xMaxLim = {473, 663, 1366};
+
+
     for(int i = 0; i < numberMonsters; i++){
-        monsters.push_back(new Monster());
+        monsters.push_back(new Monster(xMinLim[i], xMaxLim[i]));
+        cout << xMinLim[i];
     }
     
 }
@@ -306,11 +312,14 @@ void Level::moveMonsters(){
 
     for(Monster* monster : monsters){
         move(*monster,walls);
-        // if the monster didn't move, it means it has reched a wall.
-        if(monster->getFlagX() == true){
+        // if the monster didn't move, it means it has reched a wall., or it reaches its limit
+        if(monster->getFlagX() 
+               || monster->getXLocation() <= monster->getXminLim() +2
+                || monster->getXLocation() >= monster->getXmaxLim() - 2)
+        {
             monster->setVelX(-monster->getVelX());
+            //cout << "monster location: " << monster->getXLocation() << " min:" << monster->getXminLim()  << " max::" <<  monster->getXmaxLim() <<endl;
         }
-
 
     }
     

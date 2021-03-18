@@ -13,6 +13,7 @@ int main(int argc, char* args[] ){
 
     winWindow windowWin;
     SDL_game sdlGame;
+    
     if( ! sdlGame.init())
     {
         printf( "Failed to initialize SDL!\n" );
@@ -29,14 +30,12 @@ int main(int argc, char* args[] ){
         {
             //Apply the image
             //sdlGame.blitSurface();
-            cout << "hey" << endl;
             sdlGame.handleKeys_fct();
 
         }
         
         //Wait two seconds
        // SDL_Delay( 2000 );
-       cout << "uhefzuhoehf"<< endl;
     }
 
     //Free resources and close SDL
