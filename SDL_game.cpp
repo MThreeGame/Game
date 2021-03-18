@@ -1,5 +1,7 @@
 #include "SDL_game.h"
 #include <string>
+#include <vector>
+#include "Monster.h"
 //#include "LTexture.h"
 #include <iostream>
 
@@ -80,7 +82,7 @@ bool SDL_game::loadMedia()
     if(level.getMonsters().empty())
         cout << "There is no monster to initialise" << endl;
     else
-        gMonster = loadTexture(level.getMonsters()[0].getPath());
+        gMonster = loadTexture(level.getMonsters()[0]->getPath());
 
 /*
     for(SDL_Rect& rect : level.getTerrain().getGrounds()){
@@ -227,6 +229,11 @@ void SDL_game::render()
     for(int i = 0; i < level.getUser().getNumLife(); i++)
         SDL_RenderCopy(gRenderer, gLife, NULL, &lifePosition[i]);
     
+    vector<Monster*> monsters = level.getMonsters();
+    for(int i = 0; i < monsters.size(); i++){
+        SDL_Rect monsterRect = (monsters[i]->getRect());
+        SDL_RenderCopy(gRenderer, gMonster, NULL, &monsterRect);
+    }
 
 
     /*

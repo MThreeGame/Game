@@ -16,7 +16,8 @@ class Level{
       int currentLevel = 0;
       //vector<Terrain> terrains; // we use the terrain at index currentLevel
       Terrain terrain;
-      vector<Monster> monsters;
+      int numberMonsters = 3;
+      vector<Monster*> monsters;
       Player user;
       int startPosiX = 0;
       int startPosiY = 0;
@@ -27,6 +28,10 @@ class Level{
 
 
   public:
+    // constructor.
+    // initialise a number of monsters.
+    Level();
+
 
     // return the type of collisions for each side of the user
     // return as a Cell for each side. If no collision then return Cell::BACKGROUND
@@ -43,7 +48,7 @@ class Level{
 
     Terrain getTerrain();
 
-    vector<Monster> getMonsters();
+    vector<Monster*> getMonsters();
 
     Player& getUser();
     void move(vector<SDL_Rect>& walls);

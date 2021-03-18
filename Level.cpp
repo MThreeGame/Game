@@ -252,6 +252,14 @@ Player& Level::getUser(){
     return user;
 }
 
-vector<Monster> Level::getMonsters(){
+vector<Monster*> Level::getMonsters(){
     return monsters;
+}
+
+
+Level::Level(){
+    for(int i = 0; i < numberMonsters; i++){
+        monsters.push_back(new Monster());
+    }
+    
 }
