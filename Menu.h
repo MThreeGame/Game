@@ -13,7 +13,7 @@ enum MenuChoice {
 class Menu {
     private:
         enum MenuChoice choice;         // The choice of the user    
-        LTexture backGround; // The back ground LTexture
+        LTexture *backGround; // The back ground LTexture
         
         /*LTexture title;      // The title LTexture
         LTexture play;       // The play LTexture
@@ -21,7 +21,7 @@ class Menu {
         SDL_Renderer *renderer;         // The renderer
     public:
 
-        Menu();
+        /*Menu(string path);*/
     
 
         void initMenu(SDL_Renderer *renderer);

@@ -18,7 +18,7 @@ class Player: public Character{
     Player();
     Player(string pname, int x, int y);
     //getters
-    int getXLocation();
+    int getXLocation();//////////////////////////////////////////////////////////IN CHARACTER TOO
     int getYLocation();
     int getScore();
     int getNumLife();

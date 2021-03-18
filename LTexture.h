@@ -8,13 +8,30 @@ using namespace std;
 
 class LTexture {
     public:
-        LTexture(string path);
 
-        bool loadMedia();
+        LTexture();
+    
+        void initLTexture(string path, int posX, int posY, int widthImage, int heightImage, SDL_Renderer* rend);
+
+        SDL_Rect createRect();
+
+        bool loadImage();
 
         void render();
 
         string getPath();
+
+        SDL_Texture* loadTexture(string path);
+
+        void renderLTexture();
+
+        void setPath(string pathIn);
+
+        int getPosImageX();
+        int getPosImageY();
+        int getWidth();
+        int getHeight();
+
 
 
     private:
@@ -22,12 +39,14 @@ class LTexture {
         int SCREEN_WIDTH = 1366;
         int SCREEN_HEIGHT = 768;
 
-        int posImageX;
-        int posImageY;
-        int width;
-        int height;
+        int posImageX = 0;
+        int posImageY = 0;
+        int width = 0;
+        int height = 0;
 
         string path;
+
+        SDL_Rect rect;
 
 
         // The graphical representation of the Terrain
@@ -35,12 +54,7 @@ class LTexture {
         SDL_Renderer* renderer;
 
         //change with the class LTexture to have some animations
-        SDL_Texture* loadTexture(std::string path);
 
-        void renderLTexture(){
-            SDL_Rect dstrect = { posImageX, posImageY, width, height};
-            SDL_RenderCopy(renderer, image, NULL, &dstrect);
-        }
 
 
 };

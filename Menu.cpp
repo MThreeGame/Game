@@ -1,20 +1,28 @@
 #include "Menu.h"
 #include "SDL.h"
 
-Menu::Menu(){}
+#include <iostream>
+
+/*Menu::Menu(string path){
+    backGround(path);
+}*/
 
 void Menu::initMenu(SDL_Renderer *renderer) {
-    LTexture backGround("backGround");
     this->renderer = renderer;
     choice = MenuChoice::MENU_NONE;
-    
-
+    backGround = new (LTexture);
+    //backGround->setPath("../images/monster.bmp");
+    backGround->initLTexture("../images/monster.bmp", 50, 50, 50, 50, renderer);
 }
 
 void Menu::runMenu(){
-            SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF );
+
+        SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF );
         SDL_RenderClear(renderer);
-        backGround.renderLTexture (50, 50);
+        std::cout << "Renderer could not be rggdfgdfgreg" << std::endl;
+
+        backGround->renderLTexture();
+        std::cout << "Renderer could not be rggdfgdfgreg" << std::endl;
         SDL_RenderPresent(renderer);
         SDL_Delay(40);
     SDL_Event e;
@@ -36,7 +44,7 @@ void Menu::runMenu(){
         }
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF );
         SDL_RenderClear(renderer);
-        backGround.renderLTexture (50, 50);
+        backGround->renderLTexture();
         SDL_RenderPresent(renderer);
         SDL_Delay(40);
     }
