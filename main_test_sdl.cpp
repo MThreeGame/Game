@@ -31,7 +31,6 @@ int main(int argc, char* args[] ){
 
     //Free resources and close SDL
     sdlGame.close();
-    
     return 0;
 }
 

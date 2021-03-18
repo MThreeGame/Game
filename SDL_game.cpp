@@ -54,7 +54,7 @@ bool SDL_game::init()
                 }
                 */
             }
-            
+
         }
     }
 
@@ -138,7 +138,7 @@ void SDL_game::handleKeys_fct(){
     //Event handler
     SDL_Event e;
 
-    
+
     //While application is running
     while( !quit )
     {
@@ -167,7 +167,7 @@ void SDL_game::handleKeys_fct(){
 
         //Render texture to screen
         render();
-        
+
         //Update screen
         SDL_RenderPresent( gRenderer );
     }
@@ -183,38 +183,38 @@ void SDL_game::handleEvent( SDL_Event& e )
         //Adjust the velocity
         switch( e.key.keysym.sym )
         {
-            case SDLK_UP: 
-                level.getUser().decreaseVelY(); 
+            case SDLK_UP:
+                level.getUser().decreaseVelY();
                 break;
-            case SDLK_DOWN: 
-                level.getUser().increaseVelY(); 
+            case SDLK_DOWN:
+                level.getUser().increaseVelY();
                 break;
-            case SDLK_LEFT: 
-                level.getUser().decreaseVelX(); 
+            case SDLK_LEFT:
+                level.getUser().decreaseVelX();
                 break;
             case SDLK_RIGHT:
-                level.getUser().increaseVelX(); 
+                level.getUser().increaseVelX();
                 break;
         }
     }
 
-    //If a key was released
+        //If a key was released
     else if( e.type == SDL_KEYUP && e.key.repeat == 0 )
     {
         //Adjust the velocity
         switch( e.key.keysym.sym )
         {
-            case SDLK_UP: 
-                level.getUser().increaseVelY(); 
+            case SDLK_UP:
+                level.getUser().increaseVelY();
                 break;
-            case SDLK_DOWN: 
-                level.getUser().decreaseVelY();  
+            case SDLK_DOWN:
+                level.getUser().decreaseVelY();
                 break;
-            case SDLK_LEFT: 
+            case SDLK_LEFT:
                 level.getUser().increaseVelX();
                 break;
             case SDLK_RIGHT:
-                level.getUser().decreaseVelX(); 
+                level.getUser().decreaseVelX();
                 break;
         }
     }
@@ -227,12 +227,12 @@ void SDL_game::render()
     //gUser->render(user->getLocationX(), user->getLocationY());
     //cout << "I am in render function" << endl;
     //gUser->LTexture_render(user->getLocationX(), user->getLocationY());
-	SDL_Rect dstrect = {level.getUser().getXLocation(), level.getUser().getYLocation(), level.getUser().getWidth(), level.getUser().getHeight()};
+    SDL_Rect dstrect = {level.getUser().getXLocation(), level.getUser().getYLocation(), level.getUser().getWidth(), level.getUser().getHeight()};
     SDL_RenderCopy(gRenderer, gBackground, NULL, NULL);
     SDL_RenderCopy(gRenderer, gUser, NULL, &dstrect);
     for(int i = 0; i < level.getUser().getNumLife(); i++)
         SDL_RenderCopy(gRenderer, gLife, NULL, &lifePosition[i]);
-    
+
     vector<Monster*> monsters = level.getMonsters();
     for(int i = 0; i < monsters.size(); i++){
         SDL_Rect monsterRect = (monsters[i]->getRect());
