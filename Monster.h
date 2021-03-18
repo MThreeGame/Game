@@ -22,7 +22,7 @@ class Monster : public Character{
   // then Yposition = 0
   // we add the gravity so the monster will fall 
   // until it reaches the ground. 
-    Monster();
+    Monster(string path = "../images/monster.bmp");
 
 };
 

@@ -21,13 +21,13 @@ Character::Character(int x, int y, int heightIn, int widthIn){
   velY = 0;
 }
 
-int Character::getLocationX(){
+int Character::getXLocation(){
   return locationX;
 }
-
-int Character::getLocationY(){
+int Character::getYLocation(){
   return locationY;
 }
+
 int Character::getHeight(){
   return height;
 }

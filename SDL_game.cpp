@@ -1,5 +1,7 @@
 #include "SDL_game.h"
 #include <string>
+#include <vector>
+#include "Monster.h"
 //#include "LTexture.h"
 #include <iostream>
 
@@ -73,6 +75,14 @@ bool SDL_game::loadMedia()
     if(gBackground == NULL)
         return false;
 
+    gLife = loadTexture("../images/heart.bmp");
+    if(gLife == NULL)
+        return false;
+
+    if(level.getMonsters().empty())
+        cout << "There is no monster to initialise" << endl;
+    else
+        gMonster = loadTexture(level.getMonsters()[0]->getPath());
 
 /*
     for(SDL_Rect& rect : level.getTerrain().getGrounds()){
@@ -144,8 +154,12 @@ void SDL_game::handleKeys_fct(){
             handleEvent(e );
         }
 
-        //level.getUser().move();
+        //move the different objects required
+        // move the player:
         level.moveWithCollision2();
+
+        // move the monsters:
+        level.moveMonsters();
 
         //Clear screen
         //SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
@@ -213,9 +227,17 @@ void SDL_game::render()
     //gUser->render(user->getLocationX(), user->getLocationY());
     //cout << "I am in render function" << endl;
     //gUser->LTexture_render(user->getLocationX(), user->getLocationY());
-	SDL_Rect dstrect = {level.getUser().getLocationX(), level.getUser().getLocationY(), level.getUser().getWidth(), level.getUser().getHeight()};
+	SDL_Rect dstrect = {level.getUser().getXLocation(), level.getUser().getYLocation(), level.getUser().getWidth(), level.getUser().getHeight()};
     SDL_RenderCopy(gRenderer, gBackground, NULL, NULL);
     SDL_RenderCopy(gRenderer, gUser, NULL, &dstrect);
+    for(int i = 0; i < level.getUser().getNumLife(); i++)
+        SDL_RenderCopy(gRenderer, gLife, NULL, &lifePosition[i]);
+    
+    vector<Monster*> monsters = level.getMonsters();
+    for(int i = 0; i < monsters.size(); i++){
+        SDL_Rect monsterRect = (monsters[i]->getRect());
+        SDL_RenderCopy(gRenderer, gMonster, NULL, &monsterRect);
+    }
 
 
     /*

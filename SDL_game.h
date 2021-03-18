@@ -21,7 +21,7 @@ class SDL_game{
         //Starts up SDL and creates window
         bool init();
 
-        //Loads media
+        //Loads media : load all the images for the different object represenations
         bool loadMedia();
 
         //Frees media and shuts down SDL
@@ -34,9 +34,11 @@ class SDL_game{
         void handleKeys_fct();
 
         // modify the location of the SDL_texture in function of the classes
+        // then display again the new renderer to the screen.
         void render();
 
-        // for a specific keyboard event, modify the object Player
+        // for a specific keyboard event, modify the object Player.velocity. 
+        // called by handleKeys_fct
         void handleEvent( SDL_Event& e );
 
 
@@ -56,21 +58,35 @@ class SDL_game{
         //The window renderer
         SDL_Renderer* gRenderer = NULL;
 
-
-
-        // other present objects
-
-        // its graphical representation:
-        SDL_Texture* gUser = NULL;
-
-        // The level, with the terrain and the monsters etc...
+        /* ***************************************************************
+        ************* The different Objects and their representations ****
+        ************************************************************** */
+        // all the objects required (Player, Background, Monsters ...)
+        // are all stored into the object level (with their position, pathToImage etc...).
         Level level;
+
         // The graphical representation of the Terrain
-        vector<SDL_Texture*> gGrounds; // TODO see if needed
+        //vector<SDL_Texture*> gGrounds; // TODO see if needed
         SDL_Texture* gBackground = NULL;
 
+        // graphical representation of the user:
+        SDL_Texture* gUser = NULL;
 
-        // METHODES
+        // graphical representation of the life (hearts)
+        SDL_Texture* gLife = NULL; // 1366
+        // by default the user has 4 lifes max.
+        vector<SDL_Rect> lifePosition = {{1200, 2, 30, 32}, {1235, 2, 30, 32}, {1270, 2, 30, 32}, {1310, 2, 30, 32}};
+
+        // graphical representation of monster
+        SDL_Texture* gMonster = NULL;
+
+
+
+
+        /* ******************************************************************
+        *****         METHODES used for load image for SDL               ***
+        ******************************************************************* */
+
         //Loads individual image as SDL_Surface. Not used anymore.
         SDL_Surface* loadSurface(string path);
 
