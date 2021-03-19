@@ -69,8 +69,11 @@ void winWindow::render()
 
 }
 
-bool winWindow::loadMedia(){
-    finalBackground = loadTexture("../images/win.bmp");
+bool winWindow::loadMedia(int res){
+    if(res == 1)
+        finalBackground = loadTexture("../images/win.bmp");
+    else
+        finalBackground = loadTexture("../images/looser.bmp");
     if(finalBackground == NULL)
         return false;
     else return true;
@@ -102,7 +105,7 @@ SDL_Texture* winWindow::loadTexture(string path )
     return newTexture;
 }
 
-void winWindow::runWindow(int res){
+void winWindow::runWindow(){
     //SDL_RenderClear( gRenderer );
     //Render texture to screen
     render();

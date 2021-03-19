@@ -52,11 +52,11 @@ int main(int argc, char* args[] ){
             printf( "Failed to initialize SDL!\n" );
     }
     else {  //Load media
-            if (!windowWin.loadMedia()) {
+            if (!windowWin.loadMedia(returnFct)) {
                 printf("Failed to load media!\n");
             }
             else {
-                windowWin.runWindow(returnFct);
+                windowWin.runWindow();
             }
 
         }

@@ -13,13 +13,14 @@ class winWindow {
     //Starts up SDL and creates window
     bool init();
     //Loads media : load all the images for the different object represenations
-    bool loadMedia();
+    // take res ass argument:  result of the game, 0=lost, 1=win
+    bool loadMedia(int res);
     //Frees media and shuts down SDL
     void close();
     //Loads individual image as SDL_Surface. Not used anymore.
     SDL_Texture* loadTexture(string path) ;
     void render();
-    void runWindow(int res);
+    void runWindow();
 
    private:
     // ATTRIBUTES
