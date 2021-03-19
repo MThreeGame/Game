@@ -79,26 +79,18 @@ bool SDL_game::loadMedia()
     if(gLife == NULL)
         return false;
 
-    gStar = loadTexture("../images/star.bmp");
-    cout << level.getStar().getPath() << endl;
-    if(gLife == NULL)
-        return false;
+    if(level.getStar().empty())
+        cout << "There is no star to initialise" << endl;
+    else{
+        gStar = loadTexture(level.getStar()[0]->getPath());
+        if(gStar == NULL)
+            return false;
+    }
 
     if(level.getMonsters().empty())
         cout << "There is no monster to initialise" << endl;
     else
         gMonster = loadTexture(level.getMonsters()[0]->getPath());
-
-/*
-    for(SDL_Rect& rect : level.getTerrain().getGrounds()){
-        SDL_SetRenderDrawColor(gRenderer,255, 0, 0, 255);
-        SDL_RenderDrawRect(gRenderer, &rect);
-
-        SDL_SetRenderDrawColor(gRenderer, 255, 0, 0, 255);
-
-        SDL_RenderPresent(gRenderer);
-    }
-*/
 
     return true;
 }
@@ -136,7 +128,7 @@ SDL_Surface* SDL_game::loadSurface( std::string path )
 }
 
 
-void SDL_game::handleKeys_fct(){
+int SDL_game::handleKeys_fct(){
     //Main loop flag
     bool quit = false;
 
@@ -164,7 +156,6 @@ void SDL_game::handleKeys_fct(){
         }
 
 
-
         //move the different objects required
         // move the player:
         level.moveWithCollision2();
@@ -173,6 +164,14 @@ void SDL_game::handleKeys_fct(){
 
         // move the monsters:
         level.moveMonsters();
+
+        //lets check if the user has win or lose
+        if(level.getUser().getNumLife() <= 0) // the user lost
+            return 0;
+        if(level.getStar().empty())
+            return 1;
+
+
 
         //Clear screen
         //SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
@@ -186,18 +185,21 @@ void SDL_game::handleKeys_fct(){
 
         currentTime = SDL_GetTicks();
         cout << level.getUser().getVelY() << endl;
-        if(level.getUser().getVelY() < 1){
-            mass += 0.08;
+        currentTime = SDL_GetTicks();
+        cout << level.getUser().getVelY() << endl;
+        if(level.getUser().getVelY() > 0 && level.getUser().getFlagY()){//(level.getUser().getVelY() < 1){
+            level.getUser().setVelY(1);
+            mass = 0.005;
+        }else{
+            mass += 0.002;
             if (currentTime > lastTime + 80) {
                 lastTime = currentTime;
-                level.getUser().setVelY(level.getUser().getVelY() + 0.08 + mass);
-                    //cout << getLevel().getUser().getVelY() << endl;
+                level.getUser().setVelY(level.getUser().getVelY() + 0.6 + mass);
             }
-        }else{
-            level.getUser().setVelY(1);
-            mass = 0;
         }
     }
+    // here the user has quit
+    return -1;
 }
 
 
@@ -212,8 +214,7 @@ void SDL_game::handleEvent( SDL_Event& e )
         {
             case SDLK_UP:
             cout << "DOWN" << level.getUser().getVelY() << endl;
-                if(level.getUser().getVelY() > 0){
-                    level.getUser().decreaseVelY();
+                if(level.getUser().getVelY() > 0 && level.getUser().getFlagY()){
                     level.getUser().decreaseVelY();
                     level.getUser().decreaseVelY();
                 }
@@ -266,10 +267,10 @@ void SDL_game::render()
     for(int i = 0; i < level.getUser().getNumLife(); i++)
         SDL_RenderCopy(gRenderer, gLife, NULL, &lifePosition[i]);
 
-    for(int i = 0; i < level.getStar().getNumStar(); i++){
-        if(level.getStar().getStarCatched()[i] == true){
-            SDL_RenderCopy(gRenderer, gStar, NULL, &level.getStar().getStarPosition()[i]);
-        }
+    vector<Star*> stars = level.getStar();
+    for(int i = 0; i < stars.size(); i++){
+        SDL_Rect starRect = stars[i]->getRect();
+            SDL_RenderCopy(gRenderer, gStar, NULL, &starRect);
 
     }
         /*if(gRenderer != NULL && gStar != NULL)

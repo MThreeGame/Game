@@ -70,12 +70,7 @@ void winWindow::render()
 }
 
 bool winWindow::loadMedia(){
-    /*if(winner) {
-        finalBackground = loadTexture("../images/win.bmp");
-    }
-    else {
-        finalBackground = loadTexture("../images/looser.bmp");
-    }*/
+    finalBackground = loadTexture("../images/win.bmp");
     if(finalBackground == NULL)
         return false;
     else return true;
@@ -107,35 +102,33 @@ SDL_Texture* winWindow::loadTexture(string path )
     return newTexture;
 }
 
-void winWindow::runWindow(){
-    //Main loop flag
-    bool quit = false;
+void winWindow::runWindow(int res){
+    //SDL_RenderClear( gRenderer );
+    //Render texture to screen
+    render();
+    //Update screen
+    SDL_RenderPresent( gRenderer );
+
     //Event handler
     SDL_Event e;
-    //While application is running
+    bool quit = false;
     while( !quit )
     {
-       /* //Handle events on queue
+        cout << "HEy" << endl;
+        //Handle events on queue
         while( SDL_PollEvent( &e ) != 0 )
         {
             //User requests quit
-            if( e.type == SDL_QUIT )
+            if( e.type == SDL_WINDOWEVENT
+        && e.window.event == SDL_WINDOWEVENT_CLOSE)
             {
+                cout << "I quit" << endl;
                 quit = true;
             }
-            //Handle input for the character user
-
-        }*/
-
-        //Clear screen
-        SDL_RenderClear( gRenderer );
-
-        //Render texture to screen
-        render();
-
-        //Update screen
-        SDL_RenderPresent( gRenderer );
+        }
+        cout << "bouh:P" << endl;
     }
+
 }
 
 
