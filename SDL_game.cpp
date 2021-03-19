@@ -164,7 +164,6 @@ void SDL_game::handleKeys_fct(){
         }
 
 
-
         //move the different objects required
         // move the player:
         level.moveWithCollision2();
@@ -186,16 +185,17 @@ void SDL_game::handleKeys_fct(){
 
         currentTime = SDL_GetTicks();
         cout << level.getUser().getVelY() << endl;
-        if(level.getUser().getVelY() < 1){
-            mass += 0.08;
+        currentTime = SDL_GetTicks();
+        cout << level.getUser().getVelY() << endl;
+        if(level.getUser().getVelY() > 0 && level.getUser().getFlagY()){//(level.getUser().getVelY() < 1){
+            level.getUser().setVelY(1);
+            mass = 0.005;
+        }else{
+            mass += 0.002;
             if (currentTime > lastTime + 80) {
                 lastTime = currentTime;
-                level.getUser().setVelY(level.getUser().getVelY() + 0.08 + mass);
-                    //cout << getLevel().getUser().getVelY() << endl;
+                level.getUser().setVelY(level.getUser().getVelY() + 0.6 + mass);
             }
-        }else{
-            level.getUser().setVelY(1);
-            mass = 0;
         }
     }
 }
@@ -213,7 +213,6 @@ void SDL_game::handleEvent( SDL_Event& e )
             case SDLK_UP:
             cout << "DOWN" << level.getUser().getVelY() << endl;
                 if(level.getUser().getVelY() > 0 && level.getUser().getFlagY()){
-                    level.getUser().decreaseVelY();
                     level.getUser().decreaseVelY();
                     level.getUser().decreaseVelY();
                 }
