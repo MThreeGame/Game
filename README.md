@@ -1,24 +1,26 @@
 # Authors
+
 Claire Mevolhon
 Sameneh Shirdel
 Hugo Claing
 
 # Game
+
 Game designed with SDL2.  
 <img src="https://github.com/MThreeGame/Game/blob/main/Sample/window.png" width="800">
-  
-Use the arrows from your keyboard to move your character. Avoid the trap and monsters and 
-catch all the stars to win! The player has four lives that are reprensented with four
-heart images in the top right corner of the window. If the player encounters a trap or 
-a monster he returns to his starting position and he loses a life.
 
 Use the arrows from your keyboard <img src="https://github.com/MThreeGame/Game/blob/main/Sample/keyarrows.png" width="50"> to move your character.
+  
+Avoid the trap and monsters and catch all the stars to win! The player has four lives that
+are reprensented with four heart images in the top right corner of the window. If the
+player encounters a trap or a monster he returns to his starting position and he loses a life.
 
 Good luck!  
 
 
 
 ## how to build
+
 You must have install the SDL2 library first.
 
 You can have to change the CMakeLists.txt a little depending if you are in linux or Windows.  
@@ -35,7 +37,7 @@ make      # will build your executable
 ```
 Then we delete the build folder before we push.
 
-## Improvement in the futur
+## Improvement in the future
 
 We have a class called `LTexture` that would render images instead of doing it in the class
 SDL_Game which would make the rendering of image in each window/class easier to process.
