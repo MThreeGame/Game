@@ -7,6 +7,7 @@
 #include <string>
 
 using namespace std;
+//class winWindow which defines the result window
 class winWindow {
    public:
     winWindow(){}

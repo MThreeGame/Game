@@ -8,9 +8,7 @@
 #include "SDL.h"
 #include "Player.h"
 #include "Cell.h"
-
-
-
+//in Level we define the terrain and check player and monsters and stars location for finding the collisions to move
 class Level{
   private:
       int currentLevel = 0;
@@ -23,22 +21,16 @@ class Level{
       int startPosiX = 0;
       int startPosiY = 0;
       //vector<Star> stars; // something to catch 
-
       bool checkCollision( SDL_Rect a, SDL_Rect b );
-
-
-
   public:
     // constructor.
     // initialise a number of monsters.
     Level();
-
     // NOT USED ANYMORE
     // return the type of collisions for each side of the user
     // return as a Cell for each side. If no collision then return Cell::BACKGROUND
     // order of the sides return : DOWN, UP , RIGHT, LEFT
     vector<Cell> checkAllDirections();
-
     // NOT USED ANYMORE
     // Move the position of the user depending of the velocity,
     // with a check of the collisions. the user lose a life if collision with DANGER
@@ -47,24 +39,15 @@ class Level{
     // same as moveWithCollision(), but the terrain is composed by different SDL_Rect
     // and not a matrix
     void moveWithCollision2();
-
     //Check if the player comes in collsion with the star
     void collisionWithStar();
-
-
     // move the monsters. change direction if there is a wall.
     void moveMonsters();
-
-
     Terrain getTerrain();
-
     vector<Monster*> getMonsters();
-
     Player& getUser();
-
     vector<Star*> getStar();
-
-    void move(Character& character, vector<SDL_Rect>& walls);
+    void move(Character& character, vector<SDL_Rect>& walls); //moves the chaacters if there is no obstacle
 
 };
 

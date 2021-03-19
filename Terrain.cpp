@@ -1,10 +1,6 @@
 #include "Terrain.h"
 #include <iostream>
-
 using namespace std;
-
-
-
 /* READ THE IMAGE FROM THE FILE TO CREATE THE EQUIVALENT MATRIX
 WARNING!!!!! The file must be a bmp of 3 values by pixels, not 4.
 */
@@ -45,13 +41,10 @@ It also return width, height*/
 vector<vector<Cell>> Terrain::readBMP(const char* filename, int& width, int& height)
 {
     vector<vector<Cell>> res;
-
     FILE* f = fopen(filename, "rb");
     unsigned char info[54];
-
     // read the 54-byte header
     fread(info, sizeof(unsigned char), 54, f); 
-
     // extract image height and width from header
     width = *(int*)&info[18];
     height = *(int*)&info[22];
@@ -59,7 +52,6 @@ vector<vector<Cell>> Terrain::readBMP(const char* filename, int& width, int& hei
     // allocate 3 bytes per pixel
     int size = 3 * width * height;
     unsigned char* data = new unsigned char[size];
-
     // read the rest of the data at once
     fread(data, sizeof(unsigned char), size, f); 
     fclose(f);
@@ -82,12 +74,6 @@ vector<vector<Cell>> Terrain::readBMP(const char* filename, int& width, int& hei
     return res;
 }
 
-
-
-
-
-
-
 // constructor
 Terrain::Terrain(){
     int width;
@@ -101,42 +87,28 @@ Terrain::Terrain(){
     // add of the SDL_grounds for MapTest2.bmp
     SDL_Rect rect1 = {88,169, 131, 50};
     grounds.push_back(rect1);
-    
     SDL_Rect rect2 = {341, 98, 108, 53};
     grounds.push_back(rect2);
-
     SDL_Rect rect3 = {265, 328, 208, 62};
     grounds.push_back(rect3);
-
     SDL_Rect rect4 = {572, 265, 210, 64};
     grounds.push_back(rect4);
-
     SDL_Rect rect5 = {890, 302, 127, 59};
     grounds.push_back(rect5);
-
     SDL_Rect rect6 = {0, 536, 366, 232};
     grounds.push_back(rect6);
-
     SDL_Rect rect7 = {366, 599, 297, 169};
     grounds.push_back(rect7);
-
     SDL_Rect rect8 = {860, 595, 472, 173};
     grounds.push_back(rect8);
-
     SDL_Rect rect9 = {1132, 496, 234, 272};
     grounds.push_back(rect9);
-
-
     // let's create the dangers
     SDL_Rect rect10 = {663, 670, 196, 96};
     dangers.push_back(rect10);
-
     SDL_Rect rect11 = {1084, 553, 50, 42};
     dangers.push_back(rect11);
-
-
 }
-
 
 // getters
 vector<vector<Cell>> Terrain::getGround(){
@@ -149,9 +121,6 @@ vector<SDL_Rect> Terrain::getGrounds(){
 vector<SDL_Rect> Terrain::getDangers(){
     return dangers;
 }
-
-
-
 
 string Terrain::getPathToImage(){
     return pathToImage;
