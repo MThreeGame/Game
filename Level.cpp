@@ -131,14 +131,7 @@ void Level::moveWithCollision2(){
         user.setLocationX(startPosiX);
         user.setLocationY(startPosiY);
     }
-<<<<<<< HEAD
 }
-
-
-=======
-
-}
->>>>>>> 37cfbd17cfcb76a0a658ffaa8f9ed112b06d6c3d
 
 
 
@@ -228,10 +221,7 @@ bool Level::checkCollision( SDL_Rect a, SDL_Rect b )
 
 
 
-<<<<<<< HEAD
-=======
 // set the new position of the character, or not move if there is a wall
->>>>>>> 37cfbd17cfcb76a0a658ffaa8f9ed112b06d6c3d
 void Level::move(Character& character, vector<SDL_Rect>& walls)
 {   
     SDL_Rect temp = character.getRect();
