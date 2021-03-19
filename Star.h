@@ -1,31 +1,30 @@
 #pragma once
 #include "SDL.h"
 #include <string>
-#include <vector>
+
 using namespace std;
+
 // class star which defines the stars and display them and keeps their number
 class Star {
 
   public:
+    //Constructor of Star with the X and Y position in window
     Star(int posX, int posY);
+    
+    //Return the path of the image of the star
     string getPath();
-    //int getNumStar();
-    //int getNumCatched();
-    //vector <bool> getStarCatched();
-    //void setStarCatched(int index);
+
     SDL_Texture* getGStar();
     SDL_Rect getRect();
     bool win();
+
     private:
+      //Position of the star in window
       int posX;
       int posY;
+      //Dimension of the star
       int width = 30;
       int height = 32;
-      int numStar = 4;
-      int numCatched = 0;
+      //Path to image in folder
       string pathToImage = "../images/star.bmp";
-      //vector <bool> starCatched = {{true}, {true}, {true}, {true}};
-      SDL_Texture* gStar = NULL;
-      //vector<SDL_Rect> starPosition = {{441, 294, 30, 32}, {386, 64, 30, 32}, {631, 564, 30, 32}, {1333, 462, 30, 32}};
-
 };
