@@ -325,5 +325,4 @@ SDL_Texture* SDL_game::loadTexture(string path )
 }
 
 Level SDL_game::getLevel(){
-    return level;
-}
+    return level;}
