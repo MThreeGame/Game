@@ -101,9 +101,11 @@ vector<Cell> Level::checkAllDirections(){
 
 // move the user
 void Level::moveWithCollision2(){
+    // move the user if he can move (if no ground/wall)
     vector<SDL_Rect> grounds = terrain.getGrounds();
     move(user,grounds);
     
+    // check if there is a collision with a danger. 
     bool lost = false;
     for(SDL_Rect danger : terrain.getDangers()){
         if(checkCollision( danger, user.getRect() )){
@@ -112,18 +114,35 @@ void Level::moveWithCollision2(){
         }
     }
 
+    // check also if the player meet a monster. 
+    // we don't need to check if the user already lost.
+    if(!lost){
+        for(Monster* monster: monsters){
+            if(checkCollision(monster->getRect(), user.getRect())){
+                lost = true;
+                break;
+            }
+        }
+    }
+
+    // decrease his life if there the player lost, and set the position of the player to its initial position
     if(lost){
         user.decreaseNumLife();
         user.setLocationX(startPosiX);
         user.setLocationY(startPosiY);
     }
+<<<<<<< HEAD
 }
 
 
+=======
+
+}
+>>>>>>> 37cfbd17cfcb76a0a658ffaa8f9ed112b06d6c3d
 
 
 
-
+// NOT USED ANYMORE. SEE WITH moveWithCollision2.
 void Level::moveWithCollision(){
    vector<Cell> cells = checkAllDirections();
 
@@ -161,7 +180,7 @@ void Level::collisionWithStar(){
 }
 
 
-// can be user later for check the collision between the player and the monsters
+// return true if the 2 rectangle collapse.
 bool Level::checkCollision( SDL_Rect a, SDL_Rect b )
 {
     //The sides of the rectangles
@@ -209,6 +228,10 @@ bool Level::checkCollision( SDL_Rect a, SDL_Rect b )
 
 
 
+<<<<<<< HEAD
+=======
+// set the new position of the character, or not move if there is a wall
+>>>>>>> 37cfbd17cfcb76a0a658ffaa8f9ed112b06d6c3d
 void Level::move(Character& character, vector<SDL_Rect>& walls)
 {   
     SDL_Rect temp = character.getRect();
@@ -280,8 +303,15 @@ Star& Level::getStar(){
 
 
 Level::Level(){
+    // for this level, lets define the localisation of the monsters
+    numberMonsters = 3;
+    vector<int> xMinLim = {265, 366, 1132};
+    vector<int> xMaxLim = {473, 663, 1366};
+
+
     for(int i = 0; i < numberMonsters; i++){
-        monsters.push_back(new Monster());
+        monsters.push_back(new Monster(xMinLim[i], xMaxLim[i]));
+        cout << xMinLim[i];
     }
     
 }
@@ -297,15 +327,14 @@ void Level::moveMonsters(){
 
     for(Monster* monster : monsters){
         move(*monster,walls);
-        // if the monster didn't move, it means it has reched a wall.
-        if(monster->getFlagX() == true){
+        // if the monster didn't move, it means it has reched a wall., or it reaches its limit
+        if(monster->getFlagX() 
+               || monster->getXLocation() <= monster->getXminLim() +2
+                || monster->getXLocation() >= monster->getXmaxLim() - 2)
+        {
             monster->setVelX(-monster->getVelX());
+            //cout << "monster location: " << monster->getXLocation() << " min:" << monster->getXminLim()  << " max::" <<  monster->getXmaxLim() <<endl;
         }
 
-
     }
-    
-    //
-
-
 }

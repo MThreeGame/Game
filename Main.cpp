@@ -2,13 +2,14 @@
 #include <stdio.h>
 #include <SDL.h>
 #include "SDL_game.h"
+#include "winWindow.h"
 // must take the argument SDL as a reference maybe
 int displayMenu(){
-  // dissplay the menu 
-  // wait the user answer
+    // dissplay the menu
+    // wait the user answer
 
-  // return the valid answer 
-  return 0;
+    // return the valid answer
+    return 0;
 }
 /*
 void displayTerrain(Level &level, Player &player){
@@ -18,7 +19,7 @@ void displayTerrain(Level &level, Player &player){
 
 int main( int argc, char* args[] ){
 
-
+    winWindow windowWin;
     SDL_game sdlGame;
     if( ! sdlGame.init())
     {
@@ -41,26 +42,28 @@ int main( int argc, char* args[] ){
         }
     }
 
+
+
     //Free resources and close SDL
     sdlGame.close();
 
     return 0;
 
-  //Player player;
+    //Player player;
 
- // Level level; // must initialize the monster list, and the star list
+    // Level level; // must initialize the monster list, and the star list
 
-  // SDL create window, 
-  //displayMenu();
+    // SDL create window,
+    //displayMenu();
 
 
-  //displayTerrain(level, player);
+    //displayTerrain(level, player);
 
-  /*bool flag = false; // TODO
+    /*bool flag = false; // TODO
 
-  while(!flag){
+    while(!flag){
 
-      *//*
+        *//*
           Player can move
 
         // to think: to follow the player, or change the background when the player go out of                                 bound

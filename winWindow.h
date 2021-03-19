@@ -3,7 +3,7 @@
 //
 #ifndef GAME_WINWINDOW_H
 #define GAME_WINWINDOW_H
-#include "SDL.h"
+#include <SDL.h>
 #include <string>
 
 using namespace std;
@@ -17,10 +17,10 @@ class winWindow {
     //Frees media and shuts down SDL
     void close();
     //Loads individual image as SDL_Surface. Not used anymore.
-    SDL_Surface* loadSurface(string path);
+    SDL_Texture* loadTexture(string path) ;
+    void render();
+    void runWindow();
 
-
-    //void blitSurface();
    private:
     // ATTRIBUTES
     // size of the window,
@@ -30,6 +30,7 @@ class winWindow {
     SDL_Window* gWindow = NULL;
     //The window renderer
     SDL_Renderer* gRenderer = NULL;
+    SDL_Texture* finalBackground = NULL;
 
 };
 
