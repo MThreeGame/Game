@@ -15,13 +15,9 @@ using namespace std;
 
 class Terrain{
     private:
-        //matrix
-        //int height;
-        //int weight;
-        //int[][] matrix;
-
-        // not used anymore 
+        /** if we want to use a matrix initialised by the image:*/
         vector<vector<Cell>> ground;
+        
 
         vector<SDL_Rect> grounds;
         vector<SDL_Rect> dangers;
@@ -38,15 +34,10 @@ class Terrain{
     public:
         Terrain(); // can be initialized with a binary image file ?
 
-        //vector<SDL_Rect> getGrounds();
         vector<vector<Cell>> getGround();
         vector<SDL_Rect> getGrounds();
         vector<SDL_Rect> getDangers();
 
         string getPathToImage();
-
-        // return the type of the location : if it is a ground or background
-        // or something else ?
-        //int getTypeAtPosition(int xLocation, int yLocation);
     
 };

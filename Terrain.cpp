@@ -20,8 +20,6 @@ BLUE : B > 200, G < 30, R < 30
 WHITE : R > 240, G > 240, B > 240
 
 */
-
-
 Cell Terrain::pixelToCell(unsigned char B, unsigned char G, unsigned char R){
     
     //cout << (int)R << "/" << (int)G << "/" << (int)B << " ";
@@ -41,7 +39,9 @@ Cell Terrain::pixelToCell(unsigned char B, unsigned char G, unsigned char R){
     return Cell::GROUND;
 }
 
-
+/* NOT USED FOR NOW.
+Return a matrix of CELL coreesponding to the image corresponding to the path given as argument
+It also return width, height*/
 vector<vector<Cell>> Terrain::readBMP(const char* filename, int& width, int& height)
 {
     vector<vector<Cell>> res;
@@ -56,9 +56,6 @@ vector<vector<Cell>> Terrain::readBMP(const char* filename, int& width, int& hei
     width = *(int*)&info[18];
     height = *(int*)&info[22];
 
-    //cout << "width: " << width << endl;
-    //cout << "height: " << height << endl;
-
     // allocate 3 bytes per pixel
     int size = 3 * width * height;
     unsigned char* data = new unsigned char[size];
@@ -72,16 +69,6 @@ vector<vector<Cell>> Terrain::readBMP(const char* filename, int& width, int& hei
         data[3 * (i * width + j)], 
         data[3 * (i * width + j) + 1]
         data[3 * (i * width + j) + 2].*/
-    /*
-    for(int i = 0; i < height; i ++){
-        vector<Cell> tempVect;
-        for (int j = 0; j < width; j ++){
-            tempVect.push_back(pixelToCell( data[3 * (i * width + j)],
-                                            data[3 * (i * width + j) + 1],
-                                            data[3 * (i * width + j) + 2]));
-        }
-        res.push_back(tempVect);
-    }*/
     // apparently the image seems reverse.
     for(int i = height -1; i >= 0; i--){
         vector<Cell> tempVect;
@@ -92,20 +79,6 @@ vector<vector<Cell>> Terrain::readBMP(const char* filename, int& width, int& hei
         }
         res.push_back(tempVect);
     }
-
-    //display the vector
-    /*
-    for(int i = 0; i < width; i++){
-        for(int j = 0; j < height; j++)
-            cout <<res[i][j] << " ";
-        cout << endl;
-    }
-    */
-
-
-
-
-
     return res;
 }
 
@@ -119,7 +92,11 @@ vector<vector<Cell>> Terrain::readBMP(const char* filename, int& width, int& hei
 Terrain::Terrain(){
     int width;
     int height;
-    //ground = readBMP(pathToImage.c_str(), width, height);
+    /* if we would like to work with a matrix created with file:
+    ground = readBMP(pathToImage.c_str(), width, height);
+
+    For now we create the SDL_Rect corresponding to the image we have :
+    */
 
     // add of the SDL_grounds for MapTest2.bmp
     SDL_Rect rect1 = {88,169, 131, 50};
