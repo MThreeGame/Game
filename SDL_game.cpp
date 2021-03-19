@@ -212,7 +212,7 @@ void SDL_game::handleEvent( SDL_Event& e )
         {
             case SDLK_UP:
             cout << "DOWN" << level.getUser().getVelY() << endl;
-                if(level.getUser().getVelY() > 0){
+                if(level.getUser().getVelY() > 0 && level.getUser().getFlagY()){
                     level.getUser().decreaseVelY();
                     level.getUser().decreaseVelY();
                     level.getUser().decreaseVelY();

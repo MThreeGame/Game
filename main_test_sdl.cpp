@@ -26,14 +26,7 @@ int main(int argc, char* args[] ){
         if (!sdlGame.loadMedia()) {
             printf("Failed to load media!\n");
         }
-<<<<<<< HEAD
-        else
-        {   
-  
-
-=======
         else {
->>>>>>> 37cfbd17cfcb76a0a658ffaa8f9ed112b06d6c3d
             //Apply the image
             //sdlGame.blitSurface();
             cout << "hey" << endl;
