@@ -17,8 +17,6 @@ player encounters a trap or a monster he returns to his starting position and he
 
 Good luck!  
 
-
-
 ## how to build
 
 You must have install the SDL2 library first.
