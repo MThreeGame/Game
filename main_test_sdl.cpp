@@ -47,7 +47,7 @@ int main(int argc, char* args[] ){
 
         }
             //Wait six seconds
-            SDL_Delay( 10000 );
+            SDL_Delay( 7000 );
           //Free resources and close SDL
             sdlGame.close();
             windowWin.close();
