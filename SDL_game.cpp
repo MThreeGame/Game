@@ -95,7 +95,14 @@ void SDL_game::close()
     SDL_DestroyTexture( gUser );
     gUser = NULL;
     SDL_DestroyTexture( gBackground );
-    gUser = NULL;
+    gBackground = NULL;
+    SDL_DestroyTexture( gLife );
+    gLife = NULL;
+    SDL_DestroyTexture( gStar );
+    gStar = NULL;
+    SDL_DestroyTexture( gMonster );
+    gMonster = NULL;
+
     //Destroy window
     SDL_DestroyRenderer( gRenderer );
     SDL_DestroyWindow( gWindow );
