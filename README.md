@@ -1,7 +1,12 @@
 # Game
 Game designed with SDL2.  
+<img src="https://github.com/MThreeGame/Game/blob/main/Sample/window.png" width="800">
   
-Use the arrows from your keyboard to move your character. Avoid the trap and catch all the stars!  
+
+Use the arrows from your keyboard <img src="https://github.com/MThreeGame/Game/blob/main/Sample/keyarrows.png" width="50"> to move your character. Avoid the traps and the monsters and catch all the stars!  
+You have 4 lifes!  
+  
+Good luck!  
 
 
 
