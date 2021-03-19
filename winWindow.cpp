@@ -123,7 +123,6 @@ void winWindow::runWindow(){
         }
 
         //Clear screen
-        //SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
         SDL_RenderClear( gRenderer );
 
         //Render texture to screen
