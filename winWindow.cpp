@@ -102,12 +102,33 @@ SDL_Texture* winWindow::loadTexture(string path )
     return newTexture;
 }
 
-void winWindow::runWindow(){
-        //SDL_RenderClear( gRenderer );
-        //Render texture to screen
-        render();
-        //Update screen
-        SDL_RenderPresent( gRenderer );
+void winWindow::runWindow(int res){
+    //SDL_RenderClear( gRenderer );
+    //Render texture to screen
+    render();
+    //Update screen
+    SDL_RenderPresent( gRenderer );
+
+    //Event handler
+    SDL_Event e;
+    bool quit = false;
+    while( !quit )
+    {
+        cout << "HEy" << endl;
+        //Handle events on queue
+        while( SDL_PollEvent( &e ) != 0 )
+        {
+            //User requests quit
+            if( e.type == SDL_WINDOWEVENT
+        && e.window.event == SDL_WINDOWEVENT_CLOSE)
+            {
+                cout << "I quit" << endl;
+                quit = true;
+            }
+        }
+        cout << "bouh:P" << endl;
+    }
+
 }
 
 

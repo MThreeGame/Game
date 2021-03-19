@@ -19,7 +19,7 @@ class winWindow {
     //Loads individual image as SDL_Surface. Not used anymore.
     SDL_Texture* loadTexture(string path) ;
     void render();
-    void runWindow();
+    void runWindow(int res);
 
    private:
     // ATTRIBUTES

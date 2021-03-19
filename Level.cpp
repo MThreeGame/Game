@@ -163,12 +163,16 @@ void Level::moveWithCollision(){
 }
 
 void Level::collisionWithStar(){
-    for(size_t i = 0; i < stars.getStarPosition().size(); i++){
-        if(checkCollision( stars.getStarPosition()[i], user.getRect())){
-            stars.setStarCatched(i);
+    int indexToRemove = -1;
+    for(size_t i = 0; i < stars.size(); i++){
+        if(checkCollision( stars[i]->getRect(), user.getRect())){
+            indexToRemove = i;
             break;
         }
     }
+    // let's remove the star catched
+    if(indexToRemove != -1)
+        stars.erase (stars.begin()+indexToRemove);
 }
 
 
@@ -286,7 +290,7 @@ vector<Monster*> Level::getMonsters(){
     return monsters;
 }
 
-Star& Level::getStar(){
+vector<Star*> Level::getStar(){
     return stars;
 }
 
@@ -300,8 +304,17 @@ Level::Level(){
 
     for(int i = 0; i < numberMonsters; i++){
         monsters.push_back(new Monster(xMinLim[i], xMaxLim[i]));
-        cout << xMinLim[i];
     }
+
+    //let's define the stars
+    int numStars = 4;
+    // {{441, 294, 30, 32}, {386, 64, 30, 32}, {631, 564, 30, 32}, {1333, 462, 30, 32}}
+    vector<int> xloc = {441, 386, 631, 1333};
+    vector<int> yloc = {294, 64, 564, 462};
+
+    for(int i = 0; i < numStars; i++)
+        stars.push_back(new Star(xloc[i], yloc[i]));
+    
     
 }
 
