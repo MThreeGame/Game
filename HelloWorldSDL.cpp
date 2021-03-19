@@ -1,8 +1,3 @@
-/* 
-To see if SDL works. we can follow the tutorial from https://lazyfoo.net/tutorials/SDL/01_hello_SDL/index2.php
-
-This tutorial covers the first major stepping stone: getting a window to pop up.
-*/
 
 //Using SDL and standard IO
 #include <SDL.h>

@@ -1,20 +1,12 @@
 #include "Level.h"
 #include "SDL.h"
-#include "Player.h"
-#include "Cell.h"
 #include <iostream>
-
-
 using namespace std;
-
 int SCREEN_WIDTH = 1366;
 int SCREEN_HEIGHT = 768;
 
-//for test
-#include <iostream>
-
-
 //Cell of the vector returned downside, upside , rightside, leftside
+//checks if the character can move in every four directions and save the result in an array
 vector<Cell> Level::checkAllDirections(){
    vector<Cell> checkResult;
    int Xloc = user.getXLocation();
@@ -29,11 +21,11 @@ vector<Cell> Level::checkAllDirections(){
         //checking downside
         for (int i = Xloc; i <= (Xloc + width); i++) {
             if( i > SCREEN_HEIGHT || (ground[newLocY][i] == Cell::GROUND)  ){
-                flag = Cell::GROUND;
+                flag = Cell::GROUND; // sets cell as GROUND if he will hit the ground
                 break;
             }
             if (ground[newLocY][i] == Cell::DANGER) {
-                flag = Cell::DANGER;
+                flag = Cell::DANGER; // sets cell as GROUND if he will hit the monster or lava
                 break;
             }
         }
@@ -46,11 +38,11 @@ vector<Cell> Level::checkAllDirections(){
         // checking upside
         for (int i = Xloc ; i >= (Xloc + width); i++) {
             if( i < 0 || (ground[newLocY][i] == Cell::GROUND) ){
-                flag = Cell::GROUND;
+                flag = Cell::GROUND; // sets cell as GROUND if he will hit the ground
                 break;
             }
             if (ground[newLocY][i] == Cell::DANGER) {
-                flag = Cell::DANGER;
+                flag = Cell::DANGER; // sets cell as GROUND if he will hit the monster or lava
                 break;
             }
         }
@@ -64,11 +56,11 @@ vector<Cell> Level::checkAllDirections(){
         //checking rightside
         for (int i = Yloc; i <= (Yloc + height); i++) {
             if( i > SCREEN_WIDTH || (ground[i][newLocX] == Cell::GROUND) ){
-                flag = Cell::GROUND;
+                flag = Cell::GROUND; // sets cell as GROUND if he will hit the ground
                 break;
             }
             if (ground[i][newLocX] == Cell::DANGER) {
-                flag = Cell::DANGER;
+                flag = Cell::DANGER; // sets cell as GROUND if he will hit the monster or lava
                 break;
             }
         }
@@ -81,11 +73,11 @@ vector<Cell> Level::checkAllDirections(){
         // checking leftside
         for (int i = (Yloc - height); i >= Yloc; i--) {
             if( i < 0 || (ground[i][newLocX] == Cell::GROUND) ) {
-                flag = Cell::GROUND;
+                flag = Cell::GROUND; // sets cell as GROUND if he will hit the ground
                 break;
             }
             if (ground[i][newLocX] == Cell::DANGER) {
-                flag = Cell::DANGER;
+                flag = Cell::DANGER; // sets cell as GROUND if he will hit the monster or lava
                 break;
             }
         }
@@ -99,13 +91,12 @@ vector<Cell> Level::checkAllDirections(){
 }
 
 
-// move the user
+// move the user after checking the collision
 void Level::moveWithCollision2(){
     // move the user if he can move (if no ground/wall)
     vector<SDL_Rect> grounds = terrain.getGrounds();
     move(user,grounds);
-    
-    // check if there is a collision with a danger. 
+    // check if there is a collision with a danger.
     bool lost = false;
     for(SDL_Rect danger : terrain.getDangers()){
         if(checkCollision( danger, user.getRect() )){
@@ -113,8 +104,7 @@ void Level::moveWithCollision2(){
             break;
         }
     }
-
-    // check also if the player meet a monster. 
+    // check also if the player meet a monster.
     // we don't need to check if the user already lost.
     if(!lost){
         for(Monster* monster: monsters){
@@ -124,7 +114,6 @@ void Level::moveWithCollision2(){
             }
         }
     }
-
     // decrease his life if there the player lost, and set the position of the player to its initial position
     if(lost){
         user.decreaseNumLife();
@@ -161,7 +150,7 @@ void Level::moveWithCollision(){
     }      
 
 }
-
+//checks the collision of the player with the array of stars
 void Level::collisionWithStar(){
     int indexToRemove = -1;
     for(size_t i = 0; i < stars.size(); i++){
@@ -174,8 +163,7 @@ void Level::collisionWithStar(){
     if(indexToRemove != -1)
         stars.erase (stars.begin()+indexToRemove);
 }
-
-
+//checks if two rectangles have collision
 // return true if the 2 rectangle collapse.
 bool Level::checkCollision( SDL_Rect a, SDL_Rect b )
 {
@@ -184,19 +172,16 @@ bool Level::checkCollision( SDL_Rect a, SDL_Rect b )
     int rightA, rightB;
     int topA, topB;
     int bottomA, bottomB;
-
     //Calculate the sides of rect A
     leftA = a.x;
     rightA = a.x + a.w;
     topA = a.y;
     bottomA = a.y + a.h;
-
     //Calculate the sides of rect B
     leftB = b.x;
     rightB = b.x + b.w;
     topB = b.y;
     bottomB = b.y + b.h;
-
     //If any of the sides from A are outside of B
     if( bottomA <= topB )
     {
@@ -222,18 +207,14 @@ bool Level::checkCollision( SDL_Rect a, SDL_Rect b )
     return true;
 }
 
-
-
 // set the new position of the character, or not move if there is a wall
 void Level::move(Character& character, vector<SDL_Rect>& walls)
 {   
     SDL_Rect temp = character.getRect();
-
-    //Move the dot left or right
+    //Move the character left or right
     character.setLocationX(character.getXLocation() + character.getVelX() );  
     temp.x = character.getXLocation();
     character.setFlagX(false); // say the character can move on X (for now)
-
     bool flag_collision = false;
     for(SDL_Rect wall : walls){
         if(checkCollision( temp, wall )){
@@ -241,8 +222,6 @@ void Level::move(Character& character, vector<SDL_Rect>& walls)
             break;
         }
     }
-
-
     //If the character collided or went too far to the left or right
     if( ( character.getXLocation() < 0 ) || ( character.getXLocation() + character.getWidth() > SCREEN_WIDTH ) || flag_collision )
     {
@@ -251,14 +230,10 @@ void Level::move(Character& character, vector<SDL_Rect>& walls)
         temp.x = character.getXLocation();
         character.setFlagX(true); // tell that the character couldn't move on X axis
     }
-
-    //Move the dot up or down
-    
+    //Move the character up or down
     character.setLocationY(character.getYLocation() + character.getVelY() );
     temp.y = character.getYLocation();
     character.setFlagY(false);
-
-    
     flag_collision = false;
     for(SDL_Rect wall : walls){
         if(checkCollision( temp, wall )){
@@ -294,39 +269,29 @@ vector<Star*> Level::getStar(){
     return stars;
 }
 
-
 Level::Level(){
     // for this level, lets define the localisation of the monsters
     numberMonsters = 3;
     vector<int> xMinLim = {265, 366, 1132};
     vector<int> xMaxLim = {473, 663, 1366};
-
-
     for(int i = 0; i < numberMonsters; i++){
         monsters.push_back(new Monster(xMinLim[i], xMaxLim[i]));
     }
-
     //let's define the stars
     int numStars = 4;
     // {{441, 294, 30, 32}, {386, 64, 30, 32}, {631, 564, 30, 32}, {1333, 462, 30, 32}}
     vector<int> xloc = {441, 386, 631, 1333};
     vector<int> yloc = {294, 64, 564, 462};
-
     for(int i = 0; i < numStars; i++)
         stars.push_back(new Star(xloc[i], yloc[i]));
-    
-    
 }
 
-
-
+//move the monsters all over the terrain
 void Level::moveMonsters(){
-    
     vector<SDL_Rect> walls = terrain.getGrounds();
     vector<SDL_Rect> dangers = terrain.getDangers();
     // the Dangers are perceived as wall in this game
     walls.insert(end(walls), begin(dangers), end(dangers));
-
     for(Monster* monster : monsters){
         move(*monster,walls);
         // if the monster didn't move, it means it has reched a wall., or it reaches its limit

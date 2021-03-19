@@ -1,7 +1,13 @@
 #pragma once
 #include <SDL.h>
 #include <stdio.h>
-
+/**
+        * Creates a LTexture.
+        *
+        * @param filename    The filename of the sprite sheet image
+        * @param renderer    The renderer used for loading the sprite sheet
+        * @return            The LTexture
+ */
 
 class LTexture{
     private:
@@ -11,20 +17,14 @@ class LTexture{
         SDL_Texture *texture;   // The texture (image) of the sprite sheet
         SDL_Renderer *renderer; // The renderer
     public:
-
         /**
-        * Creates a LTexture.
+        * constructor of LTexture.
         *
         * @param filename    The filename of the sprite sheet image
         * @param renderer    The renderer used for loading the sprite sheet
         * @return            The LTexture
         */
-        LTexture(const char *filename,
-                                            SDL_Renderer* renderer);
-
-
-
-
+        LTexture(const char *filename, SDL_Renderer* renderer);
         /**
         * Delete the LTexture.
         *
