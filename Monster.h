@@ -14,8 +14,8 @@ class Monster : public Character{
   // but have gravity.
   // we initialise the first move to go to the right
 
-    int lastXVel = VELOCITY;
-    int lastYVel = VELOCITY;
+    float lastXVel = VELOCITY;
+    float lastYVel = VELOCITY;
 
 
 

@@ -48,6 +48,7 @@ class Level{
     // and not a matrix
     void moveWithCollision2();
 
+    //Check if the player comes in collsion with the star
     void collisionWithStar();
 
 

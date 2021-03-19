@@ -41,6 +41,8 @@ class SDL_game{
         // called by handleKeys_fct
         void handleEvent( SDL_Event& e );
 
+        Level getLevel();
+
 
 
     private:

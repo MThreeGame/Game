@@ -117,16 +117,9 @@ void Level::moveWithCollision2(){
         user.setLocationX(startPosiX);
         user.setLocationY(startPosiY);
     }
-
-    
-
-
-
-
-
-
-
 }
+
+
 
 
 
@@ -162,7 +155,6 @@ void Level::collisionWithStar(){
     for(size_t i = 0; i < stars.getStarPosition().size(); i++){
         if(checkCollision( stars.getStarPosition()[i], user.getRect())){
             stars.setStarCatched(i);
-            cout << "star hit   " << i << endl;
             break;
         }
     }
@@ -214,7 +206,6 @@ bool Level::checkCollision( SDL_Rect a, SDL_Rect b )
     //If none of the sides from A are outside B
     return true;
 }
-
 
 
 

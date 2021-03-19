@@ -3,7 +3,7 @@
 
 
 Monster::Monster(string path):Character(){
-    VELOCITY = 1;
+    VELOCITY = 0.5;
     pathToImage = path;
     // lets use a random position for the X between 200 and 1366;
     // 200 is to be far enought of the player who is initialised to the position (0,0)

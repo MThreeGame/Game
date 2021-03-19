@@ -13,6 +13,9 @@ int main(int argc, char* args[] ){
 
     winWindow windowWin;
     SDL_game sdlGame;
+
+    // Print a report once per second
+  
     if( ! sdlGame.init())
     {
         printf( "Failed to initialize SDL!\n" );
@@ -26,7 +29,9 @@ int main(int argc, char* args[] ){
             printf( "Failed to load media!\n" );
         }
         else
-        {
+        {   
+  
+
             //Apply the image
             //sdlGame.blitSurface();
             cout << "hey" << endl;
