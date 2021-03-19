@@ -1,27 +1,17 @@
 #pragma once
 
 #include "SDL.h"
-
-/*  a terrain is a matrix of Cell
-
-   */
-
 #include <string>
 #include <vector>
 #include "SDL.h"
 #include "Cell.h"
-
 using namespace std;
-
+//  a terrain is a matrix of Cell
 class Terrain{
     private:
-        //matrix
-        //int height;
-        //int weight;
-        //int[][] matrix;
-
-        // not used anymore 
+        /** if we want to use a matrix initialised by the image:*/
         vector<vector<Cell>> ground;
+        
 
         vector<SDL_Rect> grounds;
         vector<SDL_Rect> dangers;
@@ -38,15 +28,9 @@ class Terrain{
     public:
         Terrain(); // can be initialized with a binary image file ?
 
-        //vector<SDL_Rect> getGrounds();
         vector<vector<Cell>> getGround();
-        vector<SDL_Rect> getGrounds();
-        vector<SDL_Rect> getDangers();
-
+        vector<SDL_Rect> getGrounds(); // returns a vector of the grounds
+        vector<SDL_Rect> getDangers(); //returns a vector of dangers
         string getPathToImage();
-
-        // return the type of the location : if it is a ground or background
-        // or something else ?
-        //int getTypeAtPosition(int xLocation, int yLocation);
     
 };

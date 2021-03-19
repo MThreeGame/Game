@@ -1,10 +1,10 @@
 #pragma once
-
 #include "SDL.h"
 #include <string>
 
 using namespace std;
 
+// class star which defines the stars and display them and keeps their number
 class Star {
 
   public:

@@ -1,19 +1,13 @@
 #include "SDL_game.h"
 #include <string>
 #include <vector>
-#include "Monster.h"
-//#include "LTexture.h"
 #include <iostream>
-
 using namespace std;
-
-
-
+//opens a window of the defined size
 bool SDL_game::init()
 {
     //Initialization flag
     bool success = true;
-
     //Initialize SDL
     if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
     {
@@ -66,19 +60,19 @@ bool SDL_game::loadMedia()
 {
     //Loading success flag
     bool success = true;
-
+    //load user
     gUser = loadTexture( level.getUser().getPath());
     if(gUser == NULL)
         return false;
-
+    //load background
     gBackground = loadTexture(level.getTerrain().getPathToImage());
     if(gBackground == NULL)
         return false;
-
+    //load hearts
     gLife = loadTexture("../images/heart.bmp");
     if(gLife == NULL)
         return false;
-
+    //load stars
     if(level.getStar().empty())
         cout << "There is no star to initialise" << endl;
     else{
@@ -86,7 +80,7 @@ bool SDL_game::loadMedia()
         if(gStar == NULL)
             return false;
     }
-
+    //load monsters
     if(level.getMonsters().empty())
         cout << "There is no monster to initialise" << endl;
     else
@@ -94,22 +88,19 @@ bool SDL_game::loadMedia()
 
     return true;
 }
-
+//close the window
 void SDL_game::close()
 {
     //Deallocate textures
     SDL_DestroyTexture( gUser );
     gUser = NULL;
-
     SDL_DestroyTexture( gBackground );
     gUser = NULL;
-
     //Destroy window
     SDL_DestroyRenderer( gRenderer );
     SDL_DestroyWindow( gWindow );
     gWindow = NULL;
     gRenderer = NULL;
-
     //Quit SDL subsystems
     SDL_Quit();
 }
@@ -127,19 +118,15 @@ SDL_Surface* SDL_game::loadSurface( std::string path )
     return loadedSurface;
 }
 
-
+//handles the key that is pressed
 int SDL_game::handleKeys_fct(){
     //Main loop flag
     bool quit = false;
-
     //Event handler
     SDL_Event e;
-
     unsigned int lastTime = 0;
     unsigned int currentTime;
     double mass = 0;
-
-    
     //While application is running
     while( !quit )
     {
@@ -154,35 +141,24 @@ int SDL_game::handleKeys_fct(){
             //Handle input for the character user
             handleEvent(e );
         }
-
-
         //move the different objects required
         // move the player:
         level.moveWithCollision2();
-
         level.collisionWithStar();
-
         // move the monsters:
         level.moveMonsters();
-
         //lets check if the user has win or lose
         if(level.getUser().getNumLife() <= 0) // the user lost
             return 0;
         if(level.getStar().empty())
             return 1;
-
-
-
         //Clear screen
         //SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
         SDL_RenderClear( gRenderer );
-
         //Render texture to screen
         render();
-        
         //Update screen
         SDL_RenderPresent( gRenderer );
-
         currentTime = SDL_GetTicks();
         cout << level.getUser().getVelY() << endl;
         currentTime = SDL_GetTicks();
@@ -273,36 +249,17 @@ void SDL_game::render()
             SDL_RenderCopy(gRenderer, gStar, NULL, &starRect);
 
     }
-        /*if(gRenderer != NULL && gStar != NULL)
-        cout << starPosition[0].w << endl;*/
-    
-    
     vector<Monster*> monsters = level.getMonsters();
     for(int i = 0; i < monsters.size(); i++){
         SDL_Rect monsterRect = (monsters[i]->getRect());
         SDL_RenderCopy(gRenderer, gMonster, NULL, &monsterRect);
     }
-
-    /*
-    for(SDL_Rect& rect : level.getTerrain().getGrounds()){
-        SDL_SetRenderDrawColor(gRenderer,255, 0, 0, 255);
-        SDL_RenderDrawRect(gRenderer, &rect);
-
-        SDL_SetRenderDrawColor(gRenderer, 255, 0, 0, 255);
-
-        SDL_RenderPresent(gRenderer);
-    }*/
-
-//cout << "sdasdadas" << endl;
 }
 
-
+//loads the image on window
 SDL_Texture* SDL_game::loadTexture(string path )
-{
-
-    //The final texture
+{   //The final texture
     SDL_Texture* newTexture = NULL;
-
     //Load image at specified path
     //SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
     SDL_Surface* loadedSurface = SDL_LoadBMP( path.c_str() );

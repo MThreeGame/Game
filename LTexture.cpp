@@ -1,14 +1,8 @@
 #include "LTexture.h"
-//#include <SDL2/SDL_image.h>
 # include <iostream>
-
 using namespace std;
 
-
-LTexture::LTexture(const char *filename,
-                            SDL_Renderer* renderer){
-	//LTexture *lTexture;
-    //lTexture = new (LTexture);
+LTexture::LTexture(const char *filename,SDL_Renderer* renderer){
     this->scale = 1.0;
 	this->texture = NULL;
 	this->renderer = renderer;

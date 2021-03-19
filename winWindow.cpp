@@ -1,18 +1,14 @@
-//
-// Created by admin on 2021-03-18.
-//
 #include "winWindow.h"
 #include <string>
 #include <vector>
 #include <iostream>
 
 using namespace std;
-
+// opens a window with defined size
 bool winWindow::init()
 {
     //Initialization flag
     bool success = true;
-
     //Initialize SDL
     if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
     {
@@ -49,7 +45,7 @@ bool winWindow::init()
 
     return success;
 }
-
+//closes the window
 void winWindow::close()
 {
     //Destroy window
@@ -58,17 +54,16 @@ void winWindow::close()
     SDL_DestroyWindow( gWindow );
     gWindow = NULL;
     gRenderer = NULL;
-
     //Quit SDL subsystems
     SDL_Quit();
 }
-
+//puts the finalBackground in the window
 void winWindow::render()
 {
     SDL_RenderCopy(gRenderer, finalBackground, NULL, NULL);
 
 }
-
+//loads the images
 bool winWindow::loadMedia(int res){
     if(res == 1)
         finalBackground = loadTexture("../images/win.bmp");
@@ -82,7 +77,6 @@ SDL_Texture* winWindow::loadTexture(string path )
 {
     //The final texture
     SDL_Texture* newTexture = NULL;
-
     //Load image at specified path
     //SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
     SDL_Surface* loadedSurface = SDL_LoadBMP( path.c_str() );
@@ -104,7 +98,7 @@ SDL_Texture* winWindow::loadTexture(string path )
     }
     return newTexture;
 }
-
+//shows the result window
 void winWindow::runWindow(){
     //SDL_RenderClear( gRenderer );
     //Render texture to screen
@@ -131,7 +125,6 @@ void winWindow::runWindow(){
         }
         cout << "bouh:P" << endl;
     }
-
 }
 
 
