@@ -70,7 +70,12 @@ void winWindow::render()
 }
 
 bool winWindow::loadMedia(){
-    finalBackground = loadTexture("../images/win.bmp");
+    /*if(winner) {
+        finalBackground = loadTexture("../images/win.bmp");
+    }
+    else {
+        finalBackground = loadTexture("../images/looser.bmp");
+    }*/
     if(finalBackground == NULL)
         return false;
     else return true;
@@ -110,7 +115,7 @@ void winWindow::runWindow(){
     //While application is running
     while( !quit )
     {
-        //Handle events on queue
+       /* //Handle events on queue
         while( SDL_PollEvent( &e ) != 0 )
         {
             //User requests quit
@@ -120,7 +125,7 @@ void winWindow::runWindow(){
             }
             //Handle input for the character user
 
-        }
+        }*/
 
         //Clear screen
         SDL_RenderClear( gRenderer );
