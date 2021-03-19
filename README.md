@@ -5,11 +5,16 @@ Hugo Claing
 
 # Game
 Game designed with SDL2.  
+<img src="https://github.com/MThreeGame/Game/blob/main/Sample/window.png" width="800">
   
 Use the arrows from your keyboard to move your character. Avoid the trap and monsters and 
 catch all the stars to win! The player has four lives that are reprensented with four
-heart images. If the player encounters a trap or a monster he returns to his starting
-position and he loses a life.
+heart images in the top right corner of the window. If the player encounters a trap or 
+a monster he returns to his starting position and he loses a life.
+
+Use the arrows from your keyboard <img src="https://github.com/MThreeGame/Game/blob/main/Sample/keyarrows.png" width="50"> to move your character.
+
+Good luck!  
 
 
 
