@@ -13,6 +13,9 @@ int main(int argc, char* args[] ){
     cout<<"hbhbh"<<endl;
     winWindow windowWin;
     SDL_game sdlGame;
+
+    // Print a report once per second
+  
     if( ! sdlGame.init())
     {
         printf( "Failed to initialize SDL!\n" );

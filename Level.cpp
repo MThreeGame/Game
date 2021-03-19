@@ -131,7 +131,6 @@ void Level::moveWithCollision2(){
         user.setLocationX(startPosiX);
         user.setLocationY(startPosiY);
     }
-
 }
 
 

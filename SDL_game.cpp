@@ -143,6 +143,10 @@ void SDL_game::handleKeys_fct(){
     //Event handler
     SDL_Event e;
 
+    unsigned int lastTime = 0;
+    unsigned int currentTime;
+    double mass = 0;
+
     
     //While application is running
     while( !quit )
@@ -158,6 +162,8 @@ void SDL_game::handleKeys_fct(){
             //Handle input for the character user
             handleEvent(e );
         }
+
+
 
         //move the different objects required
         // move the player:
@@ -177,6 +183,20 @@ void SDL_game::handleKeys_fct(){
         
         //Update screen
         SDL_RenderPresent( gRenderer );
+
+        currentTime = SDL_GetTicks();
+        cout << level.getUser().getVelY() << endl;
+        if(level.getUser().getVelY() < 1){
+            mass += 0.08;
+            if (currentTime > lastTime + 80) {
+                lastTime = currentTime;
+                level.getUser().setVelY(level.getUser().getVelY() + 0.08 + mass);
+                    //cout << getLevel().getUser().getVelY() << endl;
+            }
+        }else{
+            level.getUser().setVelY(1);
+            mass = 0;
+        }
     }
 }
 
@@ -190,8 +210,13 @@ void SDL_game::handleEvent( SDL_Event& e )
         //Adjust the velocity
         switch( e.key.keysym.sym )
         {
-            case SDLK_UP: 
-                level.getUser().decreaseVelY(); 
+            case SDLK_UP:
+            cout << "DOWN" << level.getUser().getVelY() << endl;
+                if(level.getUser().getVelY() > 0){
+                    level.getUser().decreaseVelY();
+                    level.getUser().decreaseVelY();
+                    level.getUser().decreaseVelY();
+                }
                 break;
             case SDLK_DOWN: 
                 level.getUser().increaseVelY(); 
@@ -211,8 +236,8 @@ void SDL_game::handleEvent( SDL_Event& e )
         //Adjust the velocity
         switch( e.key.keysym.sym )
         {
-            case SDLK_UP: 
-                level.getUser().increaseVelY(); 
+            case SDLK_UP:
+                ////////////////////RIEN    
                 break;
             case SDLK_DOWN: 
                 level.getUser().decreaseVelY();  
@@ -225,6 +250,7 @@ void SDL_game::handleEvent( SDL_Event& e )
                 break;
         }
     }
+
 }
 
 
@@ -234,7 +260,7 @@ void SDL_game::render()
     //gUser->render(user->getLocationX(), user->getLocationY());
     //cout << "I am in render function" << endl;
     //gUser->LTexture_render(user->getLocationX(), user->getLocationY());
-	SDL_Rect dstrect = {level.getUser().getXLocation(), level.getUser().getYLocation(), level.getUser().getWidth(), level.getUser().getHeight()};
+	SDL_Rect dstrect = {(int) level.getUser().getXLocation(),(int) level.getUser().getYLocation(), level.getUser().getWidth(), level.getUser().getHeight()};
     SDL_RenderCopy(gRenderer, gBackground, NULL, NULL);
     SDL_RenderCopy(gRenderer, gUser, NULL, &dstrect);
     for(int i = 0; i < level.getUser().getNumLife(); i++)
@@ -297,3 +323,6 @@ SDL_Texture* SDL_game::loadTexture(string path )
     }
     return newTexture;
 }
+
+Level SDL_game::getLevel(){
+    return level;}

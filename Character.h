@@ -7,14 +7,14 @@ using namespace std;
 
 class Character{
   protected:
-    int locationX;
-    int locationY;
+    double locationX;
+    double locationY;
     int height = 68;
     int width = 28;
     //positionToX // |----------------| PreviousX minX maxX
-    int velX, velY;
+    double velX, velY;
     //Maximum axis velocity of the dot
-    int VELOCITY = 2;
+    double VELOCITY = 2.3;
 
     // flag = false if the character could move. flag = true if it couldn't move
     bool flagX = false;
@@ -25,20 +25,20 @@ class Character{
 
   public:
     Character();
-    Character(int x, int y, int heightIn, int widthIn);
+    Character(double x, double y, int heightIn, int widthIn);
 
     //accessor
-    int getXLocation();
-    int getYLocation();
+    double getXLocation();
+    double getYLocation();
     int getHeight();
     int getWidth();
     string getPath();
-    int getVelX();
-    int getVelY();
+    double getVelX();
+    double getVelY();
 
     //mutator
-    void setLocationX(int x);
-    void setLocationY(int y);
+    void setLocationX(double x);
+    void setLocationY(double y);
     void setHeight(int heightIn);
     void setWidth(int widthIn);
 
@@ -48,8 +48,8 @@ class Character{
     void increaseVelY();
     void decreaseVelY();
     
-    void setVelX(int velxIN);
-    void setVelY(int velxIN);
+    void setVelX(double velxIN);
+    void setVelY(double velxIN);
 
     bool getFlagX();
     bool getFlagY();
@@ -62,8 +62,5 @@ class Character{
 
 
     SDL_Rect getRect();
-
-
-
 
 };

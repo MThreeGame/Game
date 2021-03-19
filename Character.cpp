@@ -12,7 +12,7 @@ Character::Character(){
 
 
 
-Character::Character(int x, int y, int heightIn, int widthIn){
+Character::Character(double x, double y, int heightIn, int widthIn){
   locationX = x;
   locationY = y;
   height = heightIn;
@@ -21,10 +21,10 @@ Character::Character(int x, int y, int heightIn, int widthIn){
   velY = 0;
 }
 
-int Character::getXLocation(){
+double Character::getXLocation(){
   return locationX;
 }
-int Character::getYLocation(){
+double Character::getYLocation(){
   return locationY;
 }
 
@@ -35,17 +35,17 @@ int Character::getHeight(){
 int Character::getWidth(){
   return width;
 }
-int Character::getVelX(){
+double Character::getVelX(){
     return velX;
 }
-int Character::getVelY(){
+double Character::getVelY(){
     return velY;
 }
-void Character::setLocationX(int x){
+void Character::setLocationX(double x){
   locationX = x;
 }
 
-void Character::setLocationY(int y){
+void Character::setLocationY(double y){
   locationY = y;
 }
 
@@ -71,21 +71,19 @@ void Character::decreaseVelX(){
   velX -= VELOCITY;
 }
 
-
-
 void Character::increaseVelY(){
   velY += VELOCITY;
 }
-
 
 void Character::decreaseVelY(){
   velY -= VELOCITY;
 }
 
-  void Character::setVelX(int velxIn){
+  void Character::setVelX(double velxIn){
     velX = velxIn;
   }
-  void Character::setVelY(int velyIn){
+
+  void Character::setVelY(double velyIn){
     velY = velyIn;
   }
 
@@ -120,7 +118,7 @@ void Character::move()
 
 SDL_Rect Character::getRect(){
     // collision box
-    SDL_Rect mCollider = {locationX, locationY, width, height};
+    SDL_Rect mCollider = {(int) locationX, (int) locationY, width, height};
 
     return mCollider;   
 
