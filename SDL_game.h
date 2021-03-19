@@ -30,8 +30,9 @@ class SDL_game{
         // blit the background
         //void blitSurface();
 
-        //main function where we handle the keyboard of the user in the game
-        void handleKeys_fct();
+        //main function, called by main where we handle the keyboard of the user in the game.
+        // return -1 if the user closes the Window, 0 if he loses, 1 if he wins.
+        int handleKeys_fct();
 
         // modify the location of the SDL_texture in function of the classes
         // then display again the new renderer to the screen.

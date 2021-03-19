@@ -19,7 +19,7 @@ class Level{
       int numberMonsters = 3;
       vector<Monster*> monsters;
       Player user;
-      Star stars;
+      vector<Star*> stars;
       int startPosiX = 0;
       int startPosiY = 0;
       //vector<Star> stars; // something to catch 
@@ -62,7 +62,7 @@ class Level{
 
     Player& getUser();
 
-    Star& getStar();
+    vector<Star*> getStar();
 
     void move(Character& character, vector<SDL_Rect>& walls);
 

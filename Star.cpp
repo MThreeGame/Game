@@ -17,36 +17,20 @@ string Star::getPath(){
     return pathToImage;
 }
 
-int Star::getNumStar(){
-    return numStar;
+
+
+
+
+SDL_Rect Star::getRect(){
+    // collision box
+    SDL_Rect mCollider = {posX, posY, width, height};
+
+    return mCollider;   
+
 }
 
-int Star::getNumCatched(){
-    return numCatched;
-}
 
-vector <bool> Star::getStarCatched(){
-    return starCatched;
-}
-
-SDL_Texture* Star::getGStar(){
-    return gStar;
-}
-
-vector<SDL_Rect> Star::getStarPosition(){
-    return starPosition;
-}
-
-bool Star::win(){
-    int count = 0;
-    for (bool b : starCatched){
-        if(!b){
-            count++;
-        }
-    }
-    return count == numStar;
-}
-
-void Star::setStarCatched(int index){
-    starCatched[index] = false;
+Star::Star(int posX, int posY){
+    this->posX = posX;
+    this->posY = posY;
 }
